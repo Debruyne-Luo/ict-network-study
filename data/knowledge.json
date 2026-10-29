@@ -1,0 +1,1322 @@
+[
+ {
+  "id": "dt-osi",
+  "domain": "数通",
+  "day": 1,
+  "title": "OSI七层与TCP/IP模型",
+  "summary": "网络通信按\"分层\"分工：每层只管自己的事，靠封装/解封装一层层传下去。",
+  "points": [
+   "OSI七层（从下到上）：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。口诀\"物数网传会表应\"。",
+   "TCP/IP常用五层（对等模型）：物理层、数据链路层、网络层、传输层、应用层。",
+   "各层数据单元：应用层\"数据\"→传输层\"段(Segment)\"→网络层\"包(Packet)\"→数据链路层\"帧(Frame)\"→物理层\"比特(bit)\"。",
+   "典型设备：交换机工作在数据链路层（按MAC转发），路由器工作在网络层（按IP转发），集线器在物理层。",
+   "典型协议：HTTP/FTP/DNS/Telnet(应用层)、TCP/UDP(传输层)、IP/ICMP(网络层)、Ethernet/PPP(数据链路层)。"
+  ],
+  "pitfalls": [
+   "ARP一般归到网络层（也有教材说在二、三层之间），考试一般按\"网络层\"处理。",
+   "ICMP是网络层协议，ping和tracert都用它。"
+  ],
+  "commands": [],
+  "todo": []
+ },
+ {
+  "id": "dt-tcpudp",
+  "domain": "数通",
+  "day": 1,
+  "title": "TCP与UDP",
+  "summary": "TCP可靠、面向连接；UDP不可靠、无连接但开销小、快。",
+  "points": [
+   "TCP：三次握手建立连接（SYN→SYN+ACK→ACK），四次挥手断开；有序号、确认、重传、滑动窗口(流量控制)。",
+   "UDP：无连接、无确认，头部只有8字节；TCP头部最少20字节。",
+   "常见端口：FTP 20/21、SSH 22、Telnet 23、SMTP 25、DNS 53（UDP为主，TCP也用）、DHCP 67/68(UDP)、TFTP 69(UDP)、HTTP 80、HTTPS 443、SNMP 161/162(UDP)。",
+   "IP头部协议号：ICMP=1、TCP=6、UDP=17、OSPF=89、VRRP=112。"
+  ],
+  "pitfalls": [
+   "端口号属于传输层，协议号属于IP头部，不要混。",
+   "Telnet明文传输，SSH加密。"
+  ],
+  "commands": [],
+  "todo": []
+ },
+ {
+  "id": "dt-ip",
+  "domain": "数通",
+  "day": 1,
+  "title": "IPv4地址与子网划分",
+  "summary": "IPv4是32位地址，\"掩码\"决定哪几位是网络、哪几位是主机；子网划分就是向主机位\"借位\"。",
+  "points": [
+   "点分十进制，如192.168.1.10/24，/24表示掩码前24位为1，即255.255.255.0。",
+   "有类地址：A类1–126、B类128–191、C类192–223、D类224–239(组播)、E类240–255(保留)。127.x为环回。",
+   "私网地址：10.0.0.0/8、172.16.0.0/12、192.168.0.0/16。",
+   "主机数 = 2^(主机位) − 2（减去网络地址和广播地址）。/24可用254个，/26可用62个，/30可用2个。",
+   "子网数 = 2^(借的位数)。例：/24划成/26，借2位，得4个子网，每段块大小64。",
+   "快速算法：块大小=256−掩码最后非255字节。例/27掩码255.255.255.224，块大小32，网段是0、32、64…",
+   "路由汇总：找出连续网段共同前缀。例 172.16.16.0/24~172.16.31.0/24 汇总为172.16.16.0/20。"
+  ],
+  "pitfalls": [
+   "/31在点到点链路上可用（RFC3021），但一般考题按\"−2\"计算。",
+   "广播地址是主机位全1，网络地址是主机位全0，都不能分给主机。",
+   "反掩码(通配符)0表示必须匹配，用于ACL和OSPF network命令。"
+  ],
+  "commands": [
+   "ip address 192.168.1.1 24",
+   "ip address 192.168.1.1 255.255.255.0",
+   "display ip interface brief"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-arp",
+  "domain": "数通",
+  "day": 2,
+  "title": "ARP与以太网基础",
+  "summary": "ARP用来\"已知IP求MAC\"：广播问、单播答。",
+  "points": [
+   "以太网帧含目的MAC、源MAC、类型等；MAC地址48位，前24位为厂商OUI。",
+   "ARP请求是广播（目的MAC全F），ARP应答是单播。",
+   "免费ARP(Gratuitous ARP)：发送请求自己IP的ARP，用于检测IP冲突、通告MAC变化（VRRP切换也会发）。",
+   "交换机学习源MAC建MAC表，未知单播/广播/组播会泛洪；MAC表项默认老化时间华为常见为300秒。",
+   "跨网段通信时，主机ARP请求的是网关的MAC。"
+  ],
+  "pitfalls": [
+   "ARP欺骗属于常考安全问题，交换机可用DHCP Snooping+DAI(动态ARP检测)防御。",
+   "代理ARP：路由器替别的网段回答ARP。"
+  ],
+  "commands": [
+   "display arp",
+   "display mac-address",
+   "arp static 10.1.1.2 00e0-fc12-3456"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-vrp",
+  "domain": "数通",
+  "day": 2,
+  "title": "华为VRP命令行基础",
+  "summary": "华为设备用VRP系统，命令行分\"视图\"，进不同视图做不同配置。",
+  "points": [
+   "用户视图<Huawei> → system-view 进入系统视图[Huawei] → interface进入接口视图。quit退一级，return回用户视图。",
+   "display查看，undo取消配置；save保存配置。display current-configuration看当前配置，display saved-configuration看已保存配置。",
+   "命令级别：0参观、1监控、2配置、3管理。",
+   "Tab补全命令，?查看帮助；命令可缩写如dis cu。",
+   "远程管理：Telnet（明文）、SSH（加密），需配置user-interface vty 0 4与AAA。"
+  ],
+  "pitfalls": [
+   "华为是display，不是show；是undo，不是no。",
+   "配置后不save，重启会丢。"
+  ],
+  "commands": [
+   "system-view",
+   "sysname R1",
+   "interface GigabitEthernet0/0/1",
+   "display current-configuration",
+   "display this",
+   "save",
+   "user-interface vty 0 4",
+   "authentication-mode aaa",
+   "aaa",
+   "local-user admin password irreversible-cipher Huawei@123",
+   "local-user admin service-type telnet ssh"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-vlan",
+  "domain": "数通",
+  "day": 2,
+  "title": "VLAN与Access/Trunk/Hybrid",
+  "summary": "VLAN把一台交换机\"切\"成多个广播域，不同VLAN之间二层隔离，要通信需三层设备。",
+  "points": [
+   "802.1Q标签4字节，其中VID 12位：0和4095保留，可用1–4094。默认所有端口属于VLAN 1。",
+   "Access口：只属于一个VLAN，连接终端，发出时剥掉标签。",
+   "Trunk口：可放行多个VLAN，连交换机；PVID对应的VLAN发出时不带标签，其他放行VLAN带标签。",
+   "Hybrid口（华为特色）：可以对每个VLAN分别设置tagged或untagged，灵活。",
+   "PVID：端口收到不带标签的帧时，打上PVID对应的VLAN。",
+   "VLAN间通信：单臂路由（子接口+dot1q终结）或三层交换机VLANIF接口。"
+  ],
+  "pitfalls": [
+   "Trunk两端PVID(Native VLAN)不一致会造成VLAN间串通，是常考易错点。",
+   "Access口收到带标签的帧：VID等于PVID才接收（华为行为）。"
+  ],
+  "commands": [
+   "vlan batch 10 20",
+   "interface GigabitEthernet0/0/1",
+   "port link-type access",
+   "port default vlan 10",
+   "port link-type trunk",
+   "port trunk allow-pass vlan 10 20",
+   "port trunk pvid vlan 10",
+   "port link-type hybrid",
+   "port hybrid untagged vlan 10 20",
+   "port hybrid pvid vlan 10",
+   "interface Vlanif10",
+   "ip address 192.168.10.254 24",
+   "display vlan",
+   "display port vlan"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-stp",
+  "domain": "数通",
+  "day": 3,
+  "title": "STP生成树协议",
+  "summary": "二层网络有环就会广播风暴，STP通过\"堵住\"某些端口把环变成树。",
+  "points": [
+   "选举四步：①选根桥（桥ID最小：优先级+MAC，优先级默认32768，步长4096）②非根桥选根端口(RP)③每段链路选指定端口(DP)④剩下的端口阻塞。",
+   "比较顺序：根桥ID → 根路径开销(RPC) → 发送者桥ID → 发送者端口ID，都是越小越优。",
+   "STP端口状态：Disabled、Blocking、Listening、Learning、Forwarding。",
+   "计时器：Hello 2秒、Forward Delay 15秒、Max Age 20秒；STP收敛慢，约30–50秒。",
+   "BPDU分为配置BPDU和TCN BPDU（拓扑变化通知）。"
+  ],
+  "pitfalls": [
+   "根桥上所有端口都是指定端口（不考虑自环情况）。",
+   "改优先级只能是4096的倍数。",
+   "华为交换机默认生成树模式是MSTP。"
+  ],
+  "commands": [
+   "stp enable",
+   "stp mode stp",
+   "stp priority 4096",
+   "stp root primary",
+   "display stp brief"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-rstp",
+  "domain": "数通",
+  "day": 3,
+  "title": "RSTP与MSTP",
+  "summary": "RSTP是STP的\"快速版\"，秒级收敛；MSTP在RSTP基础上支持多个实例，实现负载分担。",
+  "points": [
+   "RSTP端口状态简化为3个：Discarding、Learning、Forwarding。",
+   "RSTP新增角色：Alternate端口（根端口的备份）、Backup端口（指定端口的备份）。",
+   "边缘端口(Edge Port)：连接终端的端口直接进入转发，不参与计算；若收到BPDU会失去边缘属性（可配BPDU保护防止）。",
+   "P/A（Proposal/Agreement）机制让点到点链路快速收敛。",
+   "MSTP(802.1s)：把VLAN映射到不同实例(MSTI)，不同实例可选不同根桥，实现流量负载分担；同一MST域需要域名、修订级别、VLAN映射一致。"
+  ],
+  "pitfalls": [
+   "STP/RSTP所有VLAN共用一棵树，不能做VLAN级负载分担。",
+   "边缘端口配错到交换机互联口可能产生环路。"
+  ],
+  "commands": [
+   "stp mode rstp",
+   "stp mode mstp",
+   "interface GigabitEthernet0/0/1",
+   "stp edged-port enable",
+   "stp bpdu-protection",
+   "stp region-configuration",
+   "region-name RG1",
+   "instance 1 vlan 10 to 20",
+   "active region-configuration",
+   "stp instance 1 root primary"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-trunk",
+  "domain": "数通",
+  "day": 3,
+  "title": "链路聚合Eth-Trunk/LACP",
+  "summary": "把多条物理链路捆成一条逻辑链路，增加带宽并互为备份。",
+  "points": [
+   "华为称为Eth-Trunk，两种模式：手工模式（manual load-balance，所有成员都转发）和LACP模式（协商，支持备份链路）。",
+   "LACP：系统优先级（默认32768，越小越优）决定哪端为主动端；接口优先级决定哪些成员活跃。",
+   "可配置最大活动接口数（max active-linknumber），超出的成员作为备份。",
+   "成员口要求：速率、双工一致，同类型；负载分担一般按流（基于MAC/IP哈希），避免乱序。",
+   "跨设备聚合需借助堆叠/CSS或M-LAG。"
+  ],
+  "pitfalls": [
+   "聚合后STP把整个Eth-Trunk当一条链路。",
+   "成员口加入前不能有其他业务配置（不同机型限制不同）。"
+  ],
+  "commands": [
+   "interface Eth-Trunk1",
+   "mode lacp",
+   "max active-linknumber 2",
+   "trunkport GigabitEthernet0/0/1 to 0/0/3",
+   "lacp priority 100",
+   "display eth-trunk 1"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-route",
+  "domain": "数通",
+  "day": 4,
+  "title": "路由基础与静态路由",
+  "summary": "路由器靠\"路由表\"决定报文往哪走：最长匹配优先，再比优先级，最后比开销。",
+  "points": [
+   "选路顺序：①最长掩码匹配 ②优先级(Preference)小者优 ③开销(Cost)小者优。",
+   "华为默认优先级：直连0、OSPF内部10、IS-IS 15、静态60、RIP 100、OSPF外部(ASE)150、BGP 255。",
+   "静态路由：手工配置，可设下一跳或出接口；可修改preference做浮动静态路由（备份）。",
+   "默认路由：0.0.0.0/0，匹配所有。",
+   "等价路由(ECMP)：同协议同开销的多条路由可负载分担。",
+   "动态路由分类：IGP(OSPF、IS-IS、RIP)与EGP(BGP)；距离矢量(RIP)与链路状态(OSPF、IS-IS)。"
+  ],
+  "pitfalls": [
+   "华为优先级是\"越小越优\"，和BGP的Preferred-Value\"越大越优\"相反。",
+   "浮动静态路由：备份路由的preference要更大。"
+  ],
+  "commands": [
+   "ip route-static 0.0.0.0 0 10.1.1.2",
+   "ip route-static 192.168.2.0 24 10.1.1.2 preference 100",
+   "display ip routing-table",
+   "display ip routing-table 192.168.2.1"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-ospf1",
+  "domain": "数通",
+  "day": 5,
+  "title": "OSPF基础：邻居与DR/BDR",
+  "summary": "OSPF让路由器互相交换\"地图\"(LSA)，各自用SPF算法算出最短路径。",
+  "points": [
+   "OSPF直接封装在IP中，协议号89；组播地址224.0.0.5(所有OSPF路由器)、224.0.0.6(DR/BDR)。",
+   "Router ID唯一标识路由器，建议手工指定为Loopback地址。",
+   "邻居状态：Down→Init→2-Way→ExStart→Exchange→Loading→Full。Full才算完成邻接。",
+   "报文5种：Hello、DD(DBD)、LSR、LSU、LSAck。",
+   "广播/NBMA网络要选DR/BDR：接口优先级大者优（默认1，0不参选），相同比Router ID大者优；不抢占。",
+   "DRother之间停留在2-Way状态，只与DR/BDR建立Full邻接。",
+   "开销=参考带宽/接口带宽，华为默认参考带宽100Mbps。",
+   "建邻居需一致的参数：区域ID、Hello/Dead时间（广播默认10/40秒）、认证、Stub标志、广播网络上的掩码等。"
+  ],
+  "pitfalls": [
+   "DR选举非抢占：后来的高优先级路由器不会立即成为DR。",
+   "华为默认不检查MTU（需ospf mtu-enable），待核实具体版本。",
+   "2-Way不一定是故障，DRother之间正常就停在2-Way。"
+  ],
+  "commands": [
+   "ospf 1 router-id 1.1.1.1",
+   "area 0",
+   "network 10.1.1.0 0.0.0.255",
+   "interface GigabitEthernet0/0/1",
+   "ospf cost 10",
+   "ospf dr-priority 100",
+   "display ospf peer brief",
+   "display ospf interface"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-ospf2",
+  "domain": "数通",
+  "day": 5,
+  "title": "OSPF区域与LSA",
+  "summary": "大网络分\"区域\"，减小每台路由器的计算量；不同类型的LSA传不同的信息。",
+  "points": [
+   "骨干区域Area 0，其他区域必须与Area 0相连（否则需虚连接Virtual Link）。",
+   "角色：ABR(区域边界路由器，连接多个区域)、ASBR(引入外部路由的路由器)。",
+   "LSA类型：1类Router LSA、2类Network LSA(DR产生)、3类Summary LSA(ABR产生，区域间路由)、4类ASBR Summary、5类AS External(外部路由)、7类NSSA LSA。",
+   "特殊区域：Stub区域不接收5类LSA（用3类默认路由代替）；Totally Stub还不接收3类（除默认路由）；NSSA可引入外部路由，用7类LSA，ABR把7类转成5类。",
+   "OSPF外部路由分Type1(开销=外部+内部)和Type2(只看外部开销，默认)。"
+  ],
+  "pitfalls": [
+   "Area 0不能配置为Stub区域。",
+   "1、2类LSA只在本区域内泛洪。"
+  ],
+  "commands": [
+   "ospf 1",
+   "area 1",
+   "stub",
+   "stub no-summary",
+   "nssa",
+   "import-route static",
+   "display ospf lsdb",
+   "display ospf routing"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-bgp1",
+  "domain": "数通",
+  "day": 6,
+  "title": "BGP基础",
+  "summary": "BGP是\"自治系统(AS)之间\"的路由协议，基于TCP 179，重在策略控制。",
+  "points": [
+   "IBGP：同一AS内的邻居；EBGP：不同AS的邻居。",
+   "邻居状态：Idle→Connect→Active→OpenSent→OpenConfirm→Established。",
+   "报文：Open、Update、Notification、Keepalive、Route-refresh。",
+   "IBGP水平分割：从IBGP邻居学到的路由不再发给其他IBGP邻居 → 需全互联或路由反射器(RR)/联盟。",
+   "EBGP默认TTL为1，用Loopback建EBGP需配置ebgp-max-hop；IBGP常用Loopback建邻居(connect-interface)。",
+   "BGP不产生路由，只传递：用network或import-route引入。",
+   "EBGP防环靠AS_PATH：收到路由AS_PATH里有自己的AS号就丢弃。"
+  ],
+  "pitfalls": [
+   "BGP协议优先级(255)只和其他协议比，BGP内部选路看属性。",
+   "IBGP发给IBGP邻居时默认不改下一跳，可能出现下一跳不可达，需next-hop-local。"
+  ],
+  "commands": [
+   "bgp 100",
+   "router-id 1.1.1.1",
+   "peer 10.1.12.2 as-number 200",
+   "peer 3.3.3.3 as-number 100",
+   "peer 3.3.3.3 connect-interface LoopBack0",
+   "peer 3.3.3.3 next-hop-local",
+   "network 1.1.1.1 32",
+   "display bgp peer",
+   "display bgp routing-table"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-bgp2",
+  "domain": "数通",
+  "day": 6,
+  "title": "BGP属性与选路规则",
+  "summary": "多条BGP路由到同一目的地时，按固定顺序逐条比较属性，第一个分出胜负的就定了。",
+  "points": [
+   "华为选路常用顺序：①丢弃下一跳不可达 ②Preferred-Value大者优（华为私有，本地有效，默认0）③Local_Preference大者优（默认100，AS内传递）④本地始发优先 ⑤AS_PATH短者优 ⑥Origin：IGP > EGP > Incomplete ⑦MED小者优 ⑧EBGP优于IBGP ⑨到下一跳IGP开销小者优 ⑩…Router ID小者优。",
+   "属性分类：公认必遵(Origin、AS_PATH、Next_Hop)；公认任意(Local_Pref、Atomic_Aggregate)；可选过渡(Community)；可选非过渡(MED)。",
+   "Local_Preference只在本AS内（IBGP）传递，不会传给EBGP邻居。",
+   "MED用于告诉邻居AS\"从哪个入口进来\"，默认只在来自同一个相邻AS的路由之间比较。",
+   "Community团体属性：给路由打标签，便于策略匹配；no-export、no-advertise等为公认团体。"
+  ],
+  "pitfalls": [
+   "Preferred-Value和Local_Pref都是越大越优；MED和AS_PATH长度越小越优。",
+   "真题考过：在RTD给RTE发路由时改Local_Pref无效，因为跨AS不传递。"
+  ],
+  "commands": [
+   "route-policy RP permit node 10",
+   "apply local-preference 200",
+   "apply cost 50",
+   "apply as-path 100 100 additive",
+   "bgp 100",
+   "peer 10.1.1.2 route-policy RP import",
+   "peer 10.1.1.2 preferred-value 100"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-policy",
+  "domain": "数通",
+  "day": 6,
+  "title": "路由策略与前缀列表",
+  "summary": "用\"过滤器\"挑出想要的路由，再决定放行/拒绝或修改属性。",
+  "points": [
+   "ip-prefix格式：ip ip-prefix 名字 index 序号 permit/deny 网络 掩码长度 [greater-equal x] [less-equal y]。",
+   "匹配规则：先比前\"掩码长度\"位网络号，再看路由掩码是否在[ge, le]范围内；不写ge/le则精确匹配掩码。",
+   "0.0.0.0 0 less-equal 32 表示匹配所有路由。前缀列表末尾隐含deny所有。",
+   "route-policy由多个node组成，按node编号从小到大匹配；每个node内if-match条件之间是\"与\"；末尾默认拒绝所有。",
+   "常用工具：ACL、ip-prefix、AS_Path Filter、Community Filter；应用：filter-policy、import-route时调用、BGP peer import/export。",
+   "计算题：172.16.16.0 20 ge 21 le 24 能匹配 2+4+8+16 = 30 条（技术栈真题）。"
+  ],
+  "pitfalls": [
+   "route-policy最后要有一个空的permit node，否则未匹配的路由都被拒绝。",
+   "ACL用于匹配路由时只能匹配网络号，不能精确匹配掩码；前缀列表可以。"
+  ],
+  "commands": [
+   "ip ip-prefix PL index 10 permit 192.168.0.0 16 greater-equal 24 less-equal 24",
+   "route-policy RP deny node 10",
+   "if-match ip-prefix PL",
+   "route-policy RP permit node 20",
+   "ospf 1",
+   "import-route static route-policy RP",
+   "filter-policy ip-prefix PL import",
+   "display ip ip-prefix"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-vrrp",
+  "domain": "数通",
+  "day": 4,
+  "title": "VRRP虚拟路由冗余",
+  "summary": "多台网关组成一台\"虚拟网关\"，主坏了备顶上，用户网关地址不变。",
+  "points": [
+   "VRRP报文协议号112，组播224.0.0.18；虚拟MAC为0000-5E00-01xx（xx为VRID）。",
+   "状态：Initialize、Master、Backup；只有Master转发。Master每1秒发通告（默认）。",
+   "优先级0–255，默认100；255保留给IP地址拥有者；数值大者成为Master；相同时接口IP大者优。",
+   "抢占模式：华为默认开启（立即抢占，可设延迟）。非抢占：原Master恢复后不抢回。",
+   "联动：track接口或BFD，上行故障时降低优先级触发切换。",
+   "负载分担：多个VRRP备份组，不同组Master在不同设备上。"
+  ],
+  "pitfalls": [
+   "真题：要求\"A恢复后不立即成为Master\"→ A配高优先级并禁用抢占（技术栈真题，答案C）。",
+   "IP地址拥有者优先级固定255，总是Master。"
+  ],
+  "commands": [
+   "interface Vlanif10",
+   "vrrp vrid 1 virtual-ip 10.1.1.254",
+   "vrrp vrid 1 priority 120",
+   "vrrp vrid 1 preempt-mode timer delay 20",
+   "vrrp vrid 1 preempt-mode disable",
+   "vrrp vrid 1 track interface GigabitEthernet0/0/1 reduced 30",
+   "display vrrp brief"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-acl",
+  "domain": "数通",
+  "day": 7,
+  "title": "ACL访问控制列表",
+  "summary": "ACL就是一组\"匹配规则\"，用来挑出报文/路由，再配合过滤、NAT、QoS等使用。",
+  "points": [
+   "华为编号：基本ACL 2000–2999（只匹配源IP）；高级ACL 3000–3999（源/目的IP、协议、端口等）；二层ACL 4000–4999（MAC等）。",
+   "规则按rule编号从小到大依次匹配，一旦命中就停止；默认步长5。",
+   "使用通配符（反掩码）：0表示必须匹配，1表示任意。",
+   "应用于接口：traffic-filter inbound/outbound acl 3000。",
+   "基本ACL建议靠近目的端部署，高级ACL建议靠近源端部署。"
+  ],
+  "pitfalls": [
+   "traffic-filter中报文未匹配任何规则时默认放行（华为AR/S常见行为）；但在不同业务模块中\"未匹配\"的处理不同，待核实具体机型。",
+   "rule编号顺序比配置先后更重要。"
+  ],
+  "commands": [
+   "acl 3000",
+   "rule 5 deny tcp source 192.168.1.0 0.0.0.255 destination 10.1.1.10 0 destination-port eq 80",
+   "rule 10 permit ip",
+   "interface GigabitEthernet0/0/1",
+   "traffic-filter inbound acl 3000",
+   "display acl 3000"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-nat",
+  "domain": "数通",
+  "day": 7,
+  "title": "NAT网络地址转换",
+  "summary": "私网地址不能上公网，NAT负责把私网地址\"换\"成公网地址。",
+  "points": [
+   "静态NAT：一对一固定映射。",
+   "动态NAT：从地址池分配公网地址，不转换端口(No-PAT)。",
+   "NAPT：地址+端口一起转换，多个私网地址共用少量公网地址。",
+   "Easy IP：直接用出接口的公网IP做NAPT，适合拨号/动态IP场景。",
+   "NAT Server：把内网服务器端口映射到公网，让外网访问内网服务器。",
+   "NAT ALG：处理FTP等报文载荷中携带IP/端口的协议。"
+  ],
+  "pitfalls": [
+   "nat outbound acl address-group 加no-pat表示不做端口转换。",
+   "NAT Server是\"外部主动访问内部\"，源NAT是\"内部访问外部\"。"
+  ],
+  "commands": [
+   "acl 2000",
+   "rule 5 permit source 192.168.1.0 0.0.0.255",
+   "nat address-group 1 202.1.1.10 202.1.1.20",
+   "interface GigabitEthernet0/0/1",
+   "nat outbound 2000 address-group 1",
+   "nat outbound 2000",
+   "nat server protocol tcp global 202.1.1.1 www inside 192.168.1.10 www",
+   "display nat session all"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-dhcp",
+  "domain": "数通",
+  "day": 7,
+  "title": "DHCP动态主机配置",
+  "summary": "让终端自动拿到IP、掩码、网关、DNS，不用手工配置。",
+  "points": [
+   "报文：Discover → Offer → Request → ACK（四步，客户端前期是广播）。其他：NAK、Release、Decline、Inform。",
+   "端口：服务器UDP 67，客户端UDP 68。",
+   "租期续约：租期50%(T1)时单播Request续约；87.5%(T2)时广播续约。华为地址池默认租期1天。",
+   "DHCP中继：客户端和服务器不在同一网段时，中继把广播转成单播发给服务器（用giaddr字段标识网段）。",
+   "华为两种地址池：全局地址池(dhcp select global)和接口地址池(dhcp select interface)。",
+   "DHCP Snooping：防仿冒DHCP服务器，把连接合法服务器的端口设为信任端口。"
+  ],
+  "pitfalls": [
+   "WLAN中AP常通过DHCP Option 43获取AC地址。",
+   "客户端收到地址后可能发免费ARP检测冲突，冲突则Decline。"
+  ],
+  "commands": [
+   "dhcp enable",
+   "ip pool pool10",
+   "network 192.168.10.0 mask 24",
+   "gateway-list 192.168.10.254",
+   "dns-list 8.8.8.8",
+   "lease day 2",
+   "interface Vlanif10",
+   "dhcp select global",
+   "dhcp select relay",
+   "dhcp relay server-ip 10.1.1.1",
+   "display ip pool"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-ipv6",
+  "domain": "数通",
+  "day": 8,
+  "title": "IPv6基础",
+  "summary": "IPv6地址128位，彻底解决地址不够用；没有广播，用ND协议代替ARP。",
+  "points": [
+   "表示：8段16进制，每段16位，如2001:0DB8:0000:0000:0000:0000:0000:0001 → 2001:DB8::1。每段前导0可省，连续全0段可用::压缩但只能用一次。",
+   "地址类型：单播（全球单播2000::/3、链路本地FE80::/10、唯一本地FC00::/7）、组播FF00::/8、任播；没有广播。",
+   "IPv6基本头部固定40字节，扩展头部链在后面（SRv6的SRH就是一种路由扩展头）。",
+   "NDP基于ICMPv6：RS(133)、RA(134)、NS(135)、NA(136)、Redirect(137)。NS/NA替代ARP，并做重复地址检测DAD。",
+   "地址获取：手工、SLAAC无状态自动配置（RA里的前缀+接口ID）、DHCPv6有状态/无状态。",
+   "EUI-64：48位MAC中间插入FFFE，并将第7位(U/L位)取反，得到64位接口ID。",
+   "路由协议：OSPFv3、IS-IS(IPv6)、BGP4+、RIPng。"
+  ],
+  "pitfalls": [
+   "::在一个地址中只能出现一次。",
+   "IPv6中路由器不分片，分片只由源端做（靠PMTU发现）。"
+  ],
+  "commands": [
+   "ipv6",
+   "interface GigabitEthernet0/0/1",
+   "ipv6 enable",
+   "ipv6 address 2001:db8:1::1 64",
+   "ipv6 address auto link-local",
+   "ipv6 address auto global",
+   "display ipv6 interface brief",
+   "ospfv3 1",
+   "router-id 1.1.1.1"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-mplsvpn",
+  "domain": "数通",
+  "day": 8,
+  "title": "MPLS与MPLS VPN基础",
+  "summary": "MPLS给报文贴\"标签\"快速转发；MPLS VPN用RD区分重叠地址、RT控制路由谁能收。",
+  "points": [
+   "MPLS标签头4字节：Label 20位、EXP/TC 3位、S栈底位1位、TTL 8位。标签由LDP等协议分发。",
+   "角色：CE(用户边缘)、PE(运营商边缘，维护VPN实例)、P(核心，只做标签交换不感知VPN)。",
+   "VPN实例(vpn-instance/VRF)：隔离不同用户的路由表。",
+   "RD(Route Distinguisher)：64位，加在IPv4前组成VPNv4地址，解决地址重叠；不控制路由引入。",
+   "RT(Route Target)：分export和import，控制VPN路由在哪些VPN实例间导入导出。",
+   "PE之间用MP-BGP传VPNv4路由；转发时两层标签：外层公网标签(LDP)、内层私网标签(MP-BGP分配)。",
+   "跨域Option A：ASBR之间背靠背VRF，把对方当CE，ASBR间不需要MPLS；Option B：ASBR间MP-EBGP传VPNv4，接口使能MPLS，需undo policy vpn-target；Option C：PE之间多跳MP-EBGP直接交换VPNv4。"
+  ],
+  "pitfalls": [
+   "真题：RD不同不影响路由传递，RT不匹配才导致收不到路由。",
+   "Option A扩展性差（每个VPN一个子接口/VRF），但最简单。"
+  ],
+  "commands": [
+   "mpls lsr-id 1.1.1.1",
+   "mpls",
+   "mpls ldp",
+   "ip vpn-instance VPNA",
+   "ipv4-family",
+   "route-distinguisher 100:1",
+   "vpn-target 100:1 both",
+   "interface GigabitEthernet0/0/2",
+   "ip binding vpn-instance VPNA",
+   "bgp 100",
+   "ipv4-family vpnv4",
+   "peer 3.3.3.3 enable",
+   "display ip routing-table vpn-instance VPNA"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dt-ext",
+  "domain": "数通",
+  "day": 8,
+  "title": "拓展：SRv6、组播PIM、IP FRR",
+  "summary": "国赛/省赛偶尔出现的进阶点，零基础先了解概念，不必深挖。",
+  "points": [
+   "SRv6：用IPv6地址作为SID(128位)，在SRH扩展头里放Segment List指定路径。常见SID：End（节点）、End.X（指定出链路）、Binding SID（代表一段路径）。",
+   "组播地址224.0.0.0/4；主机与路由器之间用IGMP，路由器之间用PIM。PIM-SM需要RP(汇聚点)，C-RP通过BSR选举，优先级数值越小越优。",
+   "IP FRR/LFA：提前算好备份下一跳，故障时快速切换。LFA无环条件：Dist(N,D) < Dist(N,S) + Dist(S,D)。",
+   "BFD：毫秒级故障检测，可与OSPF、VRRP、静态路由联动。"
+  ],
+  "pitfalls": [
+   "技术栈真题：普通环回口IPv6地址若未配置为SID，不应出现在Segment List中。",
+   "C-RP优先级华为默认值为192（见真题题干），越小越优——待核实各版本。"
+  ],
+  "commands": [
+   "bfd",
+   "display bfd session all"
+  ],
+  "todo": [
+   "SRv6、PIM-SM细节仅概念介绍，深入内容以华为官方文档为准"
+  ]
+ },
+ {
+  "id": "dc-arch",
+  "domain": "DCN",
+  "day": 13,
+  "title": "数据中心Spine-Leaf架构",
+  "summary": "现代数据中心用\"两层全连接\"结构：每台Leaf连所有Spine，任意两台服务器之间跳数相同。",
+  "points": [
+   "Spine：骨干层，负责高速转发；Leaf：接入层，连接服务器/防火墙/出口。",
+   "每台Leaf上行连接所有Spine，Leaf之间一般不直连（M-LAG成对的除外），Spine之间也不互连。",
+   "数据中心流量以东西向（服务器之间）为主，Spine-Leaf + ECMP 能提供大带宽和多路径。",
+   "按功能分：Server Leaf、Service Leaf（接防火墙/LB）、Border Leaf（连接外网）。",
+   "Underlay（物理IP网络，常用OSPF/BGP）+ Overlay（VXLAN虚拟网络）。",
+   "扩容方便：增加Spine提升带宽，增加Leaf扩展端口。"
+  ],
+  "pitfalls": [
+   "传统三层架构(核心-汇聚-接入)更适合南北向流量。"
+  ],
+  "commands": [],
+  "todo": []
+ },
+ {
+  "id": "dc-vxlan",
+  "domain": "DCN",
+  "day": 13,
+  "title": "VXLAN",
+  "summary": "VXLAN把二层以太网帧装进UDP里，在三层IP网络上\"拉出\"大二层，解决VLAN数量不够和虚机迁移问题。",
+  "points": [
+   "封装：MAC in UDP，外层目的UDP端口4789；VNI 24位，约1600万个，远多于VLAN的4094。",
+   "VTEP：VXLAN隧道端点，负责封装/解封装，华为CE上用NVE接口表示，source地址即VTEP地址。",
+   "BD(bridge-domain)：华为的二层广播域，BD与VNI一一映射；接入侧用二层子接口把VLAN流量引入BD。",
+   "封装开销约50字节（外层以太14+IP 20+UDP 8+VXLAN 8），需增大Underlay MTU。",
+   "隧道建立：静态（手工配置头端复制列表vni x head-end peer-list）或动态（BGP EVPN）。",
+   "网关：二层网关（同VNI互通）、三层网关（VBDIF接口，跨子网），分集中式和分布式网关（各Leaf都做网关，Anycast网关）。"
+  ],
+  "pitfalls": [
+   "技术栈真题：不同Leaf的bridge-domain ID可以不同，但关联的VNI必须一致。",
+   "NVE不配置source地址则隧道无法建立。"
+  ],
+  "commands": [
+   "bridge-domain 10",
+   "vxlan vni 5010",
+   "interface GE1/0/1.1 mode l2",
+   "encapsulation dot1q vid 10",
+   "bridge-domain 10",
+   "interface Nve1",
+   "source 1.1.1.1",
+   "vni 5010 head-end peer-list 2.2.2.2",
+   "vni 5010 head-end peer-list protocol bgp",
+   "interface Vbdif10",
+   "ip address 10.1.1.1 24",
+   "display vxlan tunnel",
+   "display vxlan vni"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dc-evpn",
+  "domain": "DCN",
+  "day": 13,
+  "title": "BGP EVPN",
+  "summary": "用BGP来\"自动\"传递MAC/IP和VTEP信息，作为VXLAN的控制平面，减少泛洪、自动建隧道。",
+  "points": [
+   "EVPN是BGP的一个地址族(l2vpn-family evpn)。",
+   "常见路由类型：Type 2(MAC/IP通告路由)、Type 3(集成多播路由，用于发现VTEP、建立头端复制列表)、Type 5(IP前缀路由)；Type 1/4与多归属相关。",
+   "EVPN实例同样有RD、RT。",
+   "通常Spine作为BGP EVPN路由反射器(RR)，Leaf作为客户端。",
+   "优点：VTEP自动发现、隧道自动建立、MAC学习在控制平面完成、支持ARP广播抑制。"
+  ],
+  "pitfalls": [
+   "Type 3路由主要作用是自动建立VXLAN隧道和头端复制列表（易与Type 2混）。"
+  ],
+  "commands": [
+   "evpn-overlay enable",
+   "bridge-domain 10",
+   "vxlan vni 5010",
+   "evpn",
+   "route-distinguisher 10:1",
+   "vpn-target 10:1",
+   "bgp 100",
+   "peer 2.2.2.2 as-number 100",
+   "l2vpn-family evpn",
+   "peer 2.2.2.2 enable",
+   "display bgp evpn all routing-table"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dc-mlag",
+  "domain": "DCN",
+  "day": 13,
+  "title": "M-LAG跨设备链路聚合",
+  "summary": "两台交换机\"假装成一台\"给下游做链路聚合，但各自控制平面独立，可单独升级。",
+  "points": [
+   "DFS Group：两台设备通过协商报文确定主备状态。",
+   "Peer-link：两台M-LAG设备之间的链路，必须是Eth-Trunk，二层链路，用于交换协商报文、同步信息（MAC/ARP等）、传输部分流量。",
+   "双主检测(Dual-Active Detection)：可走管理网口或业务网口，peer-link故障时防止双主。",
+   "M-LAG成员口：下行接口必须是Eth-Trunk聚合口（技术栈真题）。",
+   "与堆叠对比：堆叠是一个控制平面（一台逻辑设备），M-LAG是两个独立控制平面，可靠性高、升级影响小。"
+  ],
+  "pitfalls": [
+   "真题：说\"M-LAG成员链路可以是物理链路\"是错误的。",
+   "Peer-link故障且双主检测成功时，备设备会把除管理口和peer-link外的接口置为Error-Down（待核实具体机型行为）。"
+  ],
+  "commands": [
+   "dfs-group 1",
+   "source ip 10.1.1.1",
+   "priority 150",
+   "interface Eth-Trunk0",
+   "peer-link 1",
+   "interface Eth-Trunk10",
+   "dfs-group 1 m-lag 1",
+   "display dfs-group 1 m-lag"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dc-stack",
+  "domain": "DCN",
+  "day": 13,
+  "title": "堆叠iStack与集群CSS",
+  "summary": "把多台交换机虚拟成一台逻辑设备，统一管理、跨设备聚合。",
+  "points": [
+   "iStack一般指盒式交换机堆叠；CSS(集群交换机系统)一般指框式交换机集群（具体以产品文档为准）。",
+   "堆叠角色：主交换机(Master)、备交换机(Standby)、从交换机(Slave)；只有一个控制平面。",
+   "主交换机选举：比较运行状态、堆叠优先级（越大越优，默认100）、MAC等（待核实顺序细节）。",
+   "堆叠分裂后可能出现双主，需部署MAD多主检测。",
+   "优点：管理简单、可跨设备Eth-Trunk；缺点：控制面单一，整体升级影响大。"
+  ],
+  "pitfalls": [
+   "堆叠优先级越大越优（与STP桥优先级越小越优相反）。"
+  ],
+  "commands": [
+   "stack slot 0 priority 200",
+   "interface stack-port 0/1",
+   "port interface GigabitEthernet0/0/27 enable",
+   "display stack"
+  ],
+  "todo": [
+   "iStack/CSS主交换机选举细节、各型号默认值待核实"
+  ]
+ },
+ {
+  "id": "dc-ecmp",
+  "domain": "DCN",
+  "day": 13,
+  "title": "ECMP等价多路径",
+  "summary": "到同一目的地有多条开销相同的路径时，把流量分摊到多条路径上。",
+  "points": [
+   "逐流负载分担：按五元组(源/目IP、源/目端口、协议)哈希，同一条流走同一路径，不乱序（最常用）。",
+   "逐包负载分担：更均匀但可能导致乱序。",
+   "数据中心Spine-Leaf天然有多条等价路径，ECMP提高带宽利用率、避免单路径瓶颈（技术栈DCN第2题回忆）。",
+   "问题：大象流、哈希不均、哈希极化；可通过调整哈希因子、动态负载均衡等优化。",
+   "OSPF/BGP都支持等价路由，可用maximum load-balancing设置最大条数。"
+  ],
+  "pitfalls": [
+   "ECMP要求开销相同；不等价负载分担不是ECMP。"
+  ],
+  "commands": [
+   "ospf 1",
+   "maximum load-balancing 8",
+   "bgp 100",
+   "maximum load-balancing 8"
+  ],
+  "todo": []
+ },
+ {
+  "id": "dc-lossless",
+  "domain": "DCN",
+  "day": 13,
+  "title": "无损网络：PFC与ECN",
+  "summary": "AI/高性能计算/RoCE存储要求\"零丢包\"，靠PFC暂停对应优先级、ECN提前降速。",
+  "points": [
+   "PFC(IEEE 802.1Qbb)：基于优先级的流量控制，可针对8个优先级中的某一个单独发送暂停帧，不影响其他队列（区别于802.3x暂停全部流量）。",
+   "PFC门限：缓存超过反压触发门限(XOFF)开始反压，低于停止门限(XON)停止反压，触发门限高于停止门限。",
+   "ECN：IP头中2位，交换机拥塞时打标记，接收端通知发送端降速（RoCEv2中由CNP报文，配合DCQCN算法）。",
+   "RoCEv2基于UDP，目的端口4791。",
+   "风险：PFC死锁、PFC风暴，需要死锁检测等机制。"
+  ],
+  "pitfalls": [
+   "技术栈真题：PFC反压基于PFC帧，与ECN无关；\"暂停所有优先级\"的说法是错的。"
+  ],
+  "commands": [
+   "（以CE交换机产品文档为准）dcb pfc",
+   "interface 100GE1/0/1",
+   "dcb pfc enable mode manual"
+  ],
+  "todo": [
+   "PFC具体配置命令随CE软件版本不同，待核实"
+  ]
+ },
+ {
+  "id": "sec-zone",
+  "domain": "安全",
+  "day": 9,
+  "title": "防火墙安全区域",
+  "summary": "防火墙把接口分组成\"区域\"，策略写的是\"从哪个区域到哪个区域\"。",
+  "points": [
+   "华为USG默认区域及优先级：local 100（设备自身）、trust 85、dmz 50、untrust 5。",
+   "接口必须加入安全区域才能转发业务（华为防火墙要求）。",
+   "优先级1–100，同一设备上区域优先级不能重复；可自定义区域。",
+   "Local区域代表防火墙自身，不能添加接口；访问防火墙自身(如登录管理、IPSec协商)要写到Local的策略。",
+   "报文从高优先级区域到低优先级为Outbound，反之Inbound。"
+  ],
+  "pitfalls": [
+   "local优先级最高(100)，untrust最低(5)。",
+   "不同区域之间默认拒绝，同一区域内是否放行也受缺省策略控制（缺省策略默认deny）。"
+  ],
+  "commands": [
+   "firewall zone trust",
+   "add interface GigabitEthernet1/0/1",
+   "firewall zone name office id 4",
+   "set priority 60",
+   "display zone"
+  ],
+  "todo": []
+ },
+ {
+  "id": "sec-policy",
+  "domain": "安全",
+  "day": 9,
+  "title": "安全策略与会话表",
+  "summary": "安全策略决定\"谁可以访问谁\"；状态检测靠会话表，首包查策略，后续包查会话。",
+  "points": [
+   "匹配条件：源/目的安全区域、源/目的地址、用户、服务(端口)、应用、时间段等；动作permit/deny；可引用内容安全配置文件(反病毒、IPS、URL过滤等)。",
+   "策略自上而下匹配，命中即停；都不命中则匹配缺省策略（默认deny）。",
+   "状态检测：首包匹配策略允许后建立会话表，后续报文和回程报文匹配会话直接转发，无需为回程单独写策略。",
+   "会话表常见信息：协议、源目IP端口、VPN/虚拟系统、出接口、老化时间。",
+   "查看会话：display firewall session table [verbose]。"
+  ],
+  "pitfalls": [
+   "把精确的策略放上面，宽泛的放下面。",
+   "IPSec/管理流量需要配置与Local区域相关的策略。"
+  ],
+  "commands": [
+   "security-policy",
+   "rule name trust_to_untrust",
+   "source-zone trust",
+   "destination-zone untrust",
+   "source-address 192.168.1.0 24",
+   "service http https",
+   "action permit",
+   "display security-policy rule all",
+   "display firewall session table"
+  ],
+  "todo": []
+ },
+ {
+  "id": "sec-nat",
+  "domain": "安全",
+  "day": 9,
+  "title": "防火墙NAT",
+  "summary": "防火墙上用NAT策略做源地址转换，用NAT Server做服务器映射。",
+  "points": [
+   "源NAT方式：NAT No-PAT（只转地址）、NAPT（地址+端口）、Easy-IP（出接口地址）、Smart NAT、三元组NAT等。",
+   "NAT地址池用nat address-group配置；NAT策略nat-policy中指定源/目区域和地址，动作source-nat。",
+   "NAT Server：将公网地址+端口映射到内网服务器。",
+   "处理顺序要点：NAT Server(目的转换)在安全策略之前，因此安全策略目的地址写服务器的私网地址；源NAT在安全策略之后，安全策略源地址写转换前的私网地址。",
+   "建议为地址池/NAT Server公网地址配置黑洞路由，防止路由环路。",
+   "FTP等多通道协议需要NAT ALG(ASPF)。"
+  ],
+  "pitfalls": [
+   "\"安全策略写转换前还是转换后地址\"是高频考点，务必结合上面的顺序记。"
+  ],
+  "commands": [
+   "nat address-group g1",
+   "section 0 202.1.1.10 202.1.1.20",
+   "mode pat",
+   "nat-policy",
+   "rule name n1",
+   "source-zone trust",
+   "destination-zone untrust",
+   "source-address 192.168.1.0 24",
+   "action source-nat address-group g1",
+   "nat server web protocol tcp global 202.1.1.1 80 inside 192.168.1.10 80",
+   "ip route-static 202.1.1.10 32 NULL0"
+  ],
+  "todo": [
+   "不同USG软件版本的NAT处理顺序描述以官方文档为准"
+  ]
+ },
+ {
+  "id": "sec-ipsec",
+  "domain": "安全",
+  "day": 10,
+  "title": "IPSec VPN",
+  "summary": "在公网上给两个站点之间建一条\"加密隧道\"，保证机密性、完整性和身份认证。",
+  "points": [
+   "协议：AH(协议号51，只认证不加密，不兼容NAT)、ESP(协议号50，加密+认证)。",
+   "封装模式：传输模式(只保护载荷，主机间)、隧道模式(新加IP头，站点间常用)。",
+   "IKE用于自动协商SA：UDP 500，NAT穿越用UDP 4500。IKEv1第一阶段主模式6个报文/野蛮模式3个，第二阶段快速模式3个；IKEv2通常4个报文建立第一对IPSec SA。",
+   "SA是单向的，用SPI标识；双向通信至少一对IPSec SA。",
+   "华为配置流程：①ACL定义感兴趣流 ②IPSec安全提议(ipsec proposal：封装模式、协议、加密/认证算法) ③IKE安全提议(ike proposal) ④IKE对等体(ike peer：预共享密钥、引用ike proposal、对端地址) ⑤IPSec策略(引用ACL、ipsec proposal、ike peer) ⑥接口应用IPSec策略。",
+   "防火墙上还需安全策略：放行Local与Untrust之间的IKE/ESP报文，以及Trust与Untrust之间的业务流量。"
+  ],
+  "pitfalls": [
+   "技术栈真题：IPSec策略引用的是IPSec安全提议和IKE对等体，而不是\"IKE安全提议\"（IKE安全提议由IKE peer引用）。",
+   "AH不能穿越NAT。"
+  ],
+  "commands": [
+   "acl 3000",
+   "rule 5 permit ip source 10.1.1.0 0.0.0.255 destination 10.2.2.0 0.0.0.255",
+   "ipsec proposal p1",
+   "transform esp",
+   "esp authentication-algorithm sha2-256",
+   "esp encryption-algorithm aes-256",
+   "ike proposal 1",
+   "ike peer B",
+   "pre-shared-key Huawei@123",
+   "ike-proposal 1",
+   "remote-address 2.2.2.2",
+   "ipsec policy P1 10 isakmp",
+   "security acl 3000",
+   "proposal p1",
+   "ike-peer B",
+   "interface GigabitEthernet0/0/1",
+   "ipsec policy P1",
+   "display ike sa",
+   "display ipsec sa"
+  ],
+  "todo": []
+ },
+ {
+  "id": "sec-ssl",
+  "domain": "安全",
+  "day": 10,
+  "title": "SSL VPN",
+  "summary": "出差员工用浏览器/客户端就能安全访问内网，基于SSL/TLS（默认HTTPS 443）。",
+  "points": [
+   "典型场景：移动办公远程接入（IPSec更多用于站点到站点）。",
+   "防火墙上通过\"虚拟网关\"提供SSL VPN服务。",
+   "业务类型：Web代理（访问内网Web）、文件共享、端口转发（TCP应用）、网络扩展（分配虚拟IP，支持所有IP业务，需客户端）。",
+   "用户认证：本地、RADIUS、LDAP、AD等；可结合角色授权。",
+   "优点：无需专门客户端（Web代理模式）、部署简单、穿越NAT和防火墙容易。"
+  ],
+  "pitfalls": [
+   "\"网络扩展\"才能访问所有IP业务；Web代理只能访问Web资源。"
+  ],
+  "commands": [
+   "（以USG产品文档为准）v-gateway sslvpn interface GigabitEthernet1/0/1 port 443"
+  ],
+  "todo": [
+   "USG系列SSL VPN具体命令随版本变化，命令行待核实"
+  ]
+ },
+ {
+  "id": "sec-vsys",
+  "domain": "安全",
+  "day": 9,
+  "title": "虚拟系统vsys",
+  "summary": "一台物理防火墙逻辑上划成多台\"小防火墙\"，各自独立配置和管理。",
+  "points": [
+   "根系统(public)：默认存在，管理员可创建虚拟系统并分配资源（会话数、带宽、策略数等）和接口。",
+   "每个虚拟系统有独立的路由表、安全区域、安全策略、NAT等。",
+   "虚拟系统与根系统/其他虚拟系统互访通过Virtual-if虚拟接口，Virtual-if需加入安全区域。",
+   "跨虚拟系统的流量：在各自系统中都需要配置安全策略（技术栈真题）。",
+   "虚拟系统到根系统的静态路由可以直接指定目的虚拟系统(public)，无需写下一跳。"
+  ],
+  "pitfalls": [
+   "技术栈真题：内网流量经vsysa → 根系统 → Internet；vsysa的Virtual-if放在untrust区域（题目场景）。"
+  ],
+  "commands": [
+   "vsys enable",
+   "vsys name vsysa",
+   "assign interface GigabitEthernet1/0/2",
+   "switch vsys vsysa",
+   "ip route-static 0.0.0.0 0 public"
+  ],
+  "todo": [
+   "ip route-static ... public 写法以USG文档为准"
+  ]
+ },
+ {
+  "id": "sec-urpf",
+  "domain": "安全",
+  "day": 9,
+  "title": "URPF单播逆向路径转发",
+  "summary": "收到报文时\"反查源地址\"：源地址没有合理的路由就丢弃，用于防IP地址欺骗。",
+  "points": [
+   "严格模式(Strict)：源地址有路由，且该路由出接口=报文入接口，才转发。适合路由对称的场景。",
+   "松散模式(Loose)：只要源地址有路由就转发。适合路由不对称/多出口场景。",
+   "allow-default-route：允许用缺省路由匹配源地址。",
+   "可配置ACL放行特定流量不做检查。",
+   "合法流量被误丢时：改松散模式、允许缺省路由、ACL放行、调整路由使下一跳与入接口一致（技术栈真题，答案ABCD）。"
+  ],
+  "pitfalls": [
+   "严格模式在非对称路由下会误丢合法流量。"
+  ],
+  "commands": [
+   "interface GigabitEthernet0/0/1",
+   "urpf strict allow-default-route",
+   "urpf loose"
+  ],
+  "todo": [
+   "URPF接口命令的准确格式随AR/USG型号不同，待核实"
+  ]
+ },
+ {
+  "id": "sec-attack",
+  "domain": "安全",
+  "day": 10,
+  "title": "常见攻击与防范",
+  "summary": "了解常见攻击叫什么、怎么防，选择题常考概念匹配。",
+  "points": [
+   "SYN Flood：伪造大量SYN耗尽连接资源；防范：SYN Cookie/TCP代理、限速。",
+   "UDP Flood、ICMP Flood：大流量耗尽带宽；防范：限速、流量清洗。",
+   "单包攻击：Land(源=目的地址)、Smurf(向广播地址发ICMP，源伪造为受害者)、Ping of Death(超大ICMP)、Teardrop(分片重叠)、IP欺骗等。",
+   "扫描窥探：端口扫描、地址扫描，用于收集信息。",
+   "二层攻击防范：DHCP Snooping防仿冒DHCP服务器；DAI(动态ARP检测)防ARP欺骗；IPSG(IP源防护)防IP/MAC仿冒；端口安全限制MAC数量。",
+   "DDoS：分布式拒绝服务攻击，需要专业清洗/高防服务。"
+  ],
+  "pitfalls": [
+   "Land攻击特征是源地址和目的地址相同。",
+   "DAI、IPSG依赖DHCP Snooping绑定表。"
+  ],
+  "commands": [
+   "firewall defend syn-flood enable",
+   "firewall defend land enable",
+   "dhcp snooping enable",
+   "dhcp snooping trusted",
+   "arp anti-attack check user-bind enable"
+  ],
+  "todo": []
+ },
+ {
+  "id": "sec-cloud",
+  "domain": "安全",
+  "day": 10,
+  "title": "华为云网络安全产品",
+  "summary": "近年真题出现云上安全：安全组、WAF、云防火墙、DDoS防护。",
+  "points": [
+   "安全组：实例级访问控制（虚拟防火墙），有状态；通常默认入方向拒绝（同组内实例互通）、出方向放行。",
+   "网络ACL：子网级访问控制，无状态。",
+   "WAF：Web应用防火墙，以反向代理方式检测SQL注入、XSS等Web攻击。",
+   "云防火墙CFW：云原生防火墙，防护互联网边界与VPC边界。",
+   "DDoS原生基础防护(Anti-DDoS)：为华为云内的公网IP提供基础防护；DDoS高防：通过引流清洗，也可保护非华为云业务。"
+  ],
+  "pitfalls": [
+   "技术栈真题把\"安全组可设置黑名单\"判为错误（答案D）。但华为云安全组后续版本可能支持\"拒绝\"规则，待核实当前官方文档。"
+  ],
+  "commands": [],
+  "todo": [
+   "安全组是否支持拒绝规则需以华为云当前文档为准"
+  ]
+ },
+ {
+  "id": "wl-basic",
+  "domain": "WLAN",
+  "day": 11,
+  "title": "WLAN基础：802.11标准与频段",
+  "summary": "WLAN就是无线局域网，Wi-Fi是基于IEEE 802.11标准的商标。",
+  "points": [
+   "标准演进：802.11b(2.4G,11Mbps)、802.11a(5G,54M)、802.11g(2.4G,54M)、802.11n=Wi-Fi 4(2.4/5G,600M)、802.11ac=Wi-Fi 5(5G)、802.11ax=Wi-Fi 6(2.4/5G，6E扩展6GHz)、802.11be=Wi-Fi 7。",
+   "2.4GHz：互不重叠信道常用1、6、11（每个信道20MHz）。5GHz：可用信道多，干扰少但穿墙弱。",
+   "概念：SSID(网络名)、BSSID(AP射频的MAC)、VAP(AP上的虚拟接入点，一个射频可多个SSID)、BSS/ESS。",
+   "STA接入过程：扫描(主动Probe Request/被动Beacon) → 链路认证 → 关联 → (接入认证、DHCP)。",
+   "802.11帧类型：管理帧(Beacon、Probe、认证、关联)、控制帧(RTS/CTS、ACK)、数据帧。",
+   "无线用CSMA/CA（冲突避免），有线以太网半双工用CSMA/CD。"
+  ],
+  "pitfalls": [
+   "Wi-Fi 5(802.11ac)只工作在5GHz。",
+   "2.4GHz中国可用信道1–13，但不重叠的通常只有3个。"
+  ],
+  "commands": [],
+  "todo": []
+ },
+ {
+  "id": "wl-capwap",
+  "domain": "WLAN",
+  "day": 11,
+  "title": "CAPWAP协议",
+  "summary": "AC和AP之间的\"对话协议\"：AC通过CAPWAP隧道集中管理AP、下发配置，也可传业务数据。",
+  "points": [
+   "基于UDP：控制隧道端口5246，数据隧道端口5247。控制报文可用DTLS加密。",
+   "AP发现AC方式：静态配置AC地址、DHCP Option 43、DNS；二层组网可广播发现。",
+   "建立过程：Discovery(发现) → Join(加入) → Image Data(版本升级，可选) → Configure(配置下发) → Data Check → Run(运行)。",
+   "运行时：Echo报文维持控制隧道，Keepalive维持数据隧道。",
+   "AP上线认证方式：MAC认证、SN认证、不认证。"
+  ],
+  "pitfalls": [
+   "控制5246、数据5247，别和VXLAN 4789混。",
+   "三层组网（AP与AC不同网段）需Option 43或DNS告诉AP AC地址。"
+  ],
+  "commands": [
+   "capwap source interface Vlanif100",
+   "wlan",
+   "ap auth-mode mac-auth",
+   "ap-id 0 ap-mac 00e0-fc12-3456",
+   "ap-name AP1",
+   "ap-group AP-G1",
+   "display ap all"
+  ],
+  "todo": []
+ },
+ {
+  "id": "wl-net",
+  "domain": "WLAN",
+  "day": 11,
+  "title": "AC+AP组网与转发方式",
+  "summary": "怎么连（直连/旁挂，二层/三层）、数据怎么走（直接转发/隧道转发）。",
+  "points": [
+   "二层组网：AP与AC在同一个二层网络；三层组网：AP与AC跨网段。",
+   "直连式组网：AC串在数据路径上；旁挂式组网：AC挂在汇聚/核心旁边，只管理，数据可不经过AC。",
+   "直接转发(本地转发)：业务数据由AP直接转发到上行网络，不经过AC，减轻AC压力。",
+   "隧道转发(集中转发)：业务数据经CAPWAP数据隧道到AC再转发，便于集中管控。",
+   "管理VLAN(AP与AC的CAPWAP管理报文)与业务VLAN(STA数据)要规划清楚。",
+   "CAPWAP断链逃生：直接转发场景下AC与AP断链时，AP继续为用户提供业务（保证可靠性，不是AC备份方式）。"
+  ],
+  "pitfalls": [
+   "旁挂+隧道转发时，业务流量仍会绕到AC。"
+  ],
+  "commands": [
+   "vap-profile name v1",
+   "forward-mode direct-forward",
+   "forward-mode tunnel",
+   "service-vlan vlan-id 101"
+  ],
+  "todo": []
+ },
+ {
+  "id": "wl-profile",
+  "domain": "WLAN",
+  "day": 11,
+  "title": "华为WLAN配置模板",
+  "summary": "华为AC用\"模板(profile)\"层层引用来配置无线业务，记住引用关系就好理解。",
+  "points": [
+   "基本流程：①创建AP组(ap-group) ②域管理模板(regulatory-domain-profile，设国家码cn)并在AP组中引用 ③配置AC源接口(capwap source interface) ④AP上线(离线导入或认证) ⑤安全模板(security-profile) ⑥SSID模板(ssid-profile) ⑦VAP模板(vap-profile：转发模式、业务VLAN，引用SSID模板和安全模板) ⑧在AP组中引用VAP模板，指定射频。",
+   "VAP模板是核心：它把\"网络名SSID+安全方式+业务VLAN+转发方式\"组合在一起。",
+   "射频模板(2g/5g radio-profile)、空口扫描模板等用于射频优化。",
+   "常用查看：display ap all、display vap ssid xxx、display station all。"
+  ],
+  "pitfalls": [
+   "国家码要正确，否则信道/功率不合规。",
+   "SSID模板和安全模板是被VAP模板引用，而不是直接绑到AP组。"
+  ],
+  "commands": [
+   "wlan",
+   "regulatory-domain-profile name default",
+   "country-code cn",
+   "ap-group name AP-G1",
+   "regulatory-domain-profile default",
+   "security-profile name sec1",
+   "security wpa-wpa2 psk pass-phrase Huawei@123 aes",
+   "ssid-profile name ssid1",
+   "ssid wlan-net",
+   "vap-profile name vap1",
+   "forward-mode tunnel",
+   "service-vlan vlan-id 101",
+   "ssid-profile ssid1",
+   "security-profile sec1",
+   "ap-group name AP-G1",
+   "vap-profile vap1 wlan 1 radio all",
+   "display vap ssid wlan-net"
+  ],
+  "todo": []
+ },
+ {
+  "id": "wl-backup",
+  "domain": "WLAN",
+  "day": 12,
+  "title": "AC可靠性：双链路冷/热备、N+1、VRRP",
+  "summary": "AC坏了怎么办：让AP提前和备AC建好连接，或者多台主AC共用一台备AC。",
+  "points": [
+   "双链路冷备份：AP同时与主、备AC建立CAPWAP链路，主AC管理AP；主备AC之间不同步用户信息。",
+   "双链路热备份：在冷备份基础上，主备AC通过HSB(热备份)通道同步用户(STA)表项，切换时用户业务更平滑。",
+   "N+1备份：N台主AC共用1台备AC；正常时AP只与主AC建链，主AC故障后才与备AC建链（切换较慢）；适合多分支、跨Internet的场景。",
+   "VRRP热备份：主备AC组成VRRP，对外一个虚拟IP，配合HSB同步信息。",
+   "CAPWAP断链逃生：不是备份方式，是直接转发场景下断链后保持业务的机制。"
+  ],
+  "pitfalls": [
+   "技术栈真题：总部与多个异地分支AC跨Internet备份，选N+1（主备AC之间没有HSB通道）。",
+   "冷备份和热备份的区别：是否通过HSB同步用户表项。"
+  ],
+  "commands": [
+   "（示例，以AC文档为准）ac protect enable",
+   "hsb-service 0",
+   "display ac protect"
+  ],
+  "todo": [
+   "AC备份配置命令随V200R0xx版本不同，待核实"
+  ]
+ },
+ {
+  "id": "wl-auth",
+  "domain": "WLAN",
+  "day": 12,
+  "title": "WLAN认证：PSK、802.1X、Portal、MAC",
+  "summary": "谁可以连Wi-Fi：家用输密码(PSK)，企业用账号(802.1X)，访客用网页(Portal)，哑终端用MAC。",
+  "points": [
+   "链路认证（Open/Shared Key）与接入认证分开理解。WEP已不安全；WPA/WPA2/WPA3可选PSK或802.1X。",
+   "802.1X：三方——客户端(Supplicant)、接入设备(认证点，Authenticator，如AC)、认证服务器(RADIUS)；客户端与设备间用EAPoL；设备与服务器之间用RADIUS。",
+   "802.1X认证方式：EAP中继(设备把EAP透传给服务器)和EAP终结(设备终结EAP，用PAP/CHAP与服务器交互)；手机等无线终端通常需要EAP方式（技术栈真题）。",
+   "802.1X认证成功前终端拿不到业务IP（技术栈真题）。",
+   "Portal认证：用户先拿到IP，打开浏览器被重定向到认证网页；适合访客。",
+   "MAC认证：以MAC地址为账号，适合打印机等哑终端。",
+   "RADIUS：UDP 1812认证/1813计费（华为也常见1645/1646，以配置为准）。",
+   "排障命令：display aaa online-fail-record、trace object mac-address。"
+  ],
+  "pitfalls": [
+   "Portal是\"先拿IP再认证\"，802.1X是\"先认证再拿IP\"。"
+  ],
+  "commands": [
+   "radius-server template rd1",
+   "radius-server authentication 10.1.1.10 1812",
+   "radius-server shared-key cipher Huawei@123",
+   "aaa",
+   "authentication-scheme auth1",
+   "authentication-mode radius",
+   "dot1x-access-profile name d1",
+   "dot1x authentication-method eap",
+   "authentication-profile name p1",
+   "dot1x-access-profile d1",
+   "security-profile name sec1",
+   "security wpa2 dot1x aes",
+   "vap-profile name vap1",
+   "authentication-profile p1",
+   "display aaa online-fail-record"
+  ],
+  "todo": []
+ },
+ {
+  "id": "wl-roam",
+  "domain": "WLAN",
+  "day": 12,
+  "title": "WLAN漫游",
+  "summary": "人拿着手机从一个AP走到另一个AP，网络不断、IP不变。",
+  "points": [
+   "漫游是否发生主要由终端(STA)决定（信号变弱后重新扫描并关联新AP）。",
+   "二层漫游：漫游前后在同一VLAN/子网；三层漫游：漫游前后属于不同VLAN/子网，流量需要通过隧道绕回家乡AP/AC(HAP/HAC)以保持IP不变。",
+   "AC内漫游与AC间漫游：AC间漫游需配置漫游组(mobility group)，AC之间同步用户信息。",
+   "802.11k(邻居报告)、802.11v(BSS转换管理，网络建议终端切换)、802.11r(快速BSS切换，减少重新认证时延)可优化漫游。",
+   "优化手段：合理规划信道避免同频干扰、调整AP功率使相邻AP覆盖适度重叠、开启智能漫游、处理\"粘滞终端\"。"
+  ],
+  "pitfalls": [
+   "技术栈真题答案为\"ABD\"（含修改SSID和加密方式），该选项的合理性存疑，原文解析较牵强——待核实，以官方题解为准。"
+  ],
+  "commands": [
+   "（示例）mobility-group name mg1",
+   "member ip-address 10.1.1.2"
+  ],
+  "todo": []
+ },
+ {
+  "id": "wl-wifi6",
+  "domain": "WLAN",
+  "day": 12,
+  "title": "Wi-Fi 6（802.11ax）关键技术",
+  "summary": "Wi-Fi 6不只是更快，更重要的是\"多用户同时高效传输\"。",
+  "points": [
+   "OFDMA：把信道划成多个资源单元(RU)，同一时刻分给多个用户，降低时延，适合高密度。",
+   "MU-MIMO：上下行多用户多入多出，最多8x8；终端能收几个空间流取决于自身天线数（技术栈真题：2天线终端只能收2流）。",
+   "1024-QAM：每个符号承载10比特（Wi-Fi 5为256-QAM，8比特），速率约提升25%。",
+   "BSS Coloring(BSS着色)：区分同频相邻BSS，减少同频干扰。",
+   "TWT(目标唤醒时间)：终端按约定时间唤醒，省电，适合IoT。",
+   "理论最高速率约9.6Gbps；Wi-Fi 6E扩展到6GHz频段。Wi-Fi 7(802.11be)引入320MHz信道、4096-QAM、多链路操作(MLO)。"
+  ],
+  "pitfalls": [
+   "OFDMA是\"频域分用户\"，MU-MIMO是\"空间分用户\"，别混。"
+  ],
+  "commands": [],
+  "todo": []
+ },
+ {
+  "id": "wl-rf",
+  "domain": "WLAN",
+  "day": 12,
+  "title": "射频规划与覆盖优化",
+  "summary": "Wi-Fi体验差，多半是信道干扰、功率不当或AP布放不合理。",
+  "points": [
+   "信道规划：相邻AP使用不重叠信道（2.4G用1/6/11），减少同频干扰。",
+   "功率调整：功率不是越大越好，过大导致同频干扰和\"粘滞终端\"。",
+   "华为射频调优(Radio Calibration)：AC自动调整信道和功率。",
+   "频谱导航(Band Steering)：引导双频终端优先接入5GHz。",
+   "负载均衡：用户在多个AP间均衡分布。",
+   "信号强度：常用RSSI衡量（单位dBm，越接近0越强）；办公场景常见建议边缘场强不低于-65dBm左右（待核实具体规范）。"
+  ],
+  "pitfalls": [
+   "dBm是负数时，-50dBm比-70dBm信号强。"
+  ],
+  "commands": [
+   "wlan",
+   "calibrate enable auto",
+   "rrm-profile name r1",
+   "display radio all"
+  ],
+  "todo": [
+   "华为射频调优命令随版本变化，待核实"
+  ]
+ }
+]

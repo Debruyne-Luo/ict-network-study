@@ -1,0 +1,27 @@
+:root{--bg:#f6f7fb;--card:#fff;--fg:#1d2433;--mut:#6b7385;--pri:#c7000b;--ok:#1a9b55;--bad:#d93025;--bd:#e3e6ee;--hl:#fff4e5}
+.dark{--bg:#12151c;--card:#1c212b;--fg:#e6e9ef;--mut:#9aa3b5;--pri:#ff5a5f;--ok:#3ccf7d;--bad:#ff6b5e;--bd:#2c3340;--hl:#2e2a1f}
+*{box-sizing:border-box}body{margin:0;font:15px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--fg)}
+a{color:var(--pri);text-decoration:none}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:8px 14px;background:var(--card);border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.logo{font-weight:700;color:var(--fg)}nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}nav a{padding:4px 9px;border-radius:6px;color:var(--fg)}nav a.on{background:var(--pri);color:#fff}
+#theme{border:1px solid var(--bd);background:none;border-radius:6px;cursor:pointer;font-size:16px;color:var(--fg)}
+main{max-width:980px;margin:0 auto;padding:16px}footer{text-align:center;color:var(--mut);font-size:12px;padding:20px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.big{font-size:30px;font-weight:700;color:var(--pri)}.mut{color:var(--mut);font-size:13px}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
+.btn{display:inline-block;padding:7px 14px;border-radius:8px;border:1px solid var(--pri);background:var(--pri);color:#fff;cursor:pointer;font-size:14px;margin:3px 4px 3px 0}
+.btn.o{background:none;color:var(--pri)}.btn:disabled{opacity:.5}
+.tag{display:inline-block;font-size:12px;padding:1px 7px;border-radius:10px;background:var(--bd);margin-right:4px}
+.tag.c-官方{background:#1a9b55;color:#fff}.tag.c-回忆{background:#e69500;color:#fff}.tag.c-题库{background:#5b6bd6;color:#fff}.tag.c-自编{background:#7a8599;color:#fff}
+.opt{display:block;border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin:6px 0;cursor:pointer}
+.opt.sel{border-color:var(--pri);background:var(--hl)}.opt.right{border-color:var(--ok);background:rgba(26,155,85,.12)}.opt.wrong{border-color:var(--bad);background:rgba(217,48,37,.12)}
+.exp{border-left:3px solid var(--pri);padding:6px 10px;background:var(--hl);border-radius:4px;margin-top:8px}
+pre{background:#0f1420;color:#d6e2ff;padding:10px;border-radius:8px;overflow:auto;font-size:13px}
+.todo{color:#b26a00}.dark .todo{color:#ffb347}
+select,input{padding:6px;border-radius:6px;border:1px solid var(--bd);background:var(--card);color:var(--fg)}
+table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid var(--bd);padding:6px;text-align:left;font-size:14px}
+.today{outline:2px solid var(--pri)}.done{opacity:.65}
+.timer{position:sticky;top:52px;z-index:4;font-size:20px;font-weight:700;text-align:center;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:6px}
+.qnav{display:flex;flex-wrap:wrap;gap:4px}.qnav span{width:30px;height:30px;line-height:30px;text-align:center;border:1px solid var(--bd);border-radius:6px;font-size:12px;cursor:pointer}.qnav span.a{background:var(--pri);color:#fff}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr;gap:8px}.card{padding:12px}nav a{padding:3px 6px;font-size:13px}.big{font-size:24px}main{padding:10px}}
