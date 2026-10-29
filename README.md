@@ -30,3 +30,11 @@
 - 回忆题19道：技术栈 https://jishuzhan.net/article/1951482261190258690（2024-2025全国总决赛高职组，网友回忆）。原文DCN第2题只有回忆概要，没有收录。部分原题有图但没保存，题干里已注明。
 - 自编题153道：根据讲义编写，**不是真题**。
 - 讲义里标“待核实”的地方以华为官方文档为准。
+
+## 2026-10-28 更新
+- **讲义加深**：47个知识点都有"通俗理解、原理/工作流程、对比表、典型华为配置示例、常见考法"几部分，另有28张内联SVG图（VLAN/Trunk、STP选举、OSPF状态机/多区域、BGP/选路、VRRP、NAT、DHCP、IPv6 ND、MPLS VPN、Spine-Leaf、VXLAN、EVPN、M-LAG、堆叠、安全区域、IPSec两阶段、SSL VPN、CAPWAP上线、转发方式、WLAN模板、802.1X、漫游、AC备份等）。源文件：tools/deep_dt.py、tools/deep_other.py、tools/svg.py。
+- **题库**：282题（自编263、回忆19），每个知识点至少5题。新增题目在 tools/more_q.py。
+- **核实修正**：tools/patches.py 按华为官方文档修正了原"待核实"内容，包括 OSPF MTU、traffic-filter缺省动作、C-RP优先级、M-LAG peer-link故障、iStack选主、PFC命令、NAT Server与安全策略的顺序、URPF、vsys路由、华为云安全组、AC备份、射频调优和场强。
+- **新功能**：讲义搜索、速记卡(#cards，tools/cards.py生成)、错题重做(#redo，连续答对2次自动移出错题本)、模拟考后按知识点给复习建议、手机端排版优化。
+- **加题流程**：在 tools/more_q.py 里对应的KP中追加 J/S/M(...)，然后运行 `cd tools && python3 build.py && python3 cards.py && cd .. && python3 tools/validate.py`。
+- **仍待核实**：js-wl-3、js-wl-4 两题的回忆答案（未找到官方答案）；CSS与iStack的差异细节；V600版本的SSL VPN命令；各版本AC备份的完整步骤；其他版本的PFC语法。

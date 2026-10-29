@@ -17,7 +17,62 @@
    "ICMP是网络层协议，ping和tracert都用它。"
   ],
   "commands": [],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "把寄快递想成网络通信：你写信（应用层数据），装进信封写上收件人房间号（传输层端口），再写上城市街道（网络层IP），快递员按最近一站的地址送（数据链路层MAC），最后靠车和路（物理层）跑起来。每一层只关心自己的那张\"标签\"，这就是分层。发送时从上往下一层层加头（封装），接收时从下往上一层层拆头（解封装）。",
+   "steps": [
+    "发送方：应用产生数据 → 传输层加TCP/UDP头(端口) → 网络层加IP头(源/目的IP) → 数据链路层加以太网头和FCS(源/目的MAC) → 物理层变成电/光信号。",
+    "中间的交换机只看到第2层（MAC），路由器拆到第3层（IP）查路由，然后重新封装二层头。",
+    "接收方从下往上逐层校验、拆头，最后交给对应端口的应用。"
+   ],
+   "table": {
+    "head": [
+     "层",
+     "作用",
+     "数据单元",
+     "典型协议/设备"
+    ],
+    "rows": [
+     [
+      "应用层",
+      "给应用提供服务",
+      "数据",
+      "HTTP、DNS、FTP、Telnet"
+     ],
+     [
+      "传输层",
+      "端到端、端口区分应用",
+      "段",
+      "TCP、UDP"
+     ],
+     [
+      "网络层",
+      "逻辑寻址、选路",
+      "包",
+      "IP、ICMP、OSPF；路由器"
+     ],
+     [
+      "数据链路层",
+      "同一链路内传帧",
+      "帧",
+      "Ethernet、PPP；交换机"
+     ],
+     [
+      "物理层",
+      "比特传输",
+      "比特",
+      "网线、光纤、集线器"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "问\"某设备/协议工作在哪一层\"（交换机二层、路由器三层、ICMP网络层）。",
+    "问\"传输层/网络层的数据单元叫什么\"。",
+    "给出封装顺序让你排序。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 560 250\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"OSI七层与TCP/IP五层对应、封装过程\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"30.0\" y=\"7.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"25\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">应用层</text><rect x=\"30.0\" y=\"39.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"57\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">表示层</text><rect x=\"30.0\" y=\"71.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"89\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">会话层</text><rect x=\"30.0\" y=\"103.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"121\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">传输层</text><rect x=\"30.0\" y=\"135.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"153\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">网络层</text><rect x=\"30.0\" y=\"167.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"185\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">数据链路层</text><rect x=\"30.0\" y=\"199.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"217\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">物理层</text><rect x=\"200.0\" y=\"7.0\" width=\"120\" height=\"90\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"260\" y=\"57\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">应用层</text><rect x=\"200.0\" y=\"103.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"260\" y=\"121\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">传输层</text><rect x=\"200.0\" y=\"135.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"260\" y=\"153\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">网络层</text><rect x=\"200.0\" y=\"167.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"260\" y=\"185\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">数据链路层</text><rect x=\"200.0\" y=\"199.0\" width=\"120\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"260\" y=\"217\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">物理层</text><text x=\"345\" y=\"57\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\">数据 Data</text><text x=\"345\" y=\"121\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\">段 Segment (TCP/UDP头)</text><text x=\"345\" y=\"153\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\">包 Packet (IP头)</text><text x=\"345\" y=\"185\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\">帧 Frame (MAC头+FCS)</text><text x=\"345\" y=\"217\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\">比特 bit</text><text x=\"90\" y=\"245\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">OSI 7层</text><text x=\"260\" y=\"245\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">TCP/IP 5层</text><text x=\"440\" y=\"245\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">发送方逐层加头 = 封装</text></svg><figcaption>OSI七层与TCP/IP五层对应、封装过程</figcaption></figure>"
+  }
  },
  {
   "id": "dt-tcpudp",
@@ -36,7 +91,50 @@
    "Telnet明文传输，SSH加密。"
   ],
   "commands": [],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "TCP像打电话：先拨通（三次握手），说一句对方回一句\"收到\"，没回就重说（重传），说完再挂断（四次挥手），可靠但慢一点。UDP像发短信：直接发，不管对方收没收到，快、开销小，适合视频、语音、DNS查询这种\"丢一点也没关系、要快\"的场景。",
+   "steps": [
+    "三次握手：客户端SYN(seq=x) → 服务器SYN+ACK(seq=y, ack=x+1) → 客户端ACK(ack=y+1)，连接建立。",
+    "数据传输：按序号排序，收到就确认(ACK)，超时重传；用窗口大小做流量控制。",
+    "四次挥手：FIN → ACK → FIN → ACK（因为两个方向要分别关闭）。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "TCP",
+     "UDP"
+    ],
+    "rows": [
+     [
+      "连接",
+      "面向连接",
+      "无连接"
+     ],
+     [
+      "可靠性",
+      "确认+重传+排序",
+      "不保证"
+     ],
+     [
+      "头部",
+      "≥20字节",
+      "8字节"
+     ],
+     [
+      "典型应用",
+      "HTTP/HTTPS、FTP、Telnet、SSH、BGP(179)",
+      "DNS查询、DHCP、TFTP、SNMP、RIP(520)、VXLAN(4789)、CAPWAP(5246/5247)"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "端口号对应协议（大赛常把端口号和WLAN/VXLAN结合考）。",
+    "\"BGP基于TCP\"，\"OSPF直接封装在IP里（协议号89），不用TCP/UDP\"。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dt-ip",
@@ -63,7 +161,76 @@
    "ip address 192.168.1.1 255.255.255.0",
    "display ip interface brief"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "IP地址像\"城市+门牌号\"：掩码告诉你哪部分是城市（网络位），哪部分是门牌（主机位）。同一网段的主机可以直接通信，不同网段要找网关（路由器）。子网划分就是把一个大城市划成几个小区：从主机位借几位给网络位。",
+   "steps": [
+    "写出掩码：/26 = 255.255.255.192（最后一个字节借了2位：128+64）。",
+    "算块大小：256−192=64，所以网段是 .0 .64 .128 .192。",
+    "找所在网段：地址最后一字节 ÷ 块大小取整 × 块大小。例 .77 → 64。",
+    "网络地址=该段起点(.64)，广播地址=下一段起点−1(.127)，可用主机 .65–.126，共62个。",
+    "汇总：把地址写成二进制，找共同的前缀位数。"
+   ],
+   "table": {
+    "head": [
+     "前缀",
+     "掩码最后字节",
+     "块大小",
+     "可用主机"
+    ],
+    "rows": [
+     [
+      "/24",
+      "0",
+      "256",
+      "254"
+     ],
+     [
+      "/25",
+      "128",
+      "128",
+      "126"
+     ],
+     [
+      "/26",
+      "192",
+      "64",
+      "62"
+     ],
+     [
+      "/27",
+      "224",
+      "32",
+      "30"
+     ],
+     [
+      "/28",
+      "240",
+      "16",
+      "14"
+     ],
+     [
+      "/29",
+      "248",
+      "8",
+      "6"
+     ],
+     [
+      "/30",
+      "252",
+      "4",
+      "2"
+     ]
+    ]
+   },
+   "example": "# 例：192.168.1.0/24 划分给4个部门，每部门≤50台\n# 需要主机位≥6（2^6-2=62），借2位 → /26\n192.168.1.0/26    可用 .1-.62    广播 .63\n192.168.1.64/26   可用 .65-.126  广播 .127\n192.168.1.128/26  可用 .129-.190 广播 .191\n192.168.1.192/26  可用 .193-.254 广播 .255",
+   "exam": [
+    "给IP和掩码求网络地址/广播地址/可用范围。",
+    "给主机数求最合适的掩码。",
+    "求能划分多少子网、路由汇总（如ip-prefix计算题的基础）。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dt-arp",
@@ -87,7 +254,48 @@
    "display mac-address",
    "arp static 10.1.1.2 00e0-fc12-3456"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "你知道同事的名字(IP)，但要把文件递到他手里需要知道他的座位(MAC)。ARP就是在办公室里喊一声\"谁是10.1.1.2？\"（广播），对方回答\"是我，座位在这\"（单播），然后你记到小本子上（ARP缓存）。",
+   "steps": [
+    "主机A查ARP缓存，没有对方MAC。",
+    "A广播ARP请求：目的MAC全F，内容\"谁是10.1.1.2？我是10.1.1.1/MAC-A\"。",
+    "同网段所有主机收到，只有10.1.1.2回复单播ARP应答。",
+    "A把IP-MAC写入ARP表，开始发数据帧。",
+    "跨网段时，A请求的是网关的MAC，数据帧目的MAC是网关。"
+   ],
+   "table": {
+    "head": [
+     "类型",
+     "用途"
+    ],
+    "rows": [
+     [
+      "ARP请求/应答",
+      "IP→MAC解析"
+     ],
+     [
+      "免费ARP",
+      "检测IP冲突、通告自己MAC变化（VRRP切换）"
+     ],
+     [
+      "代理ARP",
+      "路由器替其他网段主机回复"
+     ],
+     [
+      "ARP欺骗",
+      "伪造应答，靠DAI等防御"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "ARP请求是广播还是单播。",
+    "跨网段时请求谁的MAC。",
+    "交换机收到未知单播怎么处理（泛洪）。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dt-vrp",
@@ -119,7 +327,55 @@
    "local-user admin password irreversible-cipher Huawei@123",
    "local-user admin service-type telnet ssh"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "华为设备的命令行叫VRP。记住\"视图\"就像游戏里的不同房间：在大厅(用户视图)只能看，进到控制室(系统视图)才能改全局配置，再进到某个接口房间才能配接口。",
+   "steps": [
+    "<Huawei> 用户视图：display查看、save保存、reboot。",
+    "system-view 进入 [Huawei] 系统视图：改设备名、建VLAN、开协议。",
+    "interface GigabitEthernet0/0/1 进入接口视图：配IP、端口类型。",
+    "quit 退回上一层，return（或Ctrl+Z）直接回用户视图。",
+    "配错了用 undo + 原命令 删除。"
+   ],
+   "table": {
+    "head": [
+     "思科",
+     "华为"
+    ],
+    "rows": [
+     [
+      "show",
+      "display"
+     ],
+     [
+      "no",
+      "undo"
+     ],
+     [
+      "configure terminal",
+      "system-view"
+     ],
+     [
+      "write",
+      "save"
+     ],
+     [
+      "exit",
+      "quit"
+     ],
+     [
+      "hostname",
+      "sysname"
+     ]
+    ]
+   },
+   "example": "<Huawei> system-view\n[Huawei] sysname R1\n[R1] interface GigabitEthernet0/0/1\n[R1-GigabitEthernet0/0/1] ip address 10.1.1.1 24\n[R1-GigabitEthernet0/0/1] quit\n[R1] user-interface vty 0 4\n[R1-ui-vty0-4] authentication-mode aaa\n[R1] aaa\n[R1-aaa] local-user admin password irreversible-cipher Huawei@123\n[R1-aaa] local-user admin service-type ssh telnet\n[R1-aaa] local-user admin privilege level 15\n[R1] return\n<R1> save",
+   "exam": [
+    "命令关键字辨析（undo、display、system-view）。",
+    "current-configuration 与 saved-configuration 区别。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dt-vlan",
@@ -155,7 +411,52 @@
    "display vlan",
    "display port vlan"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "一台交换机默认所有口在一个广播域里，人一多广播就满天飞、也不安全。VLAN就是在交换机里砌\"隔墙\"：VLAN10的人和VLAN20的人互相听不到广播。墙的那边要来往，必须走\"大门\"（三层网关）。跨交换机时，用Trunk链路把多个VLAN的帧带上\"标签\"一起传。",
+   "steps": [
+    "终端发出的帧不带标签 → 进入Access口时打上PVID对应的VLAN标签（交换机内部）。",
+    "从Trunk口出去：放行的VLAN帧保留标签；VLAN=PVID的帧剥掉标签。",
+    "对端Trunk口收到带标签帧按标签转发；收到不带标签帧归入自己的PVID。",
+    "从Access口出去给终端：剥掉标签。",
+    "跨VLAN通信：三层交换机为每个VLAN建VLANIF接口作网关，查路由转发。"
+   ],
+   "table": {
+    "head": [
+     "端口类型",
+     "收到不带标签帧",
+     "发送时",
+     "典型用途"
+    ],
+    "rows": [
+     [
+      "Access",
+      "打PVID标签",
+      "剥标签",
+      "接PC/打印机"
+     ],
+     [
+      "Trunk",
+      "打PVID标签",
+      "PVID的VLAN剥标签，其他保留",
+      "交换机互联"
+     ],
+     [
+      "Hybrid",
+      "打PVID标签",
+      "按配置untagged/tagged",
+      "灵活场景、接AP等"
+     ]
+    ]
+   },
+   "example": "[SW1] vlan batch 10 20\n[SW1] interface GigabitEthernet0/0/1\n[SW1-GigabitEthernet0/0/1] port link-type access\n[SW1-GigabitEthernet0/0/1] port default vlan 10\n[SW1] interface GigabitEthernet0/0/24\n[SW1-GigabitEthernet0/0/24] port link-type trunk\n[SW1-GigabitEthernet0/0/24] port trunk allow-pass vlan 10 20\n# 三层网关\n[SW1] interface Vlanif10\n[SW1-Vlanif10] ip address 192.168.10.254 24\n[SW1] display port vlan",
+   "exam": [
+    "VID位数、可用范围。",
+    "Access/Trunk/Hybrid收发规则（尤其PVID）。",
+    "给出配置问两台PC能否通信。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 230\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"VLAN与Trunk：同VLAN跨交换机互通，跨VLAN需三层\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"125.0\" y=\"93.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"170\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW1</text><rect x=\"385.0\" y=\"93.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"115\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW2</text><line x1=\"215\" y1=\"110\" x2=\"385\" y2=\"110\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"300.0\" y=\"105.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Trunk 放行VLAN10,20（带802.1Q标签）</text><rect x=\"35.0\" y=\"183.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"205\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PC1 VLAN10</text><line x1=\"90\" y1=\"183\" x2=\"170\" y2=\"127\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"110.0\" y=\"150.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Access</text><rect x=\"195.0\" y=\"183.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"250\" y=\"205\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PC2 VLAN20</text><line x1=\"250\" y1=\"183\" x2=\"170\" y2=\"127\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"190.0\" y=\"150.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Access</text><rect x=\"295.0\" y=\"183.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"350\" y=\"205\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PC3 VLAN10</text><line x1=\"350\" y1=\"183\" x2=\"430\" y2=\"127\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"410.0\" y=\"150.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Access</text><rect x=\"455.0\" y=\"183.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"510\" y=\"205\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PC4 VLAN20</text><line x1=\"510\" y1=\"183\" x2=\"430\" y2=\"127\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"490.0\" y=\"150.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Access</text><rect x=\"230.0\" y=\"13.0\" width=\"140\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"28\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">三层交换/路由器</text><text x=\"300\" y=\"42\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">VLANIF10/VLANIF20</text><line x1=\"300\" y1=\"47\" x2=\"170\" y2=\"93\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"300\" y1=\"47\" x2=\"430\" y2=\"93\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"300\" y=\"160\" text-anchor=\"middle\" font-size=\"11\" fill=\"#c7000b\">PC1↔PC3：二层直通；PC1↔PC2：必须经过网关</text></svg><figcaption>VLAN与Trunk：同VLAN跨交换机互通，跨VLAN需三层</figcaption></figure>"
+  }
  },
  {
   "id": "dt-stp",
@@ -182,7 +483,48 @@
    "stp root primary",
    "display stp brief"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "交换机为了可靠会连成环，但二层帧没有TTL，一旦有环，广播会无限转圈（广播风暴），MAC表也会乱跳。STP的办法是：选一个\"老大\"（根桥），每台交换机只保留通往老大的最佳路径，多余的口\"堵上\"（阻塞）。主路断了，再把堵住的口打开。",
+   "steps": [
+    "选根桥：所有交换机比桥ID（优先级+MAC），最小的当根桥。",
+    "选根端口(RP)：每台非根桥选一个到根桥开销最小的端口；开销相同比对端桥ID，再比对端端口ID。",
+    "选指定端口(DP)：每条链路上选一个离根最近的端口负责转发；根桥的端口都是DP。",
+    "剩下既不是RP也不是DP的端口 → 阻塞（不转发数据，但接收BPDU）。",
+    "拓扑变化时：发TCN，MAC表加速老化，阻塞口经过Listening(15s)→Learning(15s)才转发。"
+   ],
+   "table": {
+    "head": [
+     "计时器",
+     "缺省值",
+     "作用"
+    ],
+    "rows": [
+     [
+      "Hello Time",
+      "2秒",
+      "根桥发BPDU的间隔"
+     ],
+     [
+      "Forward Delay",
+      "15秒",
+      "Listening、Learning各停留时间"
+     ],
+     [
+      "Max Age",
+      "20秒",
+      "BPDU老化时间"
+     ]
+    ]
+   },
+   "example": "[SW1] stp mode stp\n[SW1] stp priority 4096      # 或 stp root primary\n[SW2] interface GigabitEthernet0/0/1\n[SW2-GigabitEthernet0/0/1] stp cost 2000\n[SW1] display stp brief",
+   "exam": [
+    "给拓扑和优先级/MAC，判断根桥、根端口、阻塞端口。",
+    "端口状态顺序和计时器数值。",
+    "优先级取值必须是4096倍数。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 560 250\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"STP选举示例：优先级4096的SW1为根桥\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"220.0\" y=\"23.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"280\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW1 根桥</text><text x=\"280\" y=\"52\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">4096</text><rect x=\"70.0\" y=\"173.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"120\" y=\"188\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW2</text><text x=\"120\" y=\"202\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">32768 MAC小</text><rect x=\"390.0\" y=\"173.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"440\" y=\"188\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW3</text><text x=\"440\" y=\"202\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">32768 MAC大</text><line x1=\"225\" y1=\"50\" x2=\"140\" y2=\"172\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"152.5\" y=\"106.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">DP ─── RP</text><line x1=\"335\" y1=\"50\" x2=\"420\" y2=\"172\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"407.5\" y=\"106.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">DP ─── RP</text><line x1=\"170\" y1=\"190\" x2=\"390\" y2=\"190\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"185\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">DP</text><text x=\"375\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#d93025\">阻塞(AP)</text><text x=\"380\" y=\"195\" text-anchor=\"middle\" font-size=\"16\" fill=\"#d93025\" font-weight=\"bold\">✕</text><text x=\"280\" y=\"235\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">①选根桥 ②非根桥选RP ③每段链路选DP ④其余端口阻塞</text></svg><figcaption>STP选举示例：优先级4096的SW1为根桥</figcaption></figure>"
+  }
  },
  {
   "id": "dt-rstp",
@@ -213,7 +555,57 @@
    "active region-configuration",
    "stp instance 1 root primary"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "STP收敛太慢（30–50秒），RSTP加了\"快速通道\"：提前准备好备份口（Alternate），主路断了直接切；交换机之间用\"提议/同意\"(P/A)握手马上转发；接电脑的口设成边缘端口，插上就能用。MSTP再进一步：不同VLAN可以走不同的树，两条链路都能用上。",
+   "steps": [
+    "RSTP端口角色：根端口、指定端口、Alternate（RP的备份）、Backup（DP的备份）、边缘端口。",
+    "根端口故障 → Alternate端口立即变为根端口并转发，无需等待。",
+    "P/A机制：上游指定端口发Proposal，下游阻塞其他非边缘端口后回Agreement，上游立刻转发。",
+    "MSTP：配置MST域（域名、修订级别、VLAN映射一致）→ 每个实例独立选根 → 不同实例阻塞不同端口。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "STP(802.1D)",
+     "RSTP(802.1w)",
+     "MSTP(802.1s)"
+    ],
+    "rows": [
+     [
+      "端口状态",
+      "5种",
+      "3种(Discarding/Learning/Forwarding)",
+      "同RSTP"
+     ],
+     [
+      "收敛",
+      "30–50秒",
+      "秒级",
+      "秒级"
+     ],
+     [
+      "多实例负载分担",
+      "否",
+      "否",
+      "是"
+     ],
+     [
+      "华为缺省",
+      "",
+      "",
+      "是（缺省模式）"
+     ]
+    ]
+   },
+   "example": "[SW1] stp mode mstp\n[SW1] stp region-configuration\n[SW1-mst-region] region-name RG1\n[SW1-mst-region] instance 1 vlan 10 20\n[SW1-mst-region] instance 2 vlan 30 40\n[SW1-mst-region] active region-configuration\n[SW1] stp instance 1 root primary\n[SW1] stp instance 2 root secondary\n[SW1] interface GigabitEthernet0/0/10\n[SW1-GigabitEthernet0/0/10] stp edged-port enable\n[SW1] stp bpdu-protection",
+   "exam": [
+    "Alternate与Backup端口区别。",
+    "边缘端口收到BPDU会怎样、BPDU保护作用。",
+    "MSTP同域条件。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dt-trunk",
@@ -240,7 +632,46 @@
    "lacp priority 100",
    "display eth-trunk 1"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "两台交换机间一根线不够用、坏了又断网，于是并几根线。但STP会把多出来的线堵掉，所以要把它们\"捆\"成一条逻辑链路（Eth-Trunk），STP只看到一条，带宽却是几根之和。",
+   "steps": [
+    "创建Eth-Trunk接口，选择模式（手工/LACP）。",
+    "把成员物理口加入（速率、双工要一致）。",
+    "LACP模式下双方交换LACPDU：系统优先级小的一端为主动端，由主动端按接口优先级选活动成员。",
+    "流量按流哈希（源/目MAC、IP等）分配到成员链路。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "手工模式",
+     "LACP模式"
+    ],
+    "rows": [
+     [
+      "协商",
+      "无",
+      "有LACPDU"
+     ],
+     [
+      "备份链路",
+      "不支持，全部活动",
+      "支持（最大活动数之外的成员备份）"
+     ],
+     [
+      "检测对端误连",
+      "不能",
+      "能"
+     ]
+    ]
+   },
+   "example": "[SW1] interface Eth-Trunk1\n[SW1-Eth-Trunk1] mode lacp\n[SW1-Eth-Trunk1] trunkport GigabitEthernet0/0/1 to 0/0/3\n[SW1-Eth-Trunk1] max active-linknumber 2\n[SW1] lacp priority 100\n[SW1] display eth-trunk 1",
+   "exam": [
+    "LACP优先级默认值与比较规则。",
+    "手工与LACP区别。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 520 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Eth-Trunk：多条物理链路捆绑成一条逻辑链路\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"45.0\" y=\"53.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"75\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW1</text><rect x=\"385.0\" y=\"53.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"75\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW2</text><line x1=\"135\" y1=\"50\" x2=\"385\" y2=\"50\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"135\" y1=\"70\" x2=\"385\" y2=\"70\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"135\" y1=\"90\" x2=\"385\" y2=\"90\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"260\" y=\"40\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Eth-Trunk 1（LACP）</text><text x=\"260\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">带宽相加、一条坏了其余继续转发、按流哈希负载分担</text></svg><figcaption>Eth-Trunk：多条物理链路捆绑成一条逻辑链路</figcaption></figure>"
+  }
  },
  {
   "id": "dt-route",
@@ -266,7 +697,60 @@
    "display ip routing-table",
    "display ip routing-table 192.168.2.1"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "路由器像快递分拣中心：看包裹的目的地址，查\"路由表\"决定从哪个口送出去。路由表可以手工写（静态路由），也可以让路由器之间自己学（动态路由协议）。",
+   "steps": [
+    "报文到达，取目的IP。",
+    "在路由表里找所有能匹配的条目，选掩码最长的那个。",
+    "如果有多条同样长的来自不同协议，比较优先级(Preference)，小的进路由表。",
+    "同协议多条，比开销(Cost)，小的优；相同则等价负载分担。",
+    "按选中路由的出接口/下一跳转发；都匹配不到就丢弃（除非有默认路由）。"
+   ],
+   "table": {
+    "head": [
+     "路由来源",
+     "华为缺省优先级"
+    ],
+    "rows": [
+     [
+      "直连 Direct",
+      "0"
+     ],
+     [
+      "OSPF 内部",
+      "10"
+     ],
+     [
+      "IS-IS",
+      "15"
+     ],
+     [
+      "静态 Static",
+      "60"
+     ],
+     [
+      "RIP",
+      "100"
+     ],
+     [
+      "OSPF ASE/NSSA（外部）",
+      "150"
+     ],
+     [
+      "IBGP / EBGP",
+      "255"
+     ]
+    ]
+   },
+   "example": "# 主备出口：主走10.1.1.2，备走10.2.2.2（浮动静态）\n[R1] ip route-static 0.0.0.0 0 10.1.1.2\n[R1] ip route-static 0.0.0.0 0 10.2.2.2 preference 100\n[R1] display ip routing-table protocol static",
+   "exam": [
+    "默认优先级数值。",
+    "最长匹配判断。",
+    "浮动静态路由的preference要大还是小。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 170\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"路由查找：最长匹配 → 优先级 → 开销\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"45.0\" y=\"63.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"80\" y=\"85\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PC</text><rect x=\"205.0\" y=\"63.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"250\" y=\"78\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R1</text><text x=\"250\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">查路由表</text><rect x=\"405.0\" y=\"23.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R2</text><rect x=\"405.0\" y=\"113.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"135\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R3</text><line x1=\"115\" y1=\"80\" x2=\"205\" y2=\"80\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"295\" y1=\"72\" x2=\"405\" y2=\"45\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"350.0\" y=\"53.5\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">OSPF 10 cost 20</text><line x1=\"295\" y1=\"88\" x2=\"405\" y2=\"125\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"360.0\" y=\"124.5\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">静态 60</text><text x=\"300\" y=\"160\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">同一目的网段：OSPF(10)比静态(60)优，选R2；静态路由当浮动备份</text></svg><figcaption>路由查找：最长匹配 → 优先级 → 开销</figcaption></figure>"
+  }
  },
  {
   "id": "dt-ospf1",
@@ -286,7 +770,7 @@
   ],
   "pitfalls": [
    "DR选举非抢占：后来的高优先级路由器不会立即成为DR。",
-   "华为默认不检查MTU（需ospf mtu-enable），待核实具体版本。",
+   "华为缺省不检查MTU：发送DD报文时MTU字段填0，也不检查邻居的MTU，所以两端MTU不一致也能到Full；接口下配ospf mtu-enable后才检查，不一致会卡在ExStart/Exchange。出处：华为S系列V200R023 命令参考 ospf mtu-enable。",
    "2-Way不一定是故障，DRother之间正常就停在2-Way。"
   ],
   "commands": [
@@ -299,7 +783,53 @@
    "display ospf peer brief",
    "display ospf interface"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "OSPF像每个路由器都画一张全网地图：先和邻居打招呼(Hello)，再交换地图目录(DD)，缺哪页要哪页(LSR/LSU/LSAck)，地图一致后各自用\"最短路径算法\"(SPF)算路线。因为每台都有完整地图，所以收敛快、无环。",
+   "steps": [
+    "发Hello(组播224.0.0.5)发现邻居 → Init；在对方Hello里看到自己的Router ID → 2-Way。",
+    "广播网络在2-Way后选DR/BDR，DRother之间停在2-Way。",
+    "ExStart：选主从，确定DD序号（Router ID大者为主）。",
+    "Exchange：交换DD（LSA摘要）。",
+    "Loading：发LSR请求缺的LSA，对方回LSU，再回LSAck。",
+    "Full：数据库同步完成，运行SPF算路由。"
+   ],
+   "table": {
+    "head": [
+     "报文",
+     "作用"
+    ],
+    "rows": [
+     [
+      "Hello",
+      "发现、维持邻居，选DR"
+     ],
+     [
+      "DD",
+      "LSDB摘要"
+     ],
+     [
+      "LSR",
+      "请求具体LSA"
+     ],
+     [
+      "LSU",
+      "发送LSA"
+     ],
+     [
+      "LSAck",
+      "确认"
+     ]
+    ]
+   },
+   "example": "[R1] ospf 1 router-id 1.1.1.1\n[R1-ospf-1] area 0\n[R1-ospf-1-area-0.0.0.0] network 10.1.12.0 0.0.0.255\n[R1-ospf-1-area-0.0.0.0] network 1.1.1.1 0.0.0.0\n[R1] interface GigabitEthernet0/0/1\n[R1-GigabitEthernet0/0/1] ospf dr-priority 0   # 不参选DR\n[R1-GigabitEthernet0/0/1] ospf cost 10\n[R1] display ospf peer brief",
+   "exam": [
+    "邻居状态顺序、停在哪个状态说明什么问题。",
+    "DR/BDR选举规则及非抢占。",
+    "建邻居需要一致的参数。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 680 80\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"OSPF邻居状态机（Full才算邻接完成）\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"10.0\" y=\"20.0\" width=\"80.28571428571429\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"50.142857142857146\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Down</text><line x1=\"90.28571428571429\" y1=\"40\" x2=\"102.28571428571429\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"104.2857142857143\" y=\"20.0\" width=\"80.28571428571429\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"144.42857142857144\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Init</text><line x1=\"184.57142857142858\" y1=\"40\" x2=\"196.57142857142858\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"198.57142857142858\" y=\"20.0\" width=\"80.28571428571429\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"238.71428571428572\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">2-Way</text><line x1=\"278.8571428571429\" y1=\"40\" x2=\"290.8571428571429\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"292.8571428571429\" y=\"20.0\" width=\"80.28571428571429\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"333.00000000000006\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">ExStart</text><line x1=\"373.1428571428572\" y1=\"40\" x2=\"385.1428571428572\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"387.14285714285717\" y=\"20.0\" width=\"80.28571428571429\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"427.28571428571433\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Exchange</text><line x1=\"467.4285714285715\" y1=\"40\" x2=\"479.4285714285715\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"481.4285714285714\" y=\"20.0\" width=\"80.28571428571429\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"521.5714285714286\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Loading</text><line x1=\"561.7142857142857\" y1=\"40\" x2=\"573.7142857142857\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"575.7142857142858\" y=\"20.0\" width=\"80.28571428571429\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"615.8571428571429\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Full</text></svg><figcaption>OSPF邻居状态机（Full才算邻接完成）</figcaption></figure>"
+  }
  },
  {
   "id": "dt-ospf2",
@@ -328,7 +858,69 @@
    "display ospf lsdb",
    "display ospf routing"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "整个公司只有一张地图太大了，OSPF把网络切成\"区域\"：区域内部画详细地图，区域之间只交换\"摘要\"。Area 0 是中央枢纽，其他区域都要挂在它上面。",
+   "steps": [
+    "区域内：路由器产生1类LSA；DR产生2类LSA；区域内泛洪。",
+    "ABR：把一个区域的路由汇成3类LSA发到其他区域。",
+    "ASBR：import-route引入外部路由，生成5类LSA全网泛洪；ABR为其他区域生成4类LSA告诉大家ASBR在哪。",
+    "Stub区域：ABR不放5类进来，发一条3类默认路由；Totally Stub连3类也挡，只留默认路由。",
+    "NSSA：区域里有ASBR又想挡5类，就用7类LSA，出区域时ABR转成5类。"
+   ],
+   "table": {
+    "head": [
+     "LSA",
+     "产生者",
+     "范围",
+     "内容"
+    ],
+    "rows": [
+     [
+      "1 Router",
+      "所有路由器",
+      "本区域",
+      "自己的链路"
+     ],
+     [
+      "2 Network",
+      "DR",
+      "本区域",
+      "广播网段成员"
+     ],
+     [
+      "3 Summary",
+      "ABR",
+      "区域间",
+      "其他区域网段"
+     ],
+     [
+      "4 ASBR-Summary",
+      "ABR",
+      "区域间",
+      "ASBR位置"
+     ],
+     [
+      "5 External",
+      "ASBR",
+      "整个AS(除特殊区域)",
+      "外部路由"
+     ],
+     [
+      "7 NSSA",
+      "NSSA内ASBR",
+      "NSSA区域",
+      "外部路由"
+     ]
+    ]
+   },
+   "example": "[R2] ospf 1\n[R2-ospf-1] area 1\n[R2-ospf-1-area-0.0.0.1] stub no-summary   # Totally Stub，只在ABR加no-summary\n[R3] ospf 1\n[R3-ospf-1] import-route static\n[R3-ospf-1] area 2\n[R3-ospf-1-area-0.0.0.2] nssa\n[R1] display ospf lsdb",
+   "exam": [
+    "某类LSA由谁产生、在哪出现。",
+    "Stub/Totally Stub/NSSA区别。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 190\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"OSPF多区域：非骨干区域必须连到Area 0\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"220.0\" y=\"23.0\" width=\"160\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Area 0 骨干</text><rect x=\"75.0\" y=\"133.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"130\" y=\"155\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Area 1</text><rect x=\"405.0\" y=\"133.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"470\" y=\"155\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Area 2 (Stub)</text><rect x=\"165.0\" y=\"78.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"200\" y=\"100\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">ABR1</text><rect x=\"365.0\" y=\"78.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"400\" y=\"100\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">ABR2</text><line x1=\"200\" y1=\"78\" x2=\"260\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"400\" y1=\"78\" x2=\"340\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"200\" y1=\"112\" x2=\"150\" y2=\"133\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"400\" y1=\"112\" x2=\"450\" y2=\"133\" stroke=\"#888\" stroke-width=\"2\"/><rect x=\"10.0\" y=\"78.0\" width=\"60\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"40\" y=\"93\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">ASBR</text><text x=\"40\" y=\"107\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">引入外部</text><line x1=\"40\" y1=\"112\" x2=\"100\" y2=\"133\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"300\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">1/2类LSA区域内；ABR生成3类；ASBR的外部路由是5类；Stub区域内不出现5类</text></svg><figcaption>OSPF多区域：非骨干区域必须连到Area 0</figcaption></figure>"
+  }
  },
  {
   "id": "dt-bgp1",
@@ -360,7 +952,53 @@
    "display bgp peer",
    "display bgp routing-table"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "OSPF是公司内部的地图，BGP是\"国与国之间的外交\"：每个自治系统(AS)是一个国家，BGP不关心最短路，而是按\"政策\"决定把哪些路由告诉谁、选哪条。因为路由条目极多，BGP基于可靠的TCP，只发增量更新。",
+   "steps": [
+    "建立TCP连接(179)：Idle → Connect/Active。",
+    "互发Open协商AS号、Router ID、保持时间 → OpenSent → OpenConfirm。",
+    "收到Keepalive → Established。",
+    "通过Update发布/撤销路由；出错发Notification断开。",
+    "路由来源：network命令（路由表里要有该路由）或import-route引入。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "IBGP",
+     "EBGP"
+    ],
+    "rows": [
+     [
+      "AS关系",
+      "同一AS",
+      "不同AS"
+     ],
+     [
+      "默认TTL",
+      "255",
+      "1（非直连需ebgp-max-hop）"
+     ],
+     [
+      "下一跳",
+      "默认不改",
+      "改为自己"
+     ],
+     [
+      "防环",
+      "水平分割(不转发给IBGP)",
+      "AS_PATH"
+     ]
+    ]
+   },
+   "example": "[R1] bgp 100\n[R1-bgp] router-id 1.1.1.1\n[R1-bgp] peer 10.1.12.2 as-number 200          # EBGP\n[R1-bgp] peer 3.3.3.3 as-number 100            # IBGP用环回口\n[R1-bgp] peer 3.3.3.3 connect-interface LoopBack0\n[R1-bgp] peer 3.3.3.3 next-hop-local\n[R1-bgp] network 192.168.1.0 24\n[R1] display bgp peer",
+   "exam": [
+    "BGP端口/状态。",
+    "IBGP水平分割与RR。",
+    "IBGP下一跳不可达的处理。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 190\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"IBGP与EBGP；IBGP水平分割\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"65.0\" y=\"43.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"110\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R1 AS100</text><rect x=\"255.0\" y=\"43.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R2 AS200</text><rect x=\"445.0\" y=\"43.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"490\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R3 AS200</text><rect x=\"355.0\" y=\"133.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"400\" y=\"155\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R4 AS200</text><line x1=\"155\" y1=\"60\" x2=\"255\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"205.0\" y=\"55.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">EBGP(直连,TTL=1)</text><line x1=\"345\" y1=\"60\" x2=\"445\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"395.0\" y=\"55.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">IBGP</text><line x1=\"320\" y1=\"77\" x2=\"385\" y2=\"133\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"342.5\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">IBGP</text><line x1=\"470\" y1=\"77\" x2=\"415\" y2=\"133\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"442.5\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">?</text><text x=\"300\" y=\"185\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">R2从R1学到的路由发给IBGP邻居R3，R3不会再转给IBGP邻居R4 → 全互联或部署RR</text></svg><figcaption>IBGP与EBGP；IBGP水平分割</figcaption></figure>"
+  }
  },
  {
   "id": "dt-bgp2",
@@ -388,7 +1026,72 @@
    "peer 10.1.1.2 route-policy RP import",
    "peer 10.1.1.2 preferred-value 100"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "同一个目的网段可能从多个邻居学到，BGP像\"按顺序比条件\"的面试：第一项分出高下就录用，平了才比下一项。考试最爱考前几项和每个属性\"大好还是小好\"。",
+   "steps": [
+    "先排除下一跳不可达的路由。",
+    "比Preferred-Value（华为私有，只在本机有效，大优）。",
+    "比Local_Preference（AS内传递，大优，缺省100）。",
+    "本地始发的路由优先（network/import/聚合）。",
+    "比AS_PATH长度（短优）。",
+    "比Origin（IGP > EGP > Incomplete）。",
+    "比MED（小优，默认只比来自同一相邻AS的）。",
+    "EBGP路由优于IBGP；再比到下一跳的IGP开销；再比Cluster_List、Router ID等。"
+   ],
+   "table": {
+    "head": [
+     "属性",
+     "类别",
+     "优选",
+     "传播范围"
+    ],
+    "rows": [
+     [
+      "Preferred-Value",
+      "华为私有",
+      "大",
+      "本设备"
+     ],
+     [
+      "Local_Pref",
+      "公认任意",
+      "大",
+      "本AS内"
+     ],
+     [
+      "AS_PATH",
+      "公认必遵",
+      "短",
+      "全局"
+     ],
+     [
+      "Origin",
+      "公认必遵",
+      "IGP>EGP>?",
+      "全局"
+     ],
+     [
+      "MED",
+      "可选非过渡",
+      "小",
+      "相邻AS"
+     ],
+     [
+      "Community",
+      "可选过渡",
+      "—",
+      "打标签"
+     ]
+    ]
+   },
+   "example": "# 让AS内路由器优选经R2出去的路径\n[R2] route-policy LP permit node 10\n[R2-route-policy] apply local-preference 200\n[R2] bgp 100\n[R2-bgp] peer 10.2.2.2 route-policy LP import\n# 让外部AS从R3进来：向邻居出方向调小MED\n[R3] route-policy MED permit node 10\n[R3-route-policy] apply cost 10\n[R3-bgp] peer 10.3.3.3 route-policy MED export",
+   "exam": [
+    "给场景问\"哪些方法能改变选路\"（真题多选）。",
+    "属性传播范围（Local_Pref不跨AS）。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 760 80\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"华为BGP选路顺序（前7步最常考）\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"10.0\" y=\"20.0\" width=\"91.71428571428571\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"55.857142857142854\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PrefVal 大</text><line x1=\"101.71428571428571\" y1=\"40\" x2=\"113.71428571428571\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"115.7142857142857\" y=\"20.0\" width=\"91.71428571428571\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"161.57142857142856\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">LocalPref 大</text><line x1=\"207.42857142857142\" y1=\"40\" x2=\"219.42857142857142\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"221.42857142857142\" y=\"20.0\" width=\"91.71428571428571\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"267.2857142857143\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">本地始发</text><line x1=\"313.1428571428571\" y1=\"40\" x2=\"325.1428571428571\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"327.1428571428571\" y=\"20.0\" width=\"91.71428571428571\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"372.99999999999994\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AS_PATH 短</text><line x1=\"418.8571428571428\" y1=\"40\" x2=\"430.8571428571428\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"432.85714285714283\" y=\"20.0\" width=\"91.71428571428571\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"478.71428571428567\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Origin I>E>?</text><line x1=\"524.5714285714286\" y1=\"40\" x2=\"536.5714285714286\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"538.5714285714286\" y=\"20.0\" width=\"91.71428571428571\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"584.4285714285714\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">MED 小</text><line x1=\"630.2857142857143\" y1=\"40\" x2=\"642.2857142857143\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><rect x=\"644.2857142857142\" y=\"20.0\" width=\"91.71428571428571\" height=\"40\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"690.1428571428571\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">EBGP>IBGP</text></svg><figcaption>华为BGP选路顺序（前7步最常考）</figcaption></figure>"
+  }
  },
  {
   "id": "dt-policy",
@@ -418,7 +1121,50 @@
    "filter-policy ip-prefix PL import",
    "display ip ip-prefix"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "路由策略=先\"挑\"(匹配)再\"处理\"(允许/拒绝/改属性)。挑的工具里，前缀列表(ip-prefix)最精确，能同时匹配网络号和掩码长度。",
+   "steps": [
+    "确定基准：前N位（掩码长度）必须和给定网络相同。",
+    "确定掩码范围：不写ge/le→只匹配掩码=N；写了→掩码在[ge, le]之间（要求 N ≤ ge ≤ le ≤ 32）。",
+    "计数：掩码m时可匹配2^(m−N)条，各m相加。",
+    "route-policy按node号顺序：命中node后，permit则执行apply，deny则拒绝；都不命中则拒绝。"
+   ],
+   "table": {
+    "head": [
+     "写法",
+     "匹配"
+    ],
+    "rows": [
+     [
+      "10.0.0.0 8",
+      "只有10.0.0.0/8"
+     ],
+     [
+      "10.0.0.0 8 le 32",
+      "10开头的所有路由"
+     ],
+     [
+      "0.0.0.0 0 le 32",
+      "所有路由"
+     ],
+     [
+      "0.0.0.0 0",
+      "只有默认路由"
+     ],
+     [
+      "172.16.16.0 20 ge 21 le 24",
+      "2+4+8+16=30条"
+     ]
+    ]
+   },
+   "example": "[R1] ip ip-prefix DENY24 index 10 permit 192.168.0.0 16 greater-equal 24 less-equal 24\n[R1] route-policy RP deny node 10\n[R1-route-policy] if-match ip-prefix DENY24\n[R1] route-policy RP permit node 20      # 放行其余，否则全部被拒\n[R1] ospf 1\n[R1-ospf-1] import-route static route-policy RP",
+   "exam": [
+    "ip-prefix能匹配多少条路由的计算题（真题）。",
+    "route-policy隐含拒绝。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dt-vrrp",
@@ -447,7 +1193,52 @@
    "vrrp vrid 1 track interface GigabitEthernet0/0/1 reduced 30",
    "display vrrp brief"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "PC只能写一个网关，网关坏了全员断网。VRRP让两台路由器\"合伙\"用一个虚拟IP和虚拟MAC，平时Master干活，Backup盯着；Master停止发通告，Backup就接管，PC完全无感知。",
+   "steps": [
+    "同一VRID的路由器互发VRRP通告，比较优先级，高者成为Master（相同比接口IP，大者优）。",
+    "Master回应虚拟IP的ARP（用虚拟MAC），转发流量；每1秒发通告。",
+    "Backup在约3倍通告间隔内没收到通告 → 切换为Master，发免费ARP刷新交换机MAC表。",
+    "原Master恢复：抢占模式下（华为缺省）重新抢回，可设抢占延时；非抢占则不抢。",
+    "上行接口故障：track监视上行接口，降低优先级，使Backup接管。"
+   ],
+   "table": {
+    "head": [
+     "参数",
+     "缺省/取值"
+    ],
+    "rows": [
+     [
+      "优先级",
+      "100（1–254可配，255给IP拥有者，0表示放弃）"
+     ],
+     [
+      "通告间隔",
+      "1秒"
+     ],
+     [
+      "抢占",
+      "开启，延时0"
+     ],
+     [
+      "虚拟MAC",
+      "0000-5E00-01{VRID}"
+     ],
+     [
+      "报文",
+      "IP协议号112，组播224.0.0.18"
+     ]
+    ]
+   },
+   "example": "[R1] interface GigabitEthernet0/0/1\n[R1-GigabitEthernet0/0/1] ip address 10.1.1.1 24\n[R1-GigabitEthernet0/0/1] vrrp vrid 1 virtual-ip 10.1.1.254\n[R1-GigabitEthernet0/0/1] vrrp vrid 1 priority 120\n[R1-GigabitEthernet0/0/1] vrrp vrid 1 preempt-mode timer delay 20\n[R1-GigabitEthernet0/0/1] vrrp vrid 1 track interface GigabitEthernet0/0/2 reduced 30\n[R2] interface GigabitEthernet0/0/1\n[R2-GigabitEthernet0/0/1] ip address 10.1.1.2 24\n[R2-GigabitEthernet0/0/1] vrrp vrid 1 virtual-ip 10.1.1.254\n[R1] display vrrp brief",
+   "exam": [
+    "抢占/非抢占场景题（真题）。",
+    "虚拟MAC计算、优先级取值。",
+    "联动上行接口。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 560 230\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"VRRP：两台网关虚拟成一台 10.1.1.254\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"225.0\" y=\"13.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"280\" y=\"35\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">核心/上行</text><rect x=\"105.0\" y=\"93.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"160\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R1 Master</text><text x=\"160\" y=\"122\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">优先级120</text><rect x=\"345.0\" y=\"93.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"400\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">R2 Backup</text><text x=\"400\" y=\"122\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">优先级100</text><line x1=\"160\" y1=\"93\" x2=\"250\" y2=\"47\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"400\" y1=\"93\" x2=\"310\" y2=\"47\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"215\" y1=\"110\" x2=\"345\" y2=\"110\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"280.0\" y=\"105.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">VRRP通告 224.0.0.18 每1秒</text><rect x=\"195.0\" y=\"183.0\" width=\"170\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"280\" y=\"205\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PC 网关=10.1.1.254</text><line x1=\"280\" y1=\"183\" x2=\"160\" y2=\"127\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"280\" y1=\"183\" x2=\"400\" y2=\"127\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"280\" y=\"160\" text-anchor=\"middle\" font-size=\"11\" fill=\"#c7000b\">R1故障 → R2收不到通告(3倍间隔+偏移) → R2成为Master，发免费ARP</text></svg><figcaption>VRRP：两台网关虚拟成一台 10.1.1.254</figcaption></figure>"
+  }
  },
  {
   "id": "dt-acl",
@@ -463,7 +1254,7 @@
    "基本ACL建议靠近目的端部署，高级ACL建议靠近源端部署。"
   ],
   "pitfalls": [
-   "traffic-filter中报文未匹配任何规则时默认放行（华为AR/S常见行为）；但在不同业务模块中\"未匹配\"的处理不同，待核实具体机型。",
+   "已核实：接口traffic-filter引用ACL时，未匹配任何规则的报文缺省放行（华为与思科相反）；想\"只放行指定流量\"要在末尾加 rule deny ip。出处：华为AR300/AR700 V300R022 配置指南《ACL应用模块的ACL默认动作和处理机制》。注意Telnet/VTY等其他模块的缺省动作不同，以该文档的表格为准。",
    "rule编号顺序比配置先后更重要。"
   ],
   "commands": [
@@ -474,7 +1265,53 @@
    "traffic-filter inbound acl 3000",
    "display acl 3000"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "ACL是一张\"条件清单\"，本身不做事，被谁调用就为谁服务：接口过滤（traffic-filter）用它决定放行/丢弃，NAT用它选哪些地址要转换，路由策略用它挑路由。",
+   "steps": [
+    "确定要匹配什么：只看源IP用基本ACL；还要看目的、协议、端口用高级ACL。",
+    "写规则：rule编号 permit/deny 条件（地址用通配符）。",
+    "按编号从小到大匹配，命中即停。",
+    "应用：接口下 traffic-filter inbound/outbound acl N。",
+    "traffic-filter缺省放行未匹配报文 → 想白名单要在最后加 rule deny ip。"
+   ],
+   "table": {
+    "head": [
+     "类型",
+     "编号",
+     "可匹配"
+    ],
+    "rows": [
+     [
+      "基本ACL",
+      "2000–2999",
+      "源IP"
+     ],
+     [
+      "高级ACL",
+      "3000–3999",
+      "源/目的IP、协议、端口、TCP标志等"
+     ],
+     [
+      "二层ACL",
+      "4000–4999",
+      "MAC、VLAN、以太类型"
+     ],
+     [
+      "用户ACL",
+      "6000–6999",
+      "UCL组等"
+     ]
+    ]
+   },
+   "example": "# 禁止192.168.1.0/24访问服务器10.1.1.10的Web，其他放行\n[R1] acl 3000\n[R1-acl-adv-3000] rule 5 deny tcp source 192.168.1.0 0.0.0.255 destination 10.1.1.10 0 destination-port eq 80\n[R1] interface GigabitEthernet0/0/0\n[R1-GigabitEthernet0/0/0] traffic-filter inbound acl 3000\n# 未匹配的报文缺省放行，因此不需要rule permit ip",
+   "exam": [
+    "编号范围、通配符含义。",
+    "按顺序匹配的结果判断。",
+    "华为traffic-filter缺省动作（已核实：permit）。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dt-nat",
@@ -504,7 +1341,58 @@
    "nat server protocol tcp global 202.1.1.1 www inside 192.168.1.10 www",
    "display nat session all"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "公网IPv4地址很少，公司内部用私网地址。NAT在出口把\"内部地址\"换成\"公网地址\"，并把对应关系记在NAT表里，回来的报文再换回去。NAPT连端口一起换，一个公网IP就能让上千台电脑上网。",
+   "steps": [
+    "内网报文到达出口，匹配ACL确定需要转换。",
+    "从地址池（或出接口地址）选公网IP，NAPT还分配一个新的源端口。",
+    "记录NAT表项：私网IP:端口 ↔ 公网IP:端口。",
+    "回程报文查NAT表还原目的地址和端口，转发给内网主机。",
+    "NAT Server反过来：外网访问公网IP:端口时，静态映射到内网服务器。"
+   ],
+   "table": {
+    "head": [
+     "方式",
+     "转换内容",
+     "特点"
+    ],
+    "rows": [
+     [
+      "静态NAT",
+      "一对一地址",
+      "固定"
+     ],
+     [
+      "动态NAT(No-PAT)",
+      "地址池一对一",
+      "不转端口，公网地址用完即不能上网"
+     ],
+     [
+      "NAPT",
+      "地址+端口",
+      "多对一"
+     ],
+     [
+      "Easy IP",
+      "出接口地址+端口",
+      "拨号/动态公网IP"
+     ],
+     [
+      "NAT Server",
+      "公网IP:端口→内网服务器",
+      "外网主动访问内网"
+     ]
+    ]
+   },
+   "example": "[R1] acl 2000\n[R1-acl-basic-2000] rule 5 permit source 192.168.1.0 0.0.0.255\n[R1] interface GigabitEthernet0/0/1\n[R1-GigabitEthernet0/0/1] nat outbound 2000          # Easy IP\n[R1-GigabitEthernet0/0/1] nat server protocol tcp global current-interface 8080 inside 192.168.1.10 80\n[R1] display nat session all",
+   "exam": [
+    "根据场景选NAT方式。",
+    "no-pat含义。",
+    "NAT Server用途。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 170\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"NAPT：私网地址+端口 换成 公网地址+端口\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"15.0\" y=\"63.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"80\" y=\"85\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PC 192.168.1.10</text><rect x=\"240.0\" y=\"63.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"78\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">出口路由器</text><text x=\"300\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">NAT表</text><rect x=\"455.0\" y=\"63.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"520\" y=\"85\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Internet服务器</text><line x1=\"145\" y1=\"80\" x2=\"240\" y2=\"80\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"360\" y1=\"80\" x2=\"455\" y2=\"80\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"190\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">源 192.168.1.10:3000</text><text x=\"410\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">源 202.1.1.1:10001</text><text x=\"300\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#c7000b\">回程：202.1.1.1:10001 → 查NAT表 → 192.168.1.10:3000</text></svg><figcaption>NAPT：私网地址+端口 换成 公网地址+端口</figcaption></figure>"
+  }
  },
  {
   "id": "dt-dhcp",
@@ -537,7 +1425,63 @@
    "dhcp relay server-ip 10.1.1.1",
    "display ip pool"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "新电脑接入网络什么都不知道，DHCP像前台：\"你好，我需要一个地址\"(Discover) → \"给你这个可以吗\"(Offer) → \"好，就要这个\"(Request) → \"登记好了，租期1天\"(ACK)。",
+   "steps": [
+    "客户端广播Discover（源IP 0.0.0.0，目的255.255.255.255）。",
+    "服务器从地址池挑一个地址，Offer给客户端（多台服务器都会回）。",
+    "客户端选第一个Offer，广播Request（让其他服务器知道没选它们）。",
+    "服务器回ACK，客户端可做免费ARP检测冲突，冲突则发Decline。",
+    "租期50%单播续约，87.5%广播续约，到期释放。跨网段由中继(dhcp select relay)转发。"
+   ],
+   "table": {
+    "head": [
+     "报文",
+     "方向",
+     "作用"
+    ],
+    "rows": [
+     [
+      "Discover",
+      "C→S广播",
+      "寻找服务器"
+     ],
+     [
+      "Offer",
+      "S→C",
+      "提供地址"
+     ],
+     [
+      "Request",
+      "C→S",
+      "请求/续约"
+     ],
+     [
+      "ACK/NAK",
+      "S→C",
+      "确认/拒绝"
+     ],
+     [
+      "Release",
+      "C→S",
+      "释放"
+     ],
+     [
+      "Decline",
+      "C→S",
+      "地址冲突"
+     ]
+    ]
+   },
+   "example": "[SW1] dhcp enable\n[SW1] ip pool vlan10\n[SW1-ip-pool-vlan10] network 192.168.10.0 mask 24\n[SW1-ip-pool-vlan10] gateway-list 192.168.10.254\n[SW1-ip-pool-vlan10] dns-list 114.114.114.114\n[SW1-ip-pool-vlan10] excluded-ip-address 192.168.10.200 192.168.10.253\n[SW1] interface Vlanif10\n[SW1-Vlanif10] dhcp select global\n# 中继：\n[SW2-Vlanif20] dhcp select relay\n[SW2-Vlanif20] dhcp relay server-ip 10.1.1.1",
+   "exam": [
+    "四步报文顺序、端口号。",
+    "续约时间点。",
+    "中继场景、Option 43（WLAN）。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 520 210\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"DHCP获取地址四步（前期为广播）\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"25.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">客户端 UDP68</text><rect x=\"365.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">服务器 UDP67</text><line x1=\"90\" y1=\"40\" x2=\"90\" y2=\"205\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"430\" y1=\"40\" x2=\"430\" y2=\"205\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"90\" y1=\"62\" x2=\"426\" y2=\"62\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"57.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">① Discover 广播找服务器</text><line x1=\"430\" y1=\"92\" x2=\"94\" y2=\"92\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"87.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">② Offer 提供地址</text><line x1=\"90\" y1=\"122\" x2=\"426\" y2=\"122\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"117.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">③ Request 请求使用</text><line x1=\"430\" y1=\"152\" x2=\"94\" y2=\"152\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"147.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">④ ACK 确认，开始计租期</text><line x1=\"90\" y1=\"182\" x2=\"426\" y2=\"182\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"177.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">50%租期 单播Request续约</text></svg><figcaption>DHCP获取地址四步（前期为广播）</figcaption></figure>"
+  }
  },
  {
   "id": "dt-ipv6",
@@ -569,7 +1513,64 @@
    "ospfv3 1",
    "router-id 1.1.1.1"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "IPv6把地址从32位扩到128位，多到可以给地球上每粒沙子分地址。它取消了广播，用组播和ND协议来做ARP、发现网关和自动配置；主机可以只靠路由器的RA自己\"拼\"出地址（SLAAC）。",
+   "steps": [
+    "接口启用IPv6后自动生成链路本地地址FE80::/64+接口ID。",
+    "做DAD：发NS询问该地址是否被占用。",
+    "发RS请求前缀，路由器回RA（含前缀、是否用DHCPv6的M/O标志）。",
+    "用前缀+接口ID（EUI-64或随机）生成全球单播地址。",
+    "通信时用NS/NA解析邻居链路层地址。"
+   ],
+   "table": {
+    "head": [
+     "类型",
+     "前缀",
+     "说明"
+    ],
+    "rows": [
+     [
+      "全球单播GUA",
+      "2000::/3",
+      "公网"
+     ],
+     [
+      "链路本地LLA",
+      "FE80::/10",
+      "只在本链路，路由协议下一跳常用"
+     ],
+     [
+      "唯一本地ULA",
+      "FC00::/7",
+      "类似私网"
+     ],
+     [
+      "组播",
+      "FF00::/8",
+      "FF02::1所有节点、FF02::2所有路由器"
+     ],
+     [
+      "环回",
+      "::1/128",
+      "—"
+     ],
+     [
+      "未指定",
+      "::/128",
+      "—"
+     ]
+    ]
+   },
+   "example": "[R1] ipv6\n[R1] interface GigabitEthernet0/0/1\n[R1-GigabitEthernet0/0/1] ipv6 enable\n[R1-GigabitEthernet0/0/1] ipv6 address 2001:DB8:1::1 64\n[R1-GigabitEthernet0/0/1] undo ipv6 nd ra halt     # 允许发RA\n[R1] ospfv3 1\n[R1-ospfv3-1] router-id 1.1.1.1\n[R1-GigabitEthernet0/0/1] ospfv3 1 area 0\n[R1] display ipv6 interface brief",
+   "exam": [
+    "地址缩写合法性判断。",
+    "地址类型前缀。",
+    "ICMPv6报文类型号及作用。",
+    "EUI-64计算。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 520 210\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"IPv6 NDP：地址解析与无状态自动配置\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"25.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">主机</text><rect x=\"365.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">路由器/邻居</text><line x1=\"90\" y1=\"40\" x2=\"90\" y2=\"205\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"430\" y1=\"40\" x2=\"430\" y2=\"205\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"90\" y1=\"62\" x2=\"426\" y2=\"62\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"57.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">RS(133) 请求前缀</text><line x1=\"430\" y1=\"92\" x2=\"94\" y2=\"92\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"87.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">RA(134) 通告前缀2001:db8:1::/64</text><line x1=\"90\" y1=\"122\" x2=\"426\" y2=\"122\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"117.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">NS(135) DAD：这个地址有人用吗?</text><line x1=\"90\" y1=\"152\" x2=\"426\" y2=\"152\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"147.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">NS(135) 解析邻居MAC(组播)</text><line x1=\"430\" y1=\"182\" x2=\"94\" y2=\"182\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"177.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">NA(136) 回复MAC</text></svg><figcaption>IPv6 NDP：地址解析与无状态自动配置</figcaption></figure>"
+  }
  },
  {
   "id": "dt-mplsvpn",
@@ -605,7 +1606,52 @@
    "peer 3.3.3.3 enable",
    "display ip routing-table vpn-instance VPNA"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "运营商要给很多企业建\"专线\"，不同企业的私网地址可能都用10.0.0.0，混在一起会冲突。MPLS VPN在PE上给每家企业一张独立路由表(VRF)；路由在运营商网络里传播时，前面加上RD变得独一无二，再贴上RT\"收件标签\"决定被哪家企业的VRF接收；转发时用两层标签，外层负责在运营商网里送到对端PE，内层告诉PE交给哪个VRF。",
+   "steps": [
+    "CE把路由通过静态/OSPF/BGP给PE，PE存进对应VRF。",
+    "PE给路由加RD变成VPNv4路由，附加export RT和私网标签，通过MP-BGP发给对端PE。",
+    "对端PE检查RT：与本地VRF的import RT匹配才导入。",
+    "PE把路由发给CE2。",
+    "数据转发：PE1压入内层私网标签+外层LDP标签，P只交换外层，PE2（或倒数第二跳弹出外层后）按内层标签找到VRF转发。"
+   ],
+   "table": {
+    "head": [
+     "跨域方案",
+     "ASBR之间",
+     "ASBR上VRF",
+     "扩展性"
+    ],
+    "rows": [
+     [
+      "Option A",
+      "普通IP，互为CE（每VPN一个子接口）",
+      "需要",
+      "差，最简单"
+     ],
+     [
+      "Option B",
+      "MP-EBGP传VPNv4，接口使能MPLS",
+      "不需要（undo policy vpn-target）",
+      "较好"
+     ],
+     [
+      "Option C",
+      "PE之间多跳MP-EBGP传VPNv4",
+      "不需要",
+      "最好，较复杂"
+     ]
+    ]
+   },
+   "example": "[PE1] ip vpn-instance A\n[PE1-vpn-instance-A] ipv4-family\n[PE1-vpn-instance-A-af-ipv4] route-distinguisher 100:1\n[PE1-vpn-instance-A-af-ipv4] vpn-target 100:1 export-extcommunity\n[PE1-vpn-instance-A-af-ipv4] vpn-target 100:1 import-extcommunity\n[PE1] interface GigabitEthernet0/0/2\n[PE1-GigabitEthernet0/0/2] ip binding vpn-instance A\n[PE1-GigabitEthernet0/0/2] ip address 192.168.1.1 24\n[PE1] bgp 100\n[PE1-bgp] peer 3.3.3.3 as-number 100\n[PE1-bgp] peer 3.3.3.3 connect-interface LoopBack0\n[PE1-bgp] ipv4-family vpnv4\n[PE1-bgp-af-vpnv4] peer 3.3.3.3 enable",
+   "exam": [
+    "RD与RT的作用区别（真题必考）。",
+    "跨域Option A/B/C中ASBR要配什么（真题）。",
+    "标签头各字段位数。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 660 190\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"MPLS VPN：CE-PE-P-PE-CE 与两层标签\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"20.0\" y=\"43.0\" width=\"80\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"60\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">CE1</text><rect x=\"135.0\" y=\"43.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"190\" y=\"58\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PE1</text><text x=\"190\" y=\"72\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">VRF A</text><rect x=\"275.0\" y=\"43.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"330\" y=\"58\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"330\" y=\"72\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">只交换外层标签</text><rect x=\"415.0\" y=\"43.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"470\" y=\"58\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">PE2</text><text x=\"470\" y=\"72\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">VRF A</text><rect x=\"560.0\" y=\"43.0\" width=\"80\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"600\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">CE2</text><line x1=\"100\" y1=\"60\" x2=\"135\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"245\" y1=\"60\" x2=\"275\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"385\" y1=\"60\" x2=\"415\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"525\" y1=\"60\" x2=\"560\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"190\" y1=\"100\" x2=\"470\" y2=\"100\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"330.0\" y=\"94.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">MP-BGP 传 VPNv4路由(RD+IPv4) + RT + 私网标签</text><text x=\"330\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">转发：[外层LDP公网标签][内层VPN私网标签][IP报文]</text><text x=\"330\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"#c7000b\">RD：让重叠地址唯一；RT：export/import 决定路由进哪个VRF</text></svg><figcaption>MPLS VPN：CE-PE-P-PE-CE 与两层标签</figcaption></figure>"
+  }
  },
  {
   "id": "dt-ext",
@@ -621,15 +1667,60 @@
   ],
   "pitfalls": [
    "技术栈真题：普通环回口IPv6地址若未配置为SID，不应出现在Segment List中。",
-   "C-RP优先级华为默认值为192（见真题题干），越小越优——待核实各版本。"
+   "已核实：C-RP优先级数值越小越优先；IPv4 C-RP全局缺省优先级在S7700/AC V200R025文档中是0，IPv6 C-RP缺省是192（技术栈真题题干给的是192，以题干为准）。RP竞选顺序：组范围掩码最长 → 优先级 → Hash值大 → C-RP地址大。出处：华为 c-rp priority 命令参考。"
   ],
   "commands": [
    "bfd",
    "display bfd session all"
   ],
-  "todo": [
-   "SRv6、PIM-SM细节仅概念介绍，深入内容以华为官方文档为准"
-  ]
+  "todo": [],
+  "deep": {
+   "intro": "这三个是进阶话题，零基础先抓\"概念+一个结论\"：SRv6=用IPv6地址写路径；组播=一份流量发给一组人；IP FRR=提前算好备胎路径。",
+   "steps": [
+    "SRv6：头节点把路径写成一串SID放进SRH，每到一个节点执行对应指令（End、End.X），SL指针减1。",
+    "PIM-SM：接收者经IGMP加入 → 最后一跳路由器向RP建立共享树(RPT) → 源的第一跳路由器向RP注册 → 可切换到最短路径树(SPT)。",
+    "LFA：对每个目的预先找满足不等式的邻居作为备份下一跳，主链路故障时直接切换，再等IGP收敛。"
+   ],
+   "table": {
+    "head": [
+     "技术",
+     "一句话"
+    ],
+    "rows": [
+     [
+      "SRv6 End SID",
+      "表示节点，执行SL-1并更新目的地址"
+     ],
+     [
+      "End.X SID",
+      "从指定三层链路转发"
+     ],
+     [
+      "Binding SID",
+      "代表一段SR Policy，缩短Segment List"
+     ],
+     [
+      "IGMP",
+      "主机与路由器之间的组成员管理"
+     ],
+     [
+      "PIM-SM",
+      "需RP，适合接收者稀疏"
+     ],
+     [
+      "BFD",
+      "毫秒级检测故障"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "Segment List里能放什么（真题）。",
+    "RP选举规则（真题：组范围掩码最长 → 优先级小 → Hash大 → 地址大）。",
+    "LFA不等式计算（真题）。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dc-arch",
@@ -649,7 +1740,52 @@
    "传统三层架构(核心-汇聚-接入)更适合南北向流量。"
   ],
   "commands": [],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "数据中心里服务器之间的\"东西向\"流量远大于进出外网的\"南北向\"流量。传统三层树形（接入-汇聚-核心）靠STP阻塞链路，路径长又浪费带宽；Spine-Leaf是扁平的两层结构，每台Leaf连所有Spine，任何两台服务器之间跳数相同，链路全部用ECMP负载分担，要扩容就加Spine或Leaf。",
+   "steps": [
+    "Leaf（叶）：接服务器、防火墙、出口，是VTEP所在。",
+    "Spine（脊）：只负责高速转发，彼此不相连。",
+    "Underlay：用OSPF/BGP打通所有设备的环回口（三层网络，无STP）。",
+    "Overlay：在Underlay上用VXLAN建虚拟二层网络，给虚拟机迁移用。",
+    "Border Leaf：连接外网/防火墙的Leaf。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "传统三层架构",
+     "Spine-Leaf"
+    ],
+    "rows": [
+     [
+      "主要流量",
+      "南北向",
+      "东西向"
+     ],
+     [
+      "环路处理",
+      "STP阻塞",
+      "三层路由+ECMP"
+     ],
+     [
+      "跳数",
+      "不固定",
+      "固定（Leaf-Spine-Leaf）"
+     ],
+     [
+      "扩展",
+      "纵向升级核心",
+      "横向加设备"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "Spine-Leaf特点判断题。",
+    "Underlay/Overlay概念区分。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 190\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Spine-Leaf：任意两台Leaf之间都是\"Leaf-Spine-Leaf\"两跳\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"160.0\" y=\"18.0\" width=\"80\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"200\" y=\"40\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Spine</text><rect x=\"360.0\" y=\"18.0\" width=\"80\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"400\" y=\"40\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Spine</text><rect x=\"55.0\" y=\"103.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"125\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf</text><rect x=\"195.0\" y=\"103.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"230\" y=\"125\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf</text><rect x=\"335.0\" y=\"103.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"370\" y=\"125\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf</text><rect x=\"475.0\" y=\"103.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"510\" y=\"125\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf</text><line x1=\"200\" y1=\"52\" x2=\"90\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><line x1=\"200\" y1=\"52\" x2=\"230\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><line x1=\"200\" y1=\"52\" x2=\"370\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><line x1=\"200\" y1=\"52\" x2=\"510\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><line x1=\"400\" y1=\"52\" x2=\"90\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><line x1=\"400\" y1=\"52\" x2=\"230\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><line x1=\"400\" y1=\"52\" x2=\"370\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><line x1=\"400\" y1=\"52\" x2=\"510\" y2=\"103\" stroke=\"#bbb\" stroke-width=\"2\"/><rect x=\"55.0\" y=\"157.0\" width=\"70\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">服务器</text><line x1=\"90\" y1=\"137\" x2=\"90\" y2=\"157\" stroke=\"#888\" stroke-width=\"2\"/><rect x=\"195.0\" y=\"157.0\" width=\"70\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"230\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">服务器</text><line x1=\"230\" y1=\"137\" x2=\"230\" y2=\"157\" stroke=\"#888\" stroke-width=\"2\"/><rect x=\"335.0\" y=\"157.0\" width=\"70\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"370\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">服务器</text><line x1=\"370\" y1=\"137\" x2=\"370\" y2=\"157\" stroke=\"#888\" stroke-width=\"2\"/><rect x=\"475.0\" y=\"157.0\" width=\"70\" height=\"26\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"510\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">服务器</text><line x1=\"510\" y1=\"137\" x2=\"510\" y2=\"157\" stroke=\"#888\" stroke-width=\"2\"/></svg><figcaption>Spine-Leaf：任意两台Leaf之间都是\"Leaf-Spine-Leaf\"两跳</figcaption></figure>"
+  }
  },
  {
   "id": "dc-vxlan",
@@ -684,7 +1820,57 @@
    "display vxlan tunnel",
    "display vxlan vni"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "虚拟机迁移要求\"IP不变\"，也就是要一个很大的二层网络；但大二层有环路、VLAN只有4094个不够租户用。VXLAN的办法：底下用三层IP网络（稳定无环），把二层帧装进UDP里\"隧道\"传过去，用24位VNI区分约1600万个网段。",
+   "steps": [
+    "VM发出以太帧到Leaf（VTEP），Leaf根据接入的VLAN/接口映射到BD和VNI。",
+    "VTEP查MAC表得知目的VM在远端VTEP2。",
+    "封装：原始帧 + VXLAN头(VNI) + UDP(目的端口4789) + 外层IP(源VTEP1→目的VTEP2) + 外层MAC。",
+    "Underlay按外层IP路由转发到VTEP2。",
+    "VTEP2解封装，按VNI找到BD，转发给VM2。",
+    "BUM流量：头端复制（发给VNI内所有VTEP）或组播。"
+   ],
+   "table": {
+    "head": [
+     "概念",
+     "说明"
+    ],
+    "rows": [
+     [
+      "VTEP",
+      "VXLAN隧道端点，封装/解封装"
+     ],
+     [
+      "VNI",
+      "24位网段标识，类似VLAN ID"
+     ],
+     [
+      "BD",
+      "桥域，二层广播域，与VNI一一映射"
+     ],
+     [
+      "VBDIF",
+      "BD的三层接口，作分布式网关"
+     ],
+     [
+      "UDP 4789",
+      "VXLAN目的端口"
+     ],
+     [
+      "额外开销",
+      "约50字节，Underlay MTU需调大"
+     ]
+    ]
+   },
+   "example": "[Leaf1] bridge-domain 10\n[Leaf1-bd10] vxlan vni 5010\n[Leaf1] interface 10GE1/0/1.10 mode l2\n[Leaf1-10GE1/0/1.10] encapsulation dot1q vid 10\n[Leaf1-10GE1/0/1.10] bridge-domain 10\n[Leaf1] interface Nve1\n[Leaf1-Nve1] source 1.1.1.1\n[Leaf1-Nve1] vni 5010 head-end peer-list 2.2.2.2   # 静态方式\n[Leaf1] display vxlan tunnel",
+   "exam": [
+    "VNI位数、UDP端口。",
+    "VXLAN封装顺序。",
+    "为什么要调大MTU。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 640 210\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"VXLAN：VTEP把二层帧装进UDP(4789)，穿越三层网络\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"30.0\" y=\"43.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">VM1 10.1.1.1</text><rect x=\"490.0\" y=\"43.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"550\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">VM2 10.1.1.2</text><rect x=\"130.0\" y=\"123.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"190\" y=\"145\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">VTEP1 Leaf1</text><rect x=\"390.0\" y=\"123.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"145\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">VTEP2 Leaf2</text><line x1=\"90\" y1=\"77\" x2=\"170\" y2=\"123\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"550\" y1=\"77\" x2=\"470\" y2=\"123\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"250\" y1=\"140\" x2=\"390\" y2=\"140\" stroke=\"#c7000b\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"320.0\" y=\"135.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">VXLAN隧道 VNI 5010</text><text x=\"320\" y=\"190\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">外层MAC | 外层IP(VTEP间) | UDP 4789 | VXLAN头(VNI 24位) | 原始以太帧</text></svg><figcaption>VXLAN：VTEP把二层帧装进UDP(4789)，穿越三层网络</figcaption></figure>"
+  }
  },
  {
   "id": "dc-evpn",
@@ -715,7 +1901,54 @@
    "peer 2.2.2.2 enable",
    "display bgp evpn all routing-table"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "静态VXLAN要手工写每个对端，几十台Leaf就配不过来了。BGP EVPN让VTEP之间用BGP\"广播\"自己有哪些MAC/IP、属于哪些VNI，隧道和转发表都自动建立，还能减少ARP泛洪。",
+   "steps": [
+    "Underlay打通各VTEP环回口。",
+    "Leaf与Spine建IBGP EVPN邻居（Spine作RR）。",
+    "每个BD配置RD/RT（EVPN实例）。",
+    "3类路由（Inclusive Multicast）：通告\"我在这个VNI里\"→ 自动建隧道、生成BUM头端复制列表。",
+    "2类路由：VM上线后通告MAC/IP → 远端VTEP直接学习。",
+    "5类路由：通告IP前缀（如外部路由、网段路由）。",
+    "分布式网关：每个Leaf都有相同的VBDIF网关IP和MAC，三层转发用L3 VNI。"
+   ],
+   "table": {
+    "head": [
+     "EVPN路由",
+     "名称",
+     "用途"
+    ],
+    "rows": [
+     [
+      "Type 2",
+      "MAC/IP Advertisement",
+      "主机MAC、IP（ARP）"
+     ],
+     [
+      "Type 3",
+      "Inclusive Multicast",
+      "建隧道、BUM复制"
+     ],
+     [
+      "Type 5",
+      "IP Prefix",
+      "网段路由"
+     ],
+     [
+      "Type 1/4",
+      "Ethernet A-D / ES",
+      "多活接入（ESI）"
+     ]
+    ]
+   },
+   "example": "[Leaf1] evpn-overlay enable\n[Leaf1] bridge-domain 10\n[Leaf1-bd10] vxlan vni 5010\n[Leaf1-bd10] evpn\n[Leaf1-bd10-evpn] route-distinguisher 10:1\n[Leaf1-bd10-evpn] vpn-target 10:1\n[Leaf1] interface Nve1\n[Leaf1-Nve1] source 1.1.1.1\n[Leaf1-Nve1] vni 5010 head-end peer-list protocol bgp\n[Leaf1] bgp 100\n[Leaf1-bgp] peer 3.3.3.3 as-number 100\n[Leaf1-bgp] l2vpn-family evpn\n[Leaf1-bgp-af-evpn] peer 3.3.3.3 enable",
+   "exam": [
+    "各类EVPN路由作用。",
+    "分布式网关的好处。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 170\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"BGP EVPN：用BGP在VTEP之间自动学习MAC/IP、建隧道\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"245.0\" y=\"23.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Spine (RR)</text><rect x=\"75.0\" y=\"113.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"130\" y=\"135\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf1 VTEP</text><rect x=\"415.0\" y=\"113.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"470\" y=\"135\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf2 VTEP</text><line x1=\"160\" y1=\"113\" x2=\"270\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"185.0\" y=\"80.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">IBGP EVPN</text><line x1=\"440\" y1=\"113\" x2=\"330\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"185\" y1=\"130\" x2=\"415\" y2=\"130\" stroke=\"#c7000b\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"300.0\" y=\"125.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">VXLAN隧道(由3类路由自动建立)</text><text x=\"300\" y=\"165\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">2类=MAC/IP  3类=建隧道/BUM复制列表  5类=IP前缀</text></svg><figcaption>BGP EVPN：用BGP在VTEP之间自动学习MAC/IP、建隧道</figcaption></figure>"
+  }
  },
  {
   "id": "dc-mlag",
@@ -732,7 +1965,7 @@
   ],
   "pitfalls": [
    "真题：说\"M-LAG成员链路可以是物理链路\"是错误的。",
-   "Peer-link故障且双主检测成功时，备设备会把除管理口和peer-link外的接口置为Error-Down（待核实具体机型行为）。"
+   "已核实：peer-link故障但双主检测心跳正常时，状态为备的设备会把除管理口、peer-link口、堆叠口等之外的业务接口置为Error-Down，防止双主；可用 m-lag unpaired-port reserved 保留指定接口。出处：CloudEngine V200R023C00 配置指南《M-LAG故障场景流量转发》。"
   ],
   "commands": [
    "dfs-group 1",
@@ -744,7 +1977,52 @@
    "dfs-group 1 m-lag 1",
    "display dfs-group 1 m-lag"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "服务器双网卡想同时连两台Leaf并且两条链路都用上，普通链路聚合要求对端是同一台设备。M-LAG让两台Leaf通过peer-link同步状态，对服务器表现得像一台设备，任何一台坏了另一台继续工作；与堆叠不同，两台设备控制面独立，可以分别升级。",
+   "steps": [
+    "两台设备配置相同的DFS Group，通过心跳链路协商主备（优先级）。",
+    "建立peer-link（一般是Eth-Trunk），同步MAC/ARP表，并在故障时转发流量。",
+    "双方把连接服务器的Eth-Trunk配置相同的m-lag ID。",
+    "正常时流量各走本地成员口；peer-link上一般只过少量流量。",
+    "peer-link故障而心跳正常：备设备把除peer-link、管理口等之外的业务口Error-Down，避免双主（已核实）。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "iStack/CSS堆叠",
+     "M-LAG"
+    ],
+    "rows": [
+     [
+      "控制面",
+      "合一",
+      "独立"
+     ],
+     [
+      "升级",
+      "整体，影响大",
+      "可逐台升级"
+     ],
+     [
+      "配置",
+      "一份",
+      "两台各自配置并保持一致"
+     ],
+     [
+      "可靠性",
+      "软件故障影响全部",
+      "故障隔离更好"
+     ]
+    ]
+   },
+   "example": "[LeafA] dfs-group 1\n[LeafA-dfs-group-1] source ip 10.1.1.1\n[LeafA-dfs-group-1] priority 150\n[LeafA] interface Eth-Trunk0\n[LeafA-Eth-Trunk0] trunkport 10GE1/0/47 to 1/0/48\n[LeafA-Eth-Trunk0] peer-link 1\n[LeafA] interface Eth-Trunk10\n[LeafA-Eth-Trunk10] mode lacp-static\n[LeafA-Eth-Trunk10] dfs-group 1 m-lag 1\n[LeafA] display dfs-group 1 m-lag",
+   "exam": [
+    "peer-link与心跳故障场景（已核实）。",
+    "M-LAG与堆叠对比。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"M-LAG：两台设备对下\"假装\"成一台\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"120.0\" y=\"33.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"170\" y=\"55\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf-A</text><rect x=\"380.0\" y=\"33.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"55\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Leaf-B</text><line x1=\"220\" y1=\"45\" x2=\"380\" y2=\"45\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">peer-link(Eth-Trunk)</text><line x1=\"220\" y1=\"60\" x2=\"380\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"300.0\" y=\"75.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">心跳(管理口/三层)</text><rect x=\"225.0\" y=\"143.0\" width=\"150\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"165\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">服务器(双网卡bond)</text><line x1=\"170\" y1=\"67\" x2=\"260\" y2=\"143\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"185.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">M-LAG成员口</text><line x1=\"430\" y1=\"67\" x2=\"340\" y2=\"143\" stroke=\"#888\" stroke-width=\"2\"/></svg><figcaption>M-LAG：两台设备对下\"假装\"成一台</figcaption></figure>"
+  }
  },
  {
   "id": "dc-stack",
@@ -755,12 +2033,13 @@
   "points": [
    "iStack一般指盒式交换机堆叠；CSS(集群交换机系统)一般指框式交换机集群（具体以产品文档为准）。",
    "堆叠角色：主交换机(Master)、备交换机(Standby)、从交换机(Slave)；只有一个控制平面。",
-   "主交换机选举：比较运行状态、堆叠优先级（越大越优，默认100）、MAC等（待核实顺序细节）。",
+   "主交换机选举（iStack，按顺序比）：①最先完成启动的设备 ②（专用堆叠线缆时）Master端多的 ③堆叠优先级高者（1–255，缺省100）④系统MAC小者。出处：华为S5700/S6700 V600R025 配置指南《堆叠建立》、V200R022《Stack Priority》。",
    "堆叠分裂后可能出现双主，需部署MAD多主检测。",
    "优点：管理简单、可跨设备Eth-Trunk；缺点：控制面单一，整体升级影响大。"
   ],
   "pitfalls": [
-   "堆叠优先级越大越优（与STP桥优先级越小越优相反）。"
+   "堆叠优先级越大越优（与STP桥优先级越小越优相反）。",
+   "修改优先级后会立即生效，但不会抢占当前主交换机；要等主交换机或整个堆叠重启后才重新选举。堆叠ID范围0–8，缺省0。"
   ],
   "commands": [
    "stack slot 0 priority 200",
@@ -769,8 +2048,45 @@
    "display stack"
   ],
   "todo": [
-   "iStack/CSS主交换机选举细节、各型号默认值待核实"
-  ]
+   "框式CSS与盒式iStack的细节差异以具体型号文档为准"
+  ],
+  "deep": {
+   "intro": "把几台交换机\"合体\"成一台：管理上只有一个IP、一份配置；链路上可以跨设备做Eth-Trunk。合体后要选一个\"大脑\"（Master）。",
+   "steps": [
+    "连接堆叠线缆，配置堆叠端口和成员ID（stack slot ... renumber），重启生效。",
+    "选主（已核实）：先启动完成的优先 → 若同时启动，比Master端数量 → 比堆叠优先级（大优，缺省100） → MAC小优。",
+    "选Standby，其余为Slave。",
+    "分配成员编号，Master同步配置给所有成员。",
+    "堆叠分裂：用MAD检测双主，保留一方，另一方端口Error-Down。"
+   ],
+   "table": {
+    "head": [
+     "角色",
+     "作用"
+    ],
+    "rows": [
+     [
+      "Master",
+      "管理整个堆叠"
+     ],
+     [
+      "Standby",
+      "Master的备份"
+     ],
+     [
+      "Slave",
+      "普通成员转发"
+     ]
+    ]
+   },
+   "example": "[SW1] stack slot 0 priority 200\n[SW1] interface stack-port 0/1\n[SW1-stack-port0/1] port interface GigabitEthernet0/0/27 enable\n[SW2] stack slot 0 renumber 1\n<SW1> display stack",
+   "exam": [
+    "选主规则顺序（已核实）。",
+    "优先级修改不会抢占。",
+    "MAD作用。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 560 150\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"iStack：多台交换机用堆叠线连成一台逻辑设备\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"45.0\" y=\"43.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"100\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW1 Master</text><rect x=\"225.0\" y=\"43.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"280\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW2 Standby</text><rect x=\"405.0\" y=\"43.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"460\" y=\"65\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SW3 Slave</text><line x1=\"155\" y1=\"60\" x2=\"225\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"190.0\" y=\"55.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">堆叠线</text><line x1=\"335\" y1=\"60\" x2=\"405\" y2=\"60\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"370.0\" y=\"55.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">堆叠线</text><text x=\"280\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">一个管理IP、一份配置；Master故障时Standby接替</text></svg><figcaption>iStack：多台交换机用堆叠线连成一台逻辑设备</figcaption></figure>"
+  }
  },
  {
   "id": "dc-ecmp",
@@ -794,7 +2110,40 @@
    "bgp 100",
    "maximum load-balancing 8"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "到同一目的有多条开销相同的路径时，路由器把流量分散到多条路径上，就是ECMP。为了不打乱同一个连接的报文顺序，一般按\"流\"做哈希：同一个五元组永远走同一条链路。",
+   "steps": [
+    "路由协议算出多条等价路由，全部装进路由表（受最大等价条数限制）。",
+    "对每个报文计算哈希（源/目IP、协议、源/目端口）。",
+    "哈希值决定出接口；同一流始终走同一路径。"
+   ],
+   "table": {
+    "head": [
+     "方式",
+     "优点",
+     "缺点"
+    ],
+    "rows": [
+     [
+      "逐流",
+      "不乱序",
+      "流量大小不均时可能不均衡"
+     ],
+     [
+      "逐包",
+      "最均衡",
+      "可能乱序"
+     ]
+    ]
+   },
+   "example": "[R1] ospf 1\n[R1-ospf-1] maximum load-balancing 8\n[R1] display ip routing-table 10.1.1.0",
+   "exam": [
+    "ECMP要求开销完全相同。",
+    "逐流与逐包对比。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "dc-lossless",
@@ -813,13 +2162,60 @@
    "技术栈真题：PFC反压基于PFC帧，与ECN无关；\"暂停所有优先级\"的说法是错的。"
   ],
   "commands": [
-   "（以CE交换机产品文档为准）dcb pfc",
+   "dcb pfc",
+   "priority 3",
+   "quit",
    "interface 100GE1/0/1",
-   "dcb pfc enable mode manual"
+   "dcb pfc enable mode manual",
+   "commit"
   ],
   "todo": [
-   "PFC具体配置命令随CE软件版本不同，待核实"
-  ]
+   "命令已按CloudEngine V200R024 配置指南《使能PFC优先级流量控制》核对；其他版本的语法可能不同"
+  ],
+  "deep": {
+   "intro": "AI训练、分布式存储用RDMA（RoCEv2），极怕丢包——丢一个包性能就大跌。普通以太网缓冲满了就丢，无损以太网的做法是：快满时让对方\"暂停\"（PFC），或者更早地让发送方\"慢一点\"（ECN）。",
+   "steps": [
+    "对RoCE流量用DSCP/802.1p标记到特定队列（如优先级3）。",
+    "PFC：针对这个优先级，入口缓存超过阈值时向上游发PAUSE帧，只暂停该优先级，其他队列不受影响。",
+    "ECN：队列超过阈值时在IP头打ECN标记，接收端回CNP，发送端降速（DCQCN）。",
+    "PFC死锁检测、Headroom缓存规划保证暂停期间在途报文不丢。"
+   ],
+   "table": {
+    "head": [
+     "技术",
+     "作用层面",
+     "作用"
+    ],
+    "rows": [
+     [
+      "PFC",
+      "逐跳、按优先级",
+      "暂停上游，零丢包"
+     ],
+     [
+      "ECN",
+      "端到端",
+      "提前通知降速"
+     ],
+     [
+      "ETS",
+      "带宽分配",
+      "按队列分配带宽"
+     ],
+     [
+      "DCBX",
+      "协商",
+      "LLDP协商DCB参数"
+     ]
+    ]
+   },
+   "example": "[CE1] dcb pfc\n[CE1-dcb-pfc-default] priority 3\n[CE1] interface 100GE1/0/1\n[CE1-100GE1/0/1] dcb pfc enable mode manual\n[CE1] commit     # CE系列需commit（已核实，V200R024）",
+   "exam": [
+    "PFC与普通PAUSE区别（按优先级）。",
+    "ECN与PFC配合。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "sec-zone",
@@ -845,7 +2241,47 @@
    "set priority 60",
    "display zone"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "防火墙用\"区域\"把网络分成不同信任程度的地带，像大楼里的普通区、办公区、机房。跨区域的流量必须过\"门禁\"（安全策略）；同区域默认放行。防火墙本身也是一个区域Local，访问防火墙自己（如Ping、登录）也要策略。",
+   "steps": [
+    "把接口加入区域（接口必须加入区域才能转发）。",
+    "报文进入接口 → 确定源区域；查路由找出接口 → 确定目的区域。",
+    "查会话表：命中直接转发（状态检测，后续包不再查策略）。",
+    "未命中则查安全策略：允许则建会话，拒绝则丢弃。"
+   ],
+   "table": {
+    "head": [
+     "区域",
+     "缺省安全级别"
+    ],
+    "rows": [
+     [
+      "Local",
+      "100"
+     ],
+     [
+      "Trust",
+      "85"
+     ],
+     [
+      "DMZ",
+      "50"
+     ],
+     [
+      "Untrust",
+      "5"
+     ]
+    ]
+   },
+   "example": "[FW] firewall zone trust\n[FW-zone-trust] add interface GigabitEthernet1/0/1\n[FW] firewall zone untrust\n[FW-zone-untrust] add interface GigabitEthernet1/0/2\n[FW] display zone",
+   "exam": [
+    "各区域级别数值。",
+    "Local区域含义。",
+    "状态检测与会话表。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"USG安全区域与安全级别：跨区域流量必须过安全策略\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"240.0\" y=\"83.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"98\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">USG防火墙</text><text x=\"300\" y=\"112\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">Local 100</text><rect x=\"40.0\" y=\"83.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"98\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Trust 85</text><text x=\"90\" y=\"112\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">内网</text><rect x=\"460.0\" y=\"83.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"510\" y=\"98\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">Untrust 5</text><text x=\"510\" y=\"112\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">Internet</text><rect x=\"250.0\" y=\"163.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"178\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">DMZ 50</text><text x=\"300\" y=\"192\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">服务器</text><line x1=\"140\" y1=\"100\" x2=\"240\" y2=\"100\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"360\" y1=\"100\" x2=\"460\" y2=\"100\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"300\" y1=\"117\" x2=\"300\" y2=\"163\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"300\" y=\"30\" text-anchor=\"middle\" font-size=\"11\" fill=\"#c7000b\">区域间默认禁止；按需配置 源区域→目的区域 的允许策略</text></svg><figcaption>USG安全区域与安全级别：跨区域流量必须过安全策略</figcaption></figure>"
+  }
  },
  {
   "id": "sec-policy",
@@ -875,7 +2311,54 @@
    "display security-policy rule all",
    "display firewall session table"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "安全策略就是门禁规则：从哪个区域到哪个区域、什么源、什么目的、什么服务 → 允许还是拒绝。规则从上往下匹配，第一条命中就执行；都不命中走缺省策略（拒绝）。",
+   "steps": [
+    "确定流量的源区域、目的区域、地址、服务、用户、应用。",
+    "从上往下匹配规则，命中即执行动作。",
+    "允许的流量可再引用安全配置文件（反病毒、IPS、URL过滤）做内容检测。",
+    "都不匹配：缺省动作deny。"
+   ],
+   "table": {
+    "head": [
+     "匹配条件",
+     "示例"
+    ],
+    "rows": [
+     [
+      "source-zone/destination-zone",
+      "trust → untrust"
+     ],
+     [
+      "source/destination-address",
+      "10.1.1.0 24"
+     ],
+     [
+      "service",
+      "http、https、icmp"
+     ],
+     [
+      "application",
+      "微信、P2P"
+     ],
+     [
+      "user",
+      "用户/用户组"
+     ],
+     [
+      "time-range",
+      "上班时间"
+     ]
+    ]
+   },
+   "example": "[FW] security-policy\n[FW-policy-security] rule name trust_to_untrust\n[FW-policy-security-rule-trust_to_untrust] source-zone trust\n[FW-policy-security-rule-trust_to_untrust] destination-zone untrust\n[FW-policy-security-rule-trust_to_untrust] source-address 10.1.1.0 24\n[FW-policy-security-rule-trust_to_untrust] action permit\n[FW-policy-security] rule move trust_to_untrust before rule_x",
+   "exam": [
+    "规则顺序题：给几条规则判断某流量结果。",
+    "缺省动作。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "sec-nat",
@@ -887,7 +2370,7 @@
    "源NAT方式：NAT No-PAT（只转地址）、NAPT（地址+端口）、Easy-IP（出接口地址）、Smart NAT、三元组NAT等。",
    "NAT地址池用nat address-group配置；NAT策略nat-policy中指定源/目区域和地址，动作source-nat。",
    "NAT Server：将公网地址+端口映射到内网服务器。",
-   "处理顺序要点：NAT Server(目的转换)在安全策略之前，因此安全策略目的地址写服务器的私网地址；源NAT在安全策略之后，安全策略源地址写转换前的私网地址。",
+   "已核实：USG先做NAT Server的目的地址转换，再查安全策略，所以安全策略的目的地址和端口要写转换后的私网地址和端口（配置public-ip destination match enable后可以按公网地址匹配）。源NAT在安全策略之后，所以安全策略的源地址写转换前的私网地址。出处：USG6000/USG9500 维护宝典《配置NAT Server时，安全策略中指定的目的地址是转换前还是转换后的地址》。",
    "建议为地址池/NAT Server公网地址配置黑洞路由，防止路由环路。",
    "FTP等多通道协议需要NAT ALG(ASPF)。"
   ],
@@ -907,9 +2390,48 @@
    "nat server web protocol tcp global 202.1.1.1 80 inside 192.168.1.10 80",
    "ip route-static 202.1.1.10 32 NULL0"
   ],
-  "todo": [
-   "不同USG软件版本的NAT处理顺序描述以官方文档为准"
-  ]
+  "todo": [],
+  "deep": {
+   "intro": "防火墙的NAT和路由器原理相同，但多了\"NAT策略\"和\"处理顺序\"问题。记住处理顺序：目的NAT（NAT Server）在查安全策略之前，源NAT在安全策略之后（已核实）。",
+   "steps": [
+    "报文进入：先匹配NAT Server/目的NAT，目的地址变成内网服务器地址。",
+    "查路由确定出接口和目的区域。",
+    "查安全策略（此时目的地址已是私网地址）。",
+    "源NAT：匹配NAT策略，转换源地址。",
+    "建立会话，回程按会话反向转换。",
+    "注意配置黑洞路由，防止地址池/NAT Server公网地址的路由环路。"
+   ],
+   "table": {
+    "head": [
+     "类型",
+     "用途"
+    ],
+    "rows": [
+     [
+      "源NAT（地址池NAPT/Easy-IP）",
+      "内网上外网"
+     ],
+     [
+      "NAT Server",
+      "外网访问内网服务器"
+     ],
+     [
+      "双向NAT",
+      "同时转换源和目的"
+     ],
+     [
+      "NAT ALG",
+      "FTP等多通道协议"
+     ]
+    ]
+   },
+   "example": "[FW] nat address-group pool1\n[FW-address-group-pool1] section 0 202.1.1.10 202.1.1.20\n[FW] nat-policy\n[FW-policy-nat] rule name snat\n[FW-policy-nat-rule-snat] source-zone trust\n[FW-policy-nat-rule-snat] destination-zone untrust\n[FW-policy-nat-rule-snat] action source-nat address-group pool1\n[FW] nat server web protocol tcp global 202.1.1.100 80 inside 10.2.2.10 80\n[FW] ip route-static 202.1.1.10 32 NULL0   # 黑洞路由",
+   "exam": [
+    "安全策略里写转换前还是转换后地址（已核实：私网目的地址）。",
+    "黑洞路由作用。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "sec-ipsec",
@@ -950,7 +2472,48 @@
    "display ike sa",
    "display ipsec sa"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "总部和分支通过Internet连接，数据在公网上\"裸奔\"。IPSec在两端防火墙之间建立加密隧道：先用IKE谈好\"用什么锁、钥匙是什么\"，再用这把钥匙加密真正的数据。",
+   "steps": [
+    "定义感兴趣流（ACL）：哪些流量需要加密。",
+    "IKE阶段1：协商加密/认证算法、DH组、身份认证（预共享密钥/证书）→ 建立IKE SA。主模式6个报文，野蛮模式3个。",
+    "IKE阶段2（快速模式3个报文）：协商ESP/AH、封装模式 → 建立一对IPSec SA（每方向一个，SPI标识）。",
+    "数据用IPSec SA加密传输。",
+    "NAT穿越：检测到NAT后ESP封装到UDP 4500。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "AH(协议51)",
+     "ESP(协议50)"
+    ],
+    "rows": [
+     [
+      "加密",
+      "不支持",
+      "支持"
+     ],
+     [
+      "完整性",
+      "支持（含外层IP头）",
+      "支持"
+     ],
+     [
+      "过NAT",
+      "不能",
+      "能（NAT-T）"
+     ]
+    ]
+   },
+   "example": "[FW] acl 3000\n[FW-acl-adv-3000] rule 5 permit ip source 10.1.1.0 0.0.0.255 destination 10.2.2.0 0.0.0.255\n[FW] ipsec proposal p1\n[FW-ipsec-proposal-p1] esp authentication-algorithm sha2-256\n[FW-ipsec-proposal-p1] esp encryption-algorithm aes-256\n[FW] ike proposal 10\n[FW] ike peer branch\n[FW-ike-peer-branch] pre-shared-key Huawei@123\n[FW-ike-peer-branch] remote-address 202.2.2.2\n[FW] ipsec policy map1 10 isakmp\n[FW-ipsec-policy-isakmp-map1-10] security acl 3000\n[FW-ipsec-policy-isakmp-map1-10] proposal p1\n[FW-ipsec-policy-isakmp-map1-10] ike-peer branch\n[FW] interface GigabitEthernet1/0/2\n[FW-GigabitEthernet1/0/2] ipsec policy map1",
+   "exam": [
+    "两阶段报文数和SA特点。",
+    "AH/ESP区别和协议号。",
+    "传输/隧道模式。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 640 220\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"IPSec IKEv1：阶段1建IKE SA（保护协商），阶段2建IPSec SA（保护数据）\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"35.0\" y=\"13.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"35\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">总部FW</text><rect x=\"495.0\" y=\"13.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"550\" y=\"35\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">分支FW</text><line x1=\"90\" y1=\"48\" x2=\"90\" y2=\"215\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"550\" y1=\"48\" x2=\"550\" y2=\"215\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"150\" y1=\"70\" x2=\"490\" y2=\"70\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"320.0\" y=\"65.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">阶段1 主模式6个包：协商策略→DH交换→身份认证</text><line x1=\"150\" y1=\"100\" x2=\"490\" y2=\"100\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"320.0\" y=\"95.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">→ 得到 IKE SA (双向一个)</text><line x1=\"150\" y1=\"130\" x2=\"490\" y2=\"130\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"320.0\" y=\"125.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">阶段2 快速模式3个包：协商ESP/AH、加密算法</text><line x1=\"150\" y1=\"160\" x2=\"490\" y2=\"160\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"320.0\" y=\"155.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">→ 得到 IPSec SA (单向，每方向一个)</text><line x1=\"150\" y1=\"190\" x2=\"490\" y2=\"190\" stroke=\"#188038\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"320.0\" y=\"185.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">感兴趣流(ACL) 经ESP加密传输</text></svg><figcaption>IPSec IKEv1：阶段1建IKE SA（保护协商），阶段2建IPSec SA（保护数据）</figcaption></figure>"
+  }
  },
  {
   "id": "sec-ssl",
@@ -969,11 +2532,55 @@
    "\"网络扩展\"才能访问所有IP业务；Web代理只能访问Web资源。"
   ],
   "commands": [
-   "（以USG产品文档为准）v-gateway sslvpn interface GigabitEthernet1/0/1 port 443"
+   "v-gateway test interface GigabitEthernet0/0/1 port 443 private www.test.com",
+   "max-user 100",
+   "service",
+   "network-extension enable",
+   "network-extension netpool 192.168.0.2 192.168.0.254 255.255.255.0"
   ],
   "todo": [
-   "USG系列SSL VPN具体命令随版本变化，命令行待核实"
-  ]
+   "v-gateway命令来自USG6000 V500的配置示例；V600/USG6000F等版本的配置方式不同，以对应版本的典型配置案例为准"
+  ],
+  "deep": {
+   "intro": "出差员工没有固定IP，也不想装复杂客户端，用浏览器登录SSL VPN网关就能访问内网。它用HTTPS（TLS）加密，按用户角色开放不同资源。",
+   "steps": [
+    "配置虚拟网关（绑定接口、端口443、域名）。",
+    "配置用户与认证方式（本地/RADIUS/AD）。",
+    "配置资源：Web代理、文件共享、端口转发、网络扩展（分配内网IP，最像IPSec的全隧道）。",
+    "用户与角色关联，角色授权资源。",
+    "安全策略放行到网关及网关到内网的流量。"
+   ],
+   "table": {
+    "head": [
+     "业务",
+     "说明"
+    ],
+    "rows": [
+     [
+      "Web代理",
+      "通过网关访问内网网页"
+     ],
+     [
+      "文件共享",
+      "访问内网共享"
+     ],
+     [
+      "端口转发",
+      "TCP应用"
+     ],
+     [
+      "网络扩展",
+      "虚拟网卡获得内网IP，访问所有IP业务"
+     ]
+    ]
+   },
+   "example": "[FW] v-gateway test interface GigabitEthernet1/0/1 port 443 private www.test.com   # USG V500示例（已核实）",
+   "exam": [
+    "SSL VPN四种业务区别。",
+    "与IPSec VPN场景对比。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 520 210\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"SSL VPN用户接入过程\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"25.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">远程用户浏览器</text><rect x=\"365.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">虚拟网关(USG)</text><line x1=\"90\" y1=\"40\" x2=\"90\" y2=\"205\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"430\" y1=\"40\" x2=\"430\" y2=\"205\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"90\" y1=\"62\" x2=\"426\" y2=\"62\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"57.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">HTTPS访问 https://网关:443</text><line x1=\"430\" y1=\"92\" x2=\"94\" y2=\"92\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"87.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">返回证书，建立SSL加密通道</text><line x1=\"90\" y1=\"122\" x2=\"426\" y2=\"122\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"117.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">输入用户名/密码认证</text><line x1=\"430\" y1=\"152\" x2=\"94\" y2=\"152\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"147.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">按角色下发资源(Web代理/网络扩展)</text><line x1=\"90\" y1=\"182\" x2=\"426\" y2=\"182\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"177.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">访问内网资源(经加密隧道)</text></svg><figcaption>SSL VPN用户接入过程</figcaption></figure>"
+  }
  },
  {
   "id": "sec-vsys",
@@ -986,7 +2593,8 @@
    "每个虚拟系统有独立的路由表、安全区域、安全策略、NAT等。",
    "虚拟系统与根系统/其他虚拟系统互访通过Virtual-if虚拟接口，Virtual-if需加入安全区域。",
    "跨虚拟系统的流量：在各自系统中都需要配置安全策略（技术栈真题）。",
-   "虚拟系统到根系统的静态路由可以直接指定目的虚拟系统(public)，无需写下一跳。"
+   "虚拟系统到根系统的静态路由可以直接指定目的虚拟系统(public)，无需写下一跳。",
+   "已核实：在vsysa里配 ip route-static 0.0.0.0 0.0.0.0 public 可以把流量引到根系统；根系统要配回程路由（vpn-instance vsysa）。出处：HiSecEngine USG12000 典型配置案例《配置虚拟系统与根系统通过路由表互访》。"
   ],
   "pitfalls": [
    "技术栈真题：内网流量经vsysa → 根系统 → Internet；vsysa的Virtual-if放在untrust区域（题目场景）。"
@@ -996,11 +2604,45 @@
    "vsys name vsysa",
    "assign interface GigabitEthernet1/0/2",
    "switch vsys vsysa",
-   "ip route-static 0.0.0.0 0 public"
+   "ip route-static 0.0.0.0 0.0.0.0 public",
+   "# 根系统回程：ip route-static 10.3.0.0 255.255.255.0 vpn-instance vsysa"
   ],
-  "todo": [
-   "ip route-static ... public 写法以USG文档为准"
-  ]
+  "todo": [],
+  "deep": {
+   "intro": "一台大防火墙\"切\"成多台小防火墙给不同部门/租户，每台有自己的接口、路由、策略和管理员，就是虚拟系统(vsys)。根系统(public)负责管理并可连接各vsys。",
+   "steps": [
+    "开启虚拟系统功能，创建vsys并分配资源（带宽、会话数）。",
+    "把接口或VLAN分配给vsys。",
+    "进入vsys配置区域、策略、路由。",
+    "vsys访问Internet：vsys内配缺省路由指向public（已核实写法），在根系统中配回程路由指向vpn-instance。"
+   ],
+   "table": {
+    "head": [
+     "概念",
+     "说明"
+    ],
+    "rows": [
+     [
+      "根系统public",
+      "缺省存在，管理全部"
+     ],
+     [
+      "虚拟系统",
+      "独立路由表(VPN实例)、策略"
+     ],
+     [
+      "虚拟接口",
+      "vsys之间互访的逻辑接口"
+     ]
+    ]
+   },
+   "example": "[FW] vsys enable\n[FW] vsys name vsysa\n[FW-vsys-vsysa] assign interface GigabitEthernet1/0/3\n[FW] switch vsys vsysa\n<FW-vsysa> system-view\n[FW-vsysa] ip route-static 0.0.0.0 0.0.0.0 public\n# 根系统回程\n[FW] ip route-static vpn-instance vsysa 10.3.3.0 24 ...",
+   "exam": [
+    "vsys的独立性。",
+    "vsys上网路由配置。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "sec-urpf",
@@ -1013,19 +2655,54 @@
    "松散模式(Loose)：只要源地址有路由就转发。适合路由不对称/多出口场景。",
    "allow-default-route：允许用缺省路由匹配源地址。",
    "可配置ACL放行特定流量不做检查。",
-   "合法流量被误丢时：改松散模式、允许缺省路由、ACL放行、调整路由使下一跳与入接口一致（技术栈真题，答案ABCD）。"
+   "合法流量被误丢时：改松散模式、允许缺省路由、ACL放行、调整路由使下一跳与入接口一致（技术栈真题，答案ABCD）。",
+   "已核实处理流程：源地址在FIB里能查到时，严格模式还要求出接口和入接口一致，松散模式不要求；查不到时，只有配置了缺省路由并且带allow-default-route才可能通过（严格模式还要求缺省路由的出接口一致）；只有报文被URPF拒绝后才去匹配ACL，ACL允许就转发。出处：NetEngine AR V600R023 命令参考 ip urpf。"
   ],
   "pitfalls": [
    "严格模式在非对称路由下会误丢合法流量。"
   ],
   "commands": [
    "interface GigabitEthernet0/0/1",
-   "urpf strict allow-default-route",
-   "urpf loose"
+   "ip urpf strict allow-default-route acl 2000",
+   "ip urpf loose",
+   "# V300版本AR：urpf { loose | strict } [ allow-default-route ] [ acl acl-number ]"
   ],
-  "todo": [
-   "URPF接口命令的准确格式随AR/USG型号不同，待核实"
-  ]
+  "todo": [],
+  "deep": {
+   "intro": "攻击者常伪造源IP。URPF反着查路由：收到报文时检查\"源地址如果当作目的地址，路由能不能找到、是不是从这个口进来\"，不合理就丢弃。",
+   "steps": [
+    "接口开启URPF。",
+    "收到报文，用源IP查FIB。",
+    "严格模式：要求有路由且出接口=入接口。",
+    "松散模式：只要有路由即可（适合非对称路由）。",
+    "allow-default-route：允许匹配缺省路由；若检查失败再匹配ACL，permit的放行（已核实：ACL仅在拒绝时匹配）。"
+   ],
+   "table": {
+    "head": [
+     "模式",
+     "检查",
+     "适用"
+    ],
+    "rows": [
+     [
+      "严格strict",
+      "路由存在且入接口一致",
+      "对称路由的边缘"
+     ],
+     [
+      "松散loose",
+      "路由存在",
+      "非对称路由、多出口"
+     ]
+    ]
+   },
+   "example": "[R1] interface GigabitEthernet0/0/1\n[R1-GigabitEthernet0/0/1] ip urpf strict allow-default-route   # AR V600写法（已核实）；V300为 urpf strict",
+   "exam": [
+    "严格与松散区别。",
+    "适用场景。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "sec-attack",
@@ -1052,7 +2729,50 @@
    "dhcp snooping trusted",
    "arp anti-attack check user-bind enable"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "网络攻击分几类：泛洪耗尽资源（SYN Flood、UDP Flood）、畸形报文（Land、Teardrop）、扫描探测、欺骗（ARP、IP、DHCP）。防火墙有攻击防范，交换机有DHCP Snooping、DAI、IPSG。",
+   "steps": [
+    "SYN Flood：大量半连接占满服务器 → 防御：TCP代理/源认证、限速。",
+    "ARP欺骗：伪造网关MAC → DAI依据DHCP Snooping绑定表检查ARP。",
+    "DHCP仿冒服务器：DHCP Snooping把连接合法服务器的端口设为信任，其他口的Offer丢弃。",
+    "IP/MAC仿冒：IPSG按绑定表过滤源IP。"
+   ],
+   "table": {
+    "head": [
+     "攻击",
+     "防御"
+    ],
+    "rows": [
+     [
+      "SYN Flood",
+      "TCP代理/源认证"
+     ],
+     [
+      "DHCP仿冒",
+      "DHCP Snooping 信任端口"
+     ],
+     [
+      "ARP欺骗",
+      "DAI"
+     ],
+     [
+      "源IP仿冒",
+      "IPSG、URPF"
+     ],
+     [
+      "MAC泛洪",
+      "端口安全、MAC限制"
+     ]
+    ]
+   },
+   "example": "[SW] dhcp enable\n[SW] dhcp snooping enable\n[SW] interface GigabitEthernet0/0/24\n[SW-GigabitEthernet0/0/24] dhcp snooping trusted\n[SW] vlan 10\n[SW-vlan10] arp anti-attack check user-bind enable\n[SW] interface GigabitEthernet0/0/1\n[SW-GigabitEthernet0/0/1] ip source check user-bind enable",
+   "exam": [
+    "攻击与防御对应。",
+    "DHCP Snooping信任端口位置。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "sec-cloud",
@@ -1061,19 +2781,56 @@
   "title": "华为云网络安全产品",
   "summary": "近年真题出现云上安全：安全组、WAF、云防火墙、DDoS防护。",
   "points": [
-   "安全组：实例级访问控制（虚拟防火墙），有状态；通常默认入方向拒绝（同组内实例互通）、出方向放行。",
+   "已核实：安全组是实例级的有状态访问控制，规则可以选\"允许\"或\"拒绝\"，优先级1–100（数字越小越优先），同一优先级时拒绝优先于允许，没匹配到任何规则就拒绝。默认规则：入方向只允许同一安全组内的实例访问，出方向全部允许。出处：华为云VPC用户指南《安全组和安全组规则概述》。",
    "网络ACL：子网级访问控制，无状态。",
    "WAF：Web应用防火墙，以反向代理方式检测SQL注入、XSS等Web攻击。",
    "云防火墙CFW：云原生防火墙，防护互联网边界与VPC边界。",
    "DDoS原生基础防护(Anti-DDoS)：为华为云内的公网IP提供基础防护；DDoS高防：通过引流清洗，也可保护非华为云业务。"
   ],
   "pitfalls": [
-   "技术栈真题把\"安全组可设置黑名单\"判为错误（答案D）。但华为云安全组后续版本可能支持\"拒绝\"规则，待核实当前官方文档。"
+   "注意：技术栈网友回忆题（第九届国赛）把\"安全组可以设置白名单和黑名单\"判为错误；但华为云现行文档写明安全组支持\"拒绝\"策略。现在出这道题，答案取决于命题时依据的版本，以官方题解为准。"
   ],
   "commands": [],
-  "todo": [
-   "安全组是否支持拒绝规则需以华为云当前文档为准"
-  ]
+  "todo": [],
+  "deep": {
+   "intro": "云上没有自己的防火墙机柜，华为云提供：安全组（像虚拟机的贴身防火墙）、网络ACL（子网的门卫）、云防火墙、WAF、DDoS防护等。",
+   "steps": [
+    "安全组作用于云服务器网卡，有状态（回包自动放行）。",
+    "规则含方向、协议端口、源/目的、动作（允许/拒绝，已核实支持拒绝）、优先级1–100（数字小优先，同优先级拒绝优先）。",
+    "未匹配任何规则的流量拒绝；默认安全组允许组内互访和出方向。",
+    "网络ACL作用于子网，无状态。"
+   ],
+   "table": {
+    "head": [
+     "对比",
+     "安全组",
+     "网络ACL"
+    ],
+    "rows": [
+     [
+      "作用对象",
+      "云服务器网卡",
+      "子网"
+     ],
+     [
+      "状态",
+      "有状态",
+      "无状态"
+     ],
+     [
+      "规则动作",
+      "允许/拒绝",
+      "允许/拒绝"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "安全组与网络ACL对比。",
+    "注意：回忆真题中\"安全组没有黑名单\"与当前华为云文档（支持拒绝规则）冲突，按最新文档理解。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "wl-basic",
@@ -1094,7 +2851,47 @@
    "2.4GHz中国可用信道1–13，但不重叠的通常只有3个。"
   ],
   "commands": [],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "WLAN就是把网线换成无线电波。AP是\"无线基站\"，STA是终端，SSID是网络名称。2.4GHz穿墙好但信道少、干扰多；5GHz信道多速度快但覆盖小。",
+   "steps": [
+    "AP在信道上周期发送Beacon（携带SSID）。",
+    "STA扫描（被动听Beacon或主动发Probe Request）。",
+    "链路认证（开放系统）→ 关联（Association）。",
+    "接入认证（PSK/802.1X）→ 四次握手生成密钥 → 获取IP开始上网。"
+   ],
+   "table": {
+    "head": [
+     "频段",
+     "非重叠信道",
+     "特点"
+    ],
+    "rows": [
+     [
+      "2.4GHz",
+      "1、6、11（20MHz）",
+      "穿透好、干扰多"
+     ],
+     [
+      "5GHz",
+      "较多（国内常用36–64、149–165）",
+      "速度快、干扰少"
+     ],
+     [
+      "6GHz(Wi-Fi 6E/7)",
+      "更多",
+      "国内部分开放"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "非重叠信道。",
+    "BSSID/SSID/ESS概念区分。",
+    "802.11标准与频段。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "wl-capwap",
@@ -1122,7 +2919,49 @@
    "ap-group AP-G1",
    "display ap all"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "企业里几百个AP不可能逐台配置，于是让\"瘦AP\"(FIT AP)只负责收发无线，所有配置、管理由AC集中下发。AP与AC之间的通信协议就是CAPWAP：控制隧道UDP 5246、数据隧道UDP 5247。",
+   "steps": [
+    "AP上电，通过DHCP获取IP，Option 43携带AC地址（或用广播/DNS发现）。",
+    "AP发Discovery Request，AC回Response。",
+    "AP发Join Request，AC校验（MAC/SN白名单或认证方式）后回Join Response。",
+    "AC检查版本，必要时升级（Image Data）。",
+    "AC下发配置（Configuration Status），AP进入Run状态。",
+    "双方定期Echo（控制隧道）和Keepalive（数据隧道）保活。"
+   ],
+   "table": {
+    "head": [
+     "项目",
+     "值"
+    ],
+    "rows": [
+     [
+      "控制隧道",
+      "UDP 5246"
+     ],
+     [
+      "数据隧道",
+      "UDP 5247"
+     ],
+     [
+      "发现AC",
+      "静态、DHCP Option 43、DNS、广播"
+     ],
+     [
+      "AP认证方式",
+      "mac-auth、sn-auth、no-auth"
+     ]
+    ]
+   },
+   "example": "[AC] capwap source interface Vlanif100\n[AC] wlan\n[AC-wlan-view] ap auth-mode mac-auth\n[AC-wlan-view] ap-id 0 ap-mac 00e0-fc12-3456\n[AC-wlan-ap-0] ap-name AP1\n[AC-wlan-ap-0] ap-group default\n# DHCP Option 43（AC地址10.1.100.1）\n[AC-ip-pool-ap] option 43 sub-option 3 ascii 10.1.100.1\n[AC] display ap all",
+   "exam": [
+    "CAPWAP端口号（真题常考）。",
+    "AP上线流程顺序。",
+    "Option 43作用。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 520 270\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"AP上线流程（CAPWAP，控制5246/数据5247）\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"25.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">FIT AP</text><rect x=\"365.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AC</text><line x1=\"90\" y1=\"40\" x2=\"90\" y2=\"265\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"430\" y1=\"40\" x2=\"430\" y2=\"265\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"90\" y1=\"62\" x2=\"426\" y2=\"62\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"57.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">DHCP获取IP+AC地址(Option43)</text><line x1=\"90\" y1=\"92\" x2=\"426\" y2=\"92\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"87.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Discovery Request (发现AC)</text><line x1=\"430\" y1=\"122\" x2=\"94\" y2=\"122\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"117.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Discovery Response</text><line x1=\"90\" y1=\"152\" x2=\"426\" y2=\"152\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"147.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Join Request (认证、建立DTLS可选)</text><line x1=\"430\" y1=\"182\" x2=\"94\" y2=\"182\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"177.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Join Response</text><line x1=\"430\" y1=\"212\" x2=\"94\" y2=\"212\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"207.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">下发版本/配置 (Image Data/Configuration)</text><line x1=\"90\" y1=\"242\" x2=\"426\" y2=\"242\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"237.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">Echo/Keepalive 维持隧道</text></svg><figcaption>AP上线流程（CAPWAP，控制5246/数据5247）</figcaption></figure>"
+  }
  },
  {
   "id": "wl-net",
@@ -1147,7 +2986,44 @@
    "forward-mode tunnel",
    "service-vlan vlan-id 101"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "AC放在哪里、业务数据走哪里，是WLAN组网的两个选择：AC可以和AP二层直连或跨三层；AC可以\"串\"在业务路径中（直连式）或\"挂\"在旁边（旁挂式）；数据可以直接从AP出去（直接转发）或先送到AC（隧道转发）。",
+   "steps": [
+    "二层组网：AP与AC同网段，可用广播发现AC。",
+    "三层组网：跨网段，需要Option 43或DNS告诉AP AC地址。",
+    "直连式：AC同时作为汇聚交换机，数据必经AC。",
+    "旁挂式：AC挂在汇聚旁，只有管理流量（隧道转发时业务也会）经过AC。"
+   ],
+   "table": {
+    "head": [
+     "转发方式",
+     "管理流量",
+     "业务流量",
+     "特点"
+    ],
+    "rows": [
+     [
+      "直接转发",
+      "CAPWAP到AC",
+      "AP直接进有线网",
+      "AC压力小，常与旁挂配合"
+     ],
+     [
+      "隧道转发",
+      "CAPWAP到AC",
+      "封装到AC再转发",
+      "集中控制，AC压力大"
+     ]
+    ]
+   },
+   "example": "[AC-wlan-view] vap-profile name office\n[AC-wlan-vap-prof-office] forward-mode tunnel     # 或 direct-forward\n[AC-wlan-vap-prof-office] service-vlan vlan-id 101",
+   "exam": [
+    "直连/旁挂与直接/隧道转发组合判断。",
+    "管理VLAN与业务VLAN放通要求。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 640 200\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"直接转发 vs 隧道转发\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"70.0\" y=\"23.0\" width=\"80\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"110\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AC</text><rect x=\"55.0\" y=\"103.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"110\" y=\"125\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">接入交换机</text><rect x=\"80.0\" y=\"163.0\" width=\"60\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"110\" y=\"185\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP</text><line x1=\"110\" y1=\"137\" x2=\"110\" y2=\"165\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"110\" y1=\"57\" x2=\"110\" y2=\"103\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"110\" y=\"100\" text-anchor=\"start\" font-size=\"11\" fill=\"#188038\">业务数据从AP直接到交换机</text><rect x=\"410.0\" y=\"23.0\" width=\"80\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AC</text><rect x=\"395.0\" y=\"103.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"125\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">接入交换机</text><rect x=\"420.0\" y=\"163.0\" width=\"60\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"185\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP</text><line x1=\"450\" y1=\"137\" x2=\"450\" y2=\"165\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"450\" y1=\"57\" x2=\"450\" y2=\"103\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"470\" y=\"80\" text-anchor=\"start\" font-size=\"11\" fill=\"#c7000b\">业务数据封装在CAPWAP里先到AC</text><text x=\"110\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">直接转发</text><text x=\"450\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">隧道转发</text></svg><figcaption>直接转发 vs 隧道转发</figcaption></figure>"
+  }
  },
  {
   "id": "wl-profile",
@@ -1184,7 +3060,51 @@
    "vap-profile vap1 wlan 1 radio all",
    "display vap ssid wlan-net"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "华为AC用\"模板\"层层引用：先建小模板（SSID名、安全方式），再装进VAP模板（再加业务VLAN、转发方式），最后把VAP模板绑定到AP组的射频上。AP组里的AP就都放出这个WLAN。",
+   "steps": [
+    "创建域管理模板，设国家码CN，在AP组引用。",
+    "创建安全模板（如WPA2-PSK AES）。",
+    "创建SSID模板（SSID名）。",
+    "创建VAP模板，引用SSID模板、安全模板，配业务VLAN、转发方式。",
+    "在AP组下 vap-profile xxx wlan 1 radio all 引用。"
+   ],
+   "table": {
+    "head": [
+     "模板",
+     "内容"
+    ],
+    "rows": [
+     [
+      "regulatory-domain-profile",
+      "国家码、信道/功率范围"
+     ],
+     [
+      "security-profile",
+      "认证加密方式"
+     ],
+     [
+      "ssid-profile",
+      "SSID名称、隐藏等"
+     ],
+     [
+      "vap-profile",
+      "引用上述+业务VLAN+转发"
+     ],
+     [
+      "radio-2g/5g-profile",
+      "射频参数"
+     ]
+    ]
+   },
+   "example": "[AC-wlan-view] regulatory-domain-profile name domain1\n[AC-wlan-regulate-domain-domain1] country-code cn\n[AC-wlan-view] security-profile name sec1\n[AC-wlan-sec-prof-sec1] security wpa2 psk pass-phrase Huawei@123 aes\n[AC-wlan-view] ssid-profile name ssid1\n[AC-wlan-ssid-prof-ssid1] ssid Office\n[AC-wlan-view] vap-profile name vap1\n[AC-wlan-vap-prof-vap1] forward-mode direct-forward\n[AC-wlan-vap-prof-vap1] service-vlan vlan-id 101\n[AC-wlan-vap-prof-vap1] security-profile sec1\n[AC-wlan-vap-prof-vap1] ssid-profile ssid1\n[AC-wlan-view] ap-group name default\n[AC-wlan-ap-group-default] regulatory-domain-profile domain1\n[AC-wlan-ap-group-default] vap-profile vap1 wlan 1 radio all",
+   "exam": [
+    "模板引用关系。",
+    "配置步骤排序。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 660 190\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"WLAN模板引用关系：VAP模板把SSID、安全、VLAN绑在一起\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"260.0\" y=\"23.0\" width=\"140\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"330\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP组 ap-group</text><rect x=\"125.0\" y=\"88.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"180\" y=\"110\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">VAP模板</text><rect x=\"420.0\" y=\"88.0\" width=\"120\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"480\" y=\"103\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">域管理模板</text><text x=\"480\" y=\"117\" text-anchor=\"middle\" font-size=\"10\" fill=\"#888\">国家码</text><rect x=\"30.0\" y=\"153.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"80\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">SSID模板</text><rect x=\"170.0\" y=\"153.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"220\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">安全模板</text><rect x=\"310.0\" y=\"153.0\" width=\"100\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"360\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">业务VLAN</text><line x1=\"330\" y1=\"57\" x2=\"180\" y2=\"88\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"330\" y1=\"57\" x2=\"480\" y2=\"88\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"180\" y1=\"122\" x2=\"80\" y2=\"153\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"180\" y1=\"122\" x2=\"220\" y2=\"153\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"180\" y1=\"122\" x2=\"360\" y2=\"153\" stroke=\"#888\" stroke-width=\"2\"/></svg><figcaption>WLAN模板引用关系：VAP模板把SSID、安全、VLAN绑在一起</figcaption></figure>"
+  }
  },
  {
   "id": "wl-backup",
@@ -1204,13 +3124,54 @@
    "冷备份和热备份的区别：是否通过HSB同步用户表项。"
   ],
   "commands": [
-   "（示例，以AC文档为准）ac protect enable",
+   "wlan",
+   "ac protect enable   # 双链路备份，在线AP要重启(ap-reset all)才生效",
    "hsb-service 0",
-   "display ac protect"
+   "service-ip-port local-ip 10.23.102.1 peer-ip 10.23.102.2 local-data-port 10241 peer-data-port 10241",
+   "hsb-service-type ap hsb-service 0",
+   "hsb-service-type access-user hsb-service 0"
   ],
   "todo": [
-   "AC备份配置命令随V200R0xx版本不同，待核实"
-  ]
+   "命令按AC V200R025/V200R010 配置指南核对；不同版本的完整步骤以文档为准"
+  ],
+  "deep": {
+   "intro": "AC坏了全楼AP掉线，所以AC要备份。常见三种：VRRP热备（两台AC虚拟成一个IP）、双链路备份（AP同时与主备AC建链）、N+1备份（多台主AC共用一台备AC）。",
+   "steps": [
+    "双链路热备：AP同时与主、备AC建立CAPWAP链路，配合HSB同步用户信息，切换快。",
+    "VRRP热备：两台AC通过VRRP对AP呈现一个虚拟IP，HSB同步业务。",
+    "N+1：备AC平时不与AP建链，主AC故障后AP重新上线到备AC，切换慢、成本低。",
+    "配置主备AC优先级（ac protect enable等，已核实）。"
+   ],
+   "table": {
+    "head": [
+     "方式",
+     "切换速度",
+     "成本"
+    ],
+    "rows": [
+     [
+      "VRRP热备",
+      "快",
+      "两台同型号"
+     ],
+     [
+      "双链路热备",
+      "快",
+      "可异地"
+     ],
+     [
+      "N+1冷备",
+      "慢（AP需重新上线）",
+      "最低"
+     ]
+    ]
+   },
+   "example": "[AC1-wlan-view] ac protect enable\n[AC1-wlan-view] ap-reset all   # 使配置生效（已核实）",
+   "exam": [
+    "三种方式对比（场景选择）。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 170\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"AC备份：主备AC，AP与两台AC保持联系\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"125.0\" y=\"23.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"170\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">主AC</text><rect x=\"385.0\" y=\"23.0\" width=\"90\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"45\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">备AC</text><line x1=\"215\" y1=\"40\" x2=\"385\" y2=\"40\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"300.0\" y=\"35.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">HSB通道同步(热备)</text><rect x=\"120.0\" y=\"123.0\" width=\"60\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"150\" y=\"145\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP</text><line x1=\"150\" y1=\"123\" x2=\"170\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"150\" y1=\"123\" x2=\"430\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><rect x=\"270.0\" y=\"123.0\" width=\"60\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"145\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP</text><line x1=\"300\" y1=\"123\" x2=\"170\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"300\" y1=\"123\" x2=\"430\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><rect x=\"420.0\" y=\"123.0\" width=\"60\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"145\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP</text><line x1=\"450\" y1=\"123\" x2=\"170\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\"/><line x1=\"450\" y1=\"123\" x2=\"430\" y2=\"57\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><text x=\"300\" y=\"95\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">双链路热备/VRRP热备/N+1冷备</text></svg><figcaption>AC备份：主备AC，AP与两台AC保持联系</figcaption></figure>"
+  }
  },
  {
   "id": "wl-auth",
@@ -1248,7 +3209,51 @@
    "authentication-profile p1",
    "display aaa online-fail-record"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "WLAN认证决定\"谁能连上\"。家里用一个共享密码（PSK），企业用每人自己的账号（802.1X，后端RADIUS），访客用网页登录（Portal），哑终端（打印机）用MAC认证。",
+   "steps": [
+    "链路认证（开放）→ 关联。",
+    "接入认证：PSK直接四次握手；802.1X通过EAP与RADIUS认证后再四次握手。",
+    "Portal：先连上无认证SSID，HTTP访问被重定向到认证页面，登录后放行。"
+   ],
+   "table": {
+    "head": [
+     "方式",
+     "适用",
+     "安全性"
+    ],
+    "rows": [
+     [
+      "WPA2/WPA3-PSK",
+      "家庭小型",
+      "中"
+     ],
+     [
+      "802.1X(WPA2/3-Enterprise)",
+      "企业员工",
+      "高"
+     ],
+     [
+      "Portal",
+      "访客",
+      "依赖网页"
+     ],
+     [
+      "MAC认证",
+      "哑终端",
+      "低"
+     ]
+    ]
+   },
+   "example": "[AC-wlan-view] security-profile name sec-ent\n[AC-wlan-sec-prof-sec-ent] security wpa2 dot1x aes\n[AC] radius-server template rd1\n[AC-radius-rd1] radius-server authentication 10.1.1.10 1812\n[AC-radius-rd1] radius-server shared-key cipher Huawei@123",
+   "exam": [
+    "认证方式场景选择。",
+    "802.1X三个角色、EAP。",
+    "RADIUS端口1812/1813。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 520 240\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"802.1X认证（EAP）\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"25.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"90\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">终端(Supplicant)</text><rect x=\"365.0\" y=\"5.0\" width=\"130\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"430\" y=\"27\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">接入设备→RADIUS</text><line x1=\"90\" y1=\"40\" x2=\"90\" y2=\"235\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"430\" y1=\"40\" x2=\"430\" y2=\"235\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"90\" y1=\"62\" x2=\"426\" y2=\"62\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"57.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">EAPOL-Start</text><line x1=\"430\" y1=\"92\" x2=\"94\" y2=\"92\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"87.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">EAP-Request/Identity</text><line x1=\"90\" y1=\"122\" x2=\"426\" y2=\"122\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"117.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">EAP-Response/Identity(用户名)</text><line x1=\"430\" y1=\"152\" x2=\"94\" y2=\"152\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"147.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">挑战/凭证交换(经RADIUS转发)</text><line x1=\"430\" y1=\"182\" x2=\"94\" y2=\"182\" stroke=\"#1a73e8\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"262.0\" y=\"177.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">EAP-Success，端口授权</text><line x1=\"90\" y1=\"212\" x2=\"426\" y2=\"212\" stroke=\"#c7000b\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"258.0\" y=\"207.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">开始访问网络</text></svg><figcaption>802.1X认证（EAP）</figcaption></figure>"
+  }
  },
  {
   "id": "wl-roam",
@@ -1264,13 +3269,52 @@
    "优化手段：合理规划信道避免同频干扰、调整AP功率使相邻AP覆盖适度重叠、开启智能漫游、处理\"粘滞终端\"。"
   ],
   "pitfalls": [
-   "技术栈真题答案为\"ABD\"（含修改SSID和加密方式），该选项的合理性存疑，原文解析较牵强——待核实，以官方题解为准。"
+   "技术栈回忆题的答案是ABD（包括\"修改SSID和加密方式\"）。这次没有找到官方题解，D选项是否合理仍待核实。"
   ],
   "commands": [
    "（示例）mobility-group name mg1",
    "member ip-address 10.1.1.2"
   ],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "人拿着手机走动，从一个AP覆盖区到另一个AP，保持IP不变、业务不断就是漫游。同VLAN叫二层漫游；跨VLAN叫三层漫游，需要把流量绕回原来的\"家乡\"转发。",
+   "steps": [
+    "STA检测信号变弱，扫描到更好AP。",
+    "重新关联到新AP（802.11r快速漫游可减少认证时间）。",
+    "AC同步用户信息（同AC内或AC间通过漫游组）。",
+    "三层漫游：流量经隧道回家乡AP/家乡AC转发，保持IP不变。"
+   ],
+   "table": {
+    "head": [
+     "漫游类型",
+     "说明"
+    ],
+    "rows": [
+     [
+      "AC内漫游",
+      "同一AC管理的AP之间"
+     ],
+     [
+      "AC间漫游",
+      "不同AC，需漫游组、AC间隧道"
+     ],
+     [
+      "二层漫游",
+      "前后VLAN相同"
+     ],
+     [
+      "三层漫游",
+      "VLAN不同，需家乡代理转发"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "二层/三层漫游区别。",
+    "802.11k/v/r作用。"
+   ],
+   "svg": "<figure class=\"fig\"><svg viewBox=\"0 0 600 170\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"漫游：二层漫游不换VLAN；三层漫游跨VLAN由家乡AP/AC转发\"><defs><marker id=\"ar\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0,0 L8,4 L0,8 z\" fill=\"#888\"/></marker></defs><rect x=\"95.0\" y=\"33.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"150\" y=\"55\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP1 VLAN10</text><rect x=\"395.0\" y=\"33.0\" width=\"110\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"450\" y=\"55\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">AP2 VLAN10</text><line x1=\"205\" y1=\"50\" x2=\"395\" y2=\"50\" stroke=\"#888\" stroke-width=\"2\"/><text x=\"300.0\" y=\"45.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">同VLAN → 二层漫游</text><rect x=\"265.0\" y=\"113.0\" width=\"70\" height=\"34\" rx=\"7\" fill=\"none\" stroke=\"#c7000b\" stroke-width=\"2\"/><text x=\"300\" y=\"135\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\">STA</text><line x1=\"300\" y1=\"113\" x2=\"170\" y2=\"67\" stroke=\"#888\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><line x1=\"300\" y1=\"113\" x2=\"430\" y2=\"67\" stroke=\"#888\" stroke-width=\"2\" marker-end=\"url(#ar)\"/><text x=\"300\" y=\"165\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\">STA由AP1移到AP2，IP不变，业务不中断</text></svg><figcaption>漫游：二层漫游不换VLAN；三层漫游跨VLAN由家乡AP/AC转发</figcaption></figure>"
+  }
  },
  {
   "id": "wl-wifi6",
@@ -1290,7 +3334,64 @@
    "OFDMA是\"频域分用户\"，MU-MIMO是\"空间分用户\"，别混。"
   ],
   "commands": [],
-  "todo": []
+  "todo": [],
+  "deep": {
+   "intro": "Wi-Fi 6（802.11ax）重点不是单个设备更快，而是\"人多时更好用\"：OFDMA把一个信道切成小块同时给多个用户，上下行MU-MIMO同时服务多个用户，BSS着色减少同频干扰，TWT让物联网终端省电。",
+   "steps": [
+    "OFDMA：信道划分为RU（资源单元），一次传输服务多个STA。",
+    "MU-MIMO：多空间流同时给多个用户（Wi-Fi 6支持上下行，8×8）。",
+    "1024-QAM：每个符号10比特，速率提升约25%。",
+    "BSS Color：区分不同BSS的同频信号，提高空间复用。",
+    "TWT：终端与AP约定唤醒时间。"
+   ],
+   "table": {
+    "head": [
+     "代际",
+     "标准",
+     "频段",
+     "最高调制"
+    ],
+    "rows": [
+     [
+      "Wi-Fi 4",
+      "802.11n",
+      "2.4/5",
+      "64-QAM"
+     ],
+     [
+      "Wi-Fi 5",
+      "802.11ac",
+      "5",
+      "256-QAM"
+     ],
+     [
+      "Wi-Fi 6",
+      "802.11ax",
+      "2.4/5",
+      "1024-QAM"
+     ],
+     [
+      "Wi-Fi 6E",
+      "802.11ax",
+      "+6GHz",
+      "1024-QAM"
+     ],
+     [
+      "Wi-Fi 7",
+      "802.11be",
+      "2.4/5/6",
+      "4096-QAM"
+     ]
+    ]
+   },
+   "example": "",
+   "exam": [
+    "各代标准对应。",
+    "OFDMA与MU-MIMO区别。",
+    "空间流数量与MU-MIMO用户数（真题待核实点）。"
+   ],
+   "svg": ""
+  }
  },
  {
   "id": "wl-rf",
@@ -1304,19 +3405,52 @@
    "华为射频调优(Radio Calibration)：AC自动调整信道和功率。",
    "频谱导航(Band Steering)：引导双频终端优先接入5GHz。",
    "负载均衡：用户在多个AP间均衡分布。",
-   "信号强度：常用RSSI衡量（单位dBm，越接近0越强）；办公场景常见建议边缘场强不低于-65dBm左右（待核实具体规范）。"
+   "已核实：华为园区WLAN设计建议重点办公区边缘场强-65～-40dBm，一般区域大于-75dBm；相邻AP的覆盖重叠约10%～15%，方便漫游。出处：华为智简园区《WLAN设计》、AC配置指南《场景模板》。"
   ],
   "pitfalls": [
    "dBm是负数时，-50dBm比-70dBm信号强。"
   ],
   "commands": [
    "wlan",
-   "calibrate enable auto",
-   "rrm-profile name r1",
+   "calibrate enable auto interval 1440 start-time 03:00:00",
+   "calibrate manual startup",
    "display radio all"
   ],
-  "todo": [
-   "华为射频调优命令随版本变化，待核实"
-  ]
+  "todo": [],
+  "deep": {
+   "intro": "AP越多不一定越好：相邻AP用同一信道会互相干扰。射频调优让AC自动给AP分配信道和功率；规划时还要看场强和重叠。",
+   "steps": [
+    "勘测：确定覆盖区域、终端数量、墙体衰减。",
+    "规划：2.4G用1/6/11蜂窝式交错，5G选更多信道。",
+    "场强目标（已核实）：重点办公区边缘-65～-40dBm，一般区域>-75dBm；相邻AP重叠约10%–15%。",
+    "部署后开启射频调优（定时或手动），AC根据邻居AP信号调整信道/功率。"
+   ],
+   "table": {
+    "head": [
+     "参数",
+     "建议"
+    ],
+    "rows": [
+     [
+      "边缘场强",
+      "重点区域≥-65dBm"
+     ],
+     [
+      "同频干扰",
+      "相邻AP不同信道"
+     ],
+     [
+      "调优时间",
+      "业务低峰如凌晨"
+     ]
+    ]
+   },
+   "example": "[AC-wlan-view] calibrate enable auto interval 1440 start-time 03:00:00\n[AC-wlan-view] calibrate manual startup   # 手动立即调优（已核实）",
+   "exam": [
+    "非重叠信道规划。",
+    "场强/重叠数值。"
+   ],
+   "svg": ""
+  }
  }
 ]

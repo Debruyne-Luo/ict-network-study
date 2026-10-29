@@ -816,6 +816,79 @@
   "kp": "dt-osi"
  },
  {
+  "id": "self-dt-osi-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "路由器根据报文的哪个信息进行转发？",
+  "options": [
+   {
+    "key": "A",
+    "text": "目的MAC地址"
+   },
+   {
+    "key": "B",
+    "text": "目的IP地址"
+   },
+   {
+    "key": "C",
+    "text": "源IP地址"
+   },
+   {
+    "key": "D",
+    "text": "目的端口号"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "路由器工作在网络层，按目的IP查路由表。",
+  "tags": [
+   "OSI七层与TCP/IP模型"
+  ],
+  "credibility": "自编",
+  "kp": "dt-osi"
+ },
+ {
+  "id": "self-dt-osi-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "多选",
+  "stem": "下列属于传输层协议的有？",
+  "options": [
+   {
+    "key": "A",
+    "text": "TCP"
+   },
+   {
+    "key": "B",
+    "text": "UDP"
+   },
+   {
+    "key": "C",
+    "text": "ICMP"
+   },
+   {
+    "key": "D",
+    "text": "ARP"
+   }
+  ],
+  "answer": [
+   "A",
+   "B"
+  ],
+  "explanation": "ICMP属于网络层，ARP一般归入网络层/数据链路层之间，传输层是TCP、UDP。",
+  "tags": [
+   "OSI七层与TCP/IP模型"
+  ],
+  "credibility": "自编",
+  "kp": "dt-osi"
+ },
+ {
   "id": "self-dt-tcpudp-1",
   "source_url": "",
   "edition": "",
@@ -911,6 +984,70 @@
    "A"
   ],
   "explanation": "UDP头部包含源端口、目的端口、长度、校验和，共8字节。",
+  "tags": [
+   "TCP与UDP"
+  ],
+  "credibility": "自编",
+  "kp": "dt-tcpudp"
+ },
+ {
+  "id": "self-dt-tcpudp-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "BGP使用的传输层协议和端口是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "UDP 179"
+   },
+   {
+    "key": "B",
+    "text": "TCP 179"
+   },
+   {
+    "key": "C",
+    "text": "TCP 520"
+   },
+   {
+    "key": "D",
+    "text": "UDP 520"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "BGP基于TCP 179；RIP使用UDP 520。",
+  "tags": [
+   "TCP与UDP"
+  ],
+  "credibility": "自编",
+  "kp": "dt-tcpudp"
+ },
+ {
+  "id": "self-dt-tcpudp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "判断",
+  "stem": "OSPF报文封装在UDP中传输。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "OSPF直接封装在IP中，协议号89。",
   "tags": [
    "TCP与UDP"
   ],
@@ -1054,6 +1191,42 @@
   "kp": "dt-ip"
  },
  {
+  "id": "self-dt-ip-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "需要每个子网至少容纳50台主机，应使用的最长掩码是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "/25"
+   },
+   {
+    "key": "B",
+    "text": "/26"
+   },
+   {
+    "key": "C",
+    "text": "/27"
+   },
+   {
+    "key": "D",
+    "text": "/28"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "/26可用62台，/27仅30台。",
+  "tags": [
+   "IPv4地址与子网划分"
+  ],
+  "credibility": "自编",
+  "kp": "dt-ip"
+ },
+ {
   "id": "self-dt-arp-1",
   "source_url": "",
   "edition": "",
@@ -1154,6 +1327,78 @@
   "kp": "dt-arp"
  },
  {
+  "id": "self-dt-arp-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "主机访问不同网段的服务器时，ARP请求解析的是谁的MAC地址？",
+  "options": [
+   {
+    "key": "A",
+    "text": "服务器"
+   },
+   {
+    "key": "B",
+    "text": "网关"
+   },
+   {
+    "key": "C",
+    "text": "DNS服务器"
+   },
+   {
+    "key": "D",
+    "text": "交换机"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "跨网段时帧的目的MAC是网关。",
+  "tags": [
+   "ARP与以太网基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-arp"
+ },
+ {
+  "id": "self-dt-arp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "VRRP主备切换后，新Master发送什么报文刷新交换机MAC表？",
+  "options": [
+   {
+    "key": "A",
+    "text": "ARP请求"
+   },
+   {
+    "key": "B",
+    "text": "免费ARP"
+   },
+   {
+    "key": "C",
+    "text": "ICMP Redirect"
+   },
+   {
+    "key": "D",
+    "text": "RARP"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "新Master发送免费ARP，使下游交换机更新虚拟MAC对应端口。",
+  "tags": [
+   "ARP与以太网基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-arp"
+ },
+ {
   "id": "self-dt-vrp-1",
   "source_url": "",
   "edition": "",
@@ -1247,6 +1492,78 @@
    "B"
   ],
   "explanation": "current是当前运行配置；下次启动用的是已保存配置(display saved-configuration)。",
+  "tags": [
+   "华为VRP命令行基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-vrp"
+ },
+ {
+  "id": "self-dt-vrp-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "华为设备查看当前生效配置的命令是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "display saved-configuration"
+   },
+   {
+    "key": "B",
+    "text": "display current-configuration"
+   },
+   {
+    "key": "C",
+    "text": "show running-config"
+   },
+   {
+    "key": "D",
+    "text": "display startup"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "current-configuration是当前运行配置；saved-configuration是已保存的配置。",
+  "tags": [
+   "华为VRP命令行基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-vrp"
+ },
+ {
+  "id": "self-dt-vrp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "从系统视图直接返回用户视图的命令是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "quit"
+   },
+   {
+    "key": "B",
+    "text": "return"
+   },
+   {
+    "key": "C",
+    "text": "exit"
+   },
+   {
+    "key": "D",
+    "text": "end"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "return或Ctrl+Z直接回用户视图；quit只退一层。",
   "tags": [
    "华为VRP命令行基础"
   ],
@@ -1392,6 +1709,42 @@
   "kp": "dt-vlan"
  },
  {
+  "id": "self-dt-vlan-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "Trunk端口发送PVID所在VLAN的帧时，会怎样处理标签？",
+  "options": [
+   {
+    "key": "A",
+    "text": "保留标签"
+   },
+   {
+    "key": "B",
+    "text": "剥离标签"
+   },
+   {
+    "key": "C",
+    "text": "替换为VLAN 1"
+   },
+   {
+    "key": "D",
+    "text": "丢弃该帧"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "Trunk口对与PVID相同VLAN的帧剥离标签发送。",
+  "tags": [
+   "VLAN与Access/Trunk/Hybrid"
+  ],
+  "credibility": "自编",
+  "kp": "dt-vlan"
+ },
+ {
   "id": "self-dt-stp-1",
   "source_url": "",
   "edition": "",
@@ -1485,6 +1838,70 @@
    "B"
   ],
   "explanation": "必须是4096的倍数（0–61440）。",
+  "tags": [
+   "STP生成树协议"
+  ],
+  "credibility": "自编",
+  "kp": "dt-stp"
+ },
+ {
+  "id": "self-dt-stp-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "STP缺省的Forward Delay时间是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "2秒"
+   },
+   {
+    "key": "B",
+    "text": "15秒"
+   },
+   {
+    "key": "C",
+    "text": "20秒"
+   },
+   {
+    "key": "D",
+    "text": "30秒"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "Hello 2s，Forward Delay 15s，Max Age 20s。",
+  "tags": [
+   "STP生成树协议"
+  ],
+  "credibility": "自编",
+  "kp": "dt-stp"
+ },
+ {
+  "id": "self-dt-stp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "判断",
+  "stem": "STP中被阻塞的端口不再接收BPDU。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "阻塞端口不转发数据，但仍接收BPDU以感知拓扑变化。",
   "tags": [
    "STP生成树协议"
   ],
@@ -1594,6 +2011,80 @@
   "kp": "dt-rstp"
  },
  {
+  "id": "self-dt-rstp-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "华为交换机缺省的生成树模式是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "STP"
+   },
+   {
+    "key": "B",
+    "text": "RSTP"
+   },
+   {
+    "key": "C",
+    "text": "MSTP"
+   },
+   {
+    "key": "D",
+    "text": "PVST"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "华为交换机缺省为MSTP模式。",
+  "tags": [
+   "RSTP与MSTP"
+  ],
+  "credibility": "自编",
+  "kp": "dt-rstp"
+ },
+ {
+  "id": "self-dt-rstp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "多选",
+  "stem": "MSTP中，交换机属于同一MST域需要一致的是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "域名"
+   },
+   {
+    "key": "B",
+    "text": "修订级别"
+   },
+   {
+    "key": "C",
+    "text": "VLAN与实例映射"
+   },
+   {
+    "key": "D",
+    "text": "桥优先级"
+   }
+  ],
+  "answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "explanation": "同域三要素：域名、修订级别、VLAN映射表；桥优先级可不同。",
+  "tags": [
+   "RSTP与MSTP"
+  ],
+  "credibility": "自编",
+  "kp": "dt-rstp"
+ },
+ {
   "id": "self-dt-trunk-1",
   "source_url": "",
   "edition": "",
@@ -1689,6 +2180,72 @@
    "C"
   ],
   "explanation": "隔离广播域是VLAN的作用。",
+  "tags": [
+   "链路聚合Eth-Trunk/LACP"
+  ],
+  "credibility": "自编",
+  "kp": "dt-trunk"
+ },
+ {
+  "id": "self-dt-trunk-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "判断",
+  "stem": "LACP模式支持配置备份链路，而手工模式下所有成员口都处于活动状态。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "LACP可通过最大活动链路数让其余成员备份。",
+  "tags": [
+   "链路聚合Eth-Trunk/LACP"
+  ],
+  "credibility": "自编",
+  "kp": "dt-trunk"
+ },
+ {
+  "id": "self-dt-trunk-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "多选",
+  "stem": "加入同一Eth-Trunk的成员口一般要求一致的有？",
+  "options": [
+   {
+    "key": "A",
+    "text": "速率"
+   },
+   {
+    "key": "B",
+    "text": "双工模式"
+   },
+   {
+    "key": "C",
+    "text": "接口描述"
+   },
+   {
+    "key": "D",
+    "text": "（LACP下）对端设备相同"
+   }
+  ],
+  "answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "描述无要求。",
   "tags": [
    "链路聚合Eth-Trunk/LACP"
   ],
@@ -1825,6 +2382,42 @@
    "C"
   ],
   "explanation": "OSPF和IS-IS是链路状态协议。",
+  "tags": [
+   "路由基础与静态路由"
+  ],
+  "credibility": "自编",
+  "kp": "dt-route"
+ },
+ {
+  "id": "self-dt-route-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "目的10.1.1.5，路由表有10.0.0.0/8和10.1.1.0/24两条路由，会使用哪一条？",
+  "options": [
+   {
+    "key": "A",
+    "text": "10.0.0.0/8"
+   },
+   {
+    "key": "B",
+    "text": "10.1.1.0/24"
+   },
+   {
+    "key": "C",
+    "text": "负载分担"
+   },
+   {
+    "key": "D",
+    "text": "都不用"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "最长掩码匹配优先。",
   "tags": [
    "路由基础与静态路由"
   ],
@@ -1971,6 +2564,42 @@
   "kp": "dt-ospf1"
  },
  {
+  "id": "self-dt-ospf1-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "OSPF在广播网络上DR和BDR之外的路由器（DRother）之间停留在什么状态？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Init"
+   },
+   {
+    "key": "B",
+    "text": "2-Way"
+   },
+   {
+    "key": "C",
+    "text": "ExStart"
+   },
+   {
+    "key": "D",
+    "text": "Full"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "DRother之间只到2-Way，与DR/BDR形成Full。",
+  "tags": [
+   "OSPF基础：邻居与DR/BDR"
+  ],
+  "credibility": "自编",
+  "kp": "dt-ospf1"
+ },
+ {
   "id": "self-dt-ospf2-1",
   "source_url": "",
   "edition": "",
@@ -2071,6 +2700,78 @@
   "kp": "dt-ospf2"
  },
  {
+  "id": "self-dt-ospf2-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "由ASBR产生、描述AS外部路由的LSA是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Type 3"
+   },
+   {
+    "key": "B",
+    "text": "Type 4"
+   },
+   {
+    "key": "C",
+    "text": "Type 5"
+   },
+   {
+    "key": "D",
+    "text": "Type 7(只在普通区域)"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "Type 5由ASBR产生；Type 7只在NSSA中。",
+  "tags": [
+   "OSPF区域与LSA"
+  ],
+  "credibility": "自编",
+  "kp": "dt-ospf2"
+ },
+ {
+  "id": "self-dt-ospf2-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "Totally Stub区域中，ABR会向区域内发布？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Type 3缺省路由"
+   },
+   {
+    "key": "B",
+    "text": "Type 5缺省路由"
+   },
+   {
+    "key": "C",
+    "text": "所有Type 3"
+   },
+   {
+    "key": "D",
+    "text": "Type 7"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "Totally Stub阻挡3/4/5类，只发一条3类缺省路由。",
+  "tags": [
+   "OSPF区域与LSA"
+  ],
+  "credibility": "自编",
+  "kp": "dt-ospf2"
+ },
+ {
   "id": "self-dt-bgp1-1",
   "source_url": "",
   "edition": "",
@@ -2164,6 +2865,70 @@
    "C"
   ],
   "explanation": "Established表示邻居建立成功。",
+  "tags": [
+   "BGP基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-bgp1"
+ },
+ {
+  "id": "self-dt-bgp1-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "BGP邻居建立成功后的状态是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Active"
+   },
+   {
+    "key": "B",
+    "text": "OpenConfirm"
+   },
+   {
+    "key": "C",
+    "text": "Established"
+   },
+   {
+    "key": "D",
+    "text": "Full"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "Established表示邻居建立。",
+  "tags": [
+   "BGP基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-bgp1"
+ },
+ {
+  "id": "self-dt-bgp1-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "判断",
+  "stem": "EBGP邻居默认要求直连（TTL=1），非直连需要配置ebgp-max-hop。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "EBGP报文缺省TTL为1。",
   "tags": [
    "BGP基础"
   ],
@@ -2281,6 +3046,78 @@
   "kp": "dt-bgp2"
  },
  {
+  "id": "self-dt-bgp2-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "Local_Preference属性的缺省值和优选规则是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "0，小优"
+   },
+   {
+    "key": "B",
+    "text": "100，大优"
+   },
+   {
+    "key": "C",
+    "text": "100，小优"
+   },
+   {
+    "key": "D",
+    "text": "255，大优"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "缺省100，越大越优，只在AS内传递。",
+  "tags": [
+   "BGP属性与选路规则"
+  ],
+  "credibility": "自编",
+  "kp": "dt-bgp2"
+ },
+ {
+  "id": "self-dt-bgp2-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "Origin属性的优先顺序是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "IGP>EGP>Incomplete"
+   },
+   {
+    "key": "B",
+    "text": "Incomplete>EGP>IGP"
+   },
+   {
+    "key": "C",
+    "text": "EGP>IGP>Incomplete"
+   },
+   {
+    "key": "D",
+    "text": "三者相同"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "network引入为IGP，import-route为Incomplete。",
+  "tags": [
+   "BGP属性与选路规则"
+  ],
+  "credibility": "自编",
+  "kp": "dt-bgp2"
+ },
+ {
   "id": "self-dt-policy-1",
   "source_url": "",
   "edition": "",
@@ -2374,6 +3211,70 @@
    "B"
   ],
   "explanation": "不写范围时精确匹配网络和掩码长度。",
+  "tags": [
+   "路由策略与前缀列表"
+  ],
+  "credibility": "自编",
+  "kp": "dt-policy"
+ },
+ {
+  "id": "self-dt-policy-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "ip ip-prefix P permit 192.168.0.0 16 greater-equal 24 less-equal 24 能匹配以下哪条路由？",
+  "options": [
+   {
+    "key": "A",
+    "text": "192.168.0.0/16"
+   },
+   {
+    "key": "B",
+    "text": "192.168.1.0/24"
+   },
+   {
+    "key": "C",
+    "text": "192.168.1.0/25"
+   },
+   {
+    "key": "D",
+    "text": "10.1.1.0/24"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "前16位为192.168且掩码=24。",
+  "tags": [
+   "路由策略与前缀列表"
+  ],
+  "credibility": "自编",
+  "kp": "dt-policy"
+ },
+ {
+  "id": "self-dt-policy-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "判断",
+  "stem": "route-policy中所有节点都不匹配时，路由缺省被拒绝。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "route-policy末尾隐含拒绝。",
   "tags": [
    "路由策略与前缀列表"
   ],
@@ -2518,6 +3419,42 @@
   "kp": "dt-vrrp"
  },
  {
+  "id": "self-dt-vrrp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "两台路由器VRRP优先级相同，谁成为Master？",
+  "options": [
+   {
+    "key": "A",
+    "text": "接口IP地址大者"
+   },
+   {
+    "key": "B",
+    "text": "接口IP地址小者"
+   },
+   {
+    "key": "C",
+    "text": "先启动者固定"
+   },
+   {
+    "key": "D",
+    "text": "随机"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "优先级相同时比较接口主IP地址，大者优。",
+  "tags": [
+   "VRRP虚拟路由冗余"
+  ],
+  "credibility": "自编",
+  "kp": "dt-vrrp"
+ },
+ {
   "id": "self-dt-acl-1",
   "source_url": "",
   "edition": "",
@@ -2611,6 +3548,70 @@
    "B"
   ],
   "explanation": "按规则编号顺序匹配，命中即停止。",
+  "tags": [
+   "ACL访问控制列表"
+  ],
+  "credibility": "自编",
+  "kp": "dt-acl"
+ },
+ {
+  "id": "self-dt-acl-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "通配符0.0.0.255表示？",
+  "options": [
+   {
+    "key": "A",
+    "text": "前24位必须匹配，后8位任意"
+   },
+   {
+    "key": "B",
+    "text": "后8位必须匹配"
+   },
+   {
+    "key": "C",
+    "text": "全部任意"
+   },
+   {
+    "key": "D",
+    "text": "全部必须匹配"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "通配符0为必须匹配，1为任意。",
+  "tags": [
+   "ACL访问控制列表"
+  ],
+  "credibility": "自编",
+  "kp": "dt-acl"
+ },
+ {
+  "id": "self-dt-acl-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "判断",
+  "stem": "ACL规则按rule编号从小到大顺序匹配，一旦命中即停止匹配。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "缺省为config顺序，按编号匹配。",
   "tags": [
    "ACL访问控制列表"
   ],
@@ -2718,6 +3719,70 @@
   "kp": "dt-nat"
  },
  {
+  "id": "self-dt-nat-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "外网用户需要访问内网的Web服务器，应使用？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Easy IP"
+   },
+   {
+    "key": "B",
+    "text": "NAPT"
+   },
+   {
+    "key": "C",
+    "text": "NAT Server"
+   },
+   {
+    "key": "D",
+    "text": "No-PAT"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "NAT Server把公网地址/端口映射到内网服务器。",
+  "tags": [
+   "NAT网络地址转换"
+  ],
+  "credibility": "自编",
+  "kp": "dt-nat"
+ },
+ {
+  "id": "self-dt-nat-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "判断",
+  "stem": "nat outbound 2000 address-group 1 no-pat 表示只转换地址不转换端口。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "no-pat为一对一地址转换。",
+  "tags": [
+   "NAT网络地址转换"
+  ],
+  "credibility": "自编",
+  "kp": "dt-nat"
+ },
+ {
   "id": "self-dt-dhcp-1",
   "source_url": "",
   "edition": "",
@@ -2811,6 +3876,78 @@
    "A"
   ],
   "explanation": "DHCP Discover是广播，不能跨三层，需要中继转发。",
+  "tags": [
+   "DHCP动态主机配置"
+  ],
+  "credibility": "自编",
+  "kp": "dt-dhcp"
+ },
+ {
+  "id": "self-dt-dhcp-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "DHCP服务器和客户端使用的UDP端口分别是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "67、68"
+   },
+   {
+    "key": "B",
+    "text": "68、67"
+   },
+   {
+    "key": "C",
+    "text": "53、67"
+   },
+   {
+    "key": "D",
+    "text": "69、68"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "服务器67，客户端68。",
+  "tags": [
+   "DHCP动态主机配置"
+  ],
+  "credibility": "自编",
+  "kp": "dt-dhcp"
+ },
+ {
+  "id": "self-dt-dhcp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "DHCP客户端在租期多少时首次单播发送Request续约？",
+  "options": [
+   {
+    "key": "A",
+    "text": "25%"
+   },
+   {
+    "key": "B",
+    "text": "50%"
+   },
+   {
+    "key": "C",
+    "text": "87.5%"
+   },
+   {
+    "key": "D",
+    "text": "100%"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "50%单播续约，87.5%广播续约。",
   "tags": [
    "DHCP动态主机配置"
   ],
@@ -2947,6 +4084,42 @@
    "B"
   ],
   "explanation": "邻居请求NS和邻居通告NA。",
+  "tags": [
+   "IPv6基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-ipv6"
+ },
+ {
+  "id": "self-dt-ipv6-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "IPv6中用于替代ARP、解析邻居链路层地址的报文是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "RS/RA"
+   },
+   {
+    "key": "B",
+    "text": "NS/NA"
+   },
+   {
+    "key": "C",
+    "text": "Redirect"
+   },
+   {
+    "key": "D",
+    "text": "DHCPv6 Solicit"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "NS(135)/NA(136)。",
   "tags": [
    "IPv6基础"
   ],
@@ -3092,6 +4265,42 @@
   "kp": "dt-mplsvpn"
  },
  {
+  "id": "self-dt-mplsvpn-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "MPLS VPN中让不同VPN的相同IPv4前缀在MP-BGP中变得唯一的是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "RT"
+   },
+   {
+    "key": "B",
+    "text": "RD"
+   },
+   {
+    "key": "C",
+    "text": "标签"
+   },
+   {
+    "key": "D",
+    "text": "Router ID"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "RD+IPv4=VPNv4地址；RT控制导入导出。",
+  "tags": [
+   "MPLS与MPLS VPN基础"
+  ],
+  "credibility": "自编",
+  "kp": "dt-mplsvpn"
+ },
+ {
   "id": "self-dt-ext-1",
   "source_url": "",
   "edition": "",
@@ -3192,6 +4401,78 @@
   "kp": "dt-ext"
  },
  {
+  "id": "self-dt-ext-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "PIM-SM中负责共享树(RPT)根的是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "DR"
+   },
+   {
+    "key": "B",
+    "text": "RP"
+   },
+   {
+    "key": "C",
+    "text": "BSR"
+   },
+   {
+    "key": "D",
+    "text": "IGMP Querier"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "RP是共享树的根。",
+  "tags": [
+   "拓展：SRv6、组播PIM、IP FRR"
+  ],
+  "credibility": "自编",
+  "kp": "dt-ext"
+ },
+ {
+  "id": "self-dt-ext-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "数通",
+  "type": "单选",
+  "stem": "主机与直连路由器之间管理组播组成员关系的协议是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "PIM"
+   },
+   {
+    "key": "B",
+    "text": "IGMP"
+   },
+   {
+    "key": "C",
+    "text": "MSDP"
+   },
+   {
+    "key": "D",
+    "text": "OSPF"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "IGMP用于主机与路由器之间。",
+  "tags": [
+   "拓展：SRv6、组播PIM、IP FRR"
+  ],
+  "credibility": "自编",
+  "kp": "dt-ext"
+ },
+ {
   "id": "self-dc-arch-1",
   "source_url": "",
   "edition": "",
@@ -3285,6 +4566,144 @@
    "B"
   ],
   "explanation": "Border Leaf负责与外部网络互联。",
+  "tags": [
+   "数据中心Spine-Leaf架构"
+  ],
+  "credibility": "自编",
+  "kp": "dc-arch"
+ },
+ {
+  "id": "self-dc-arch-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "判断",
+  "stem": "Spine-Leaf架构中Spine交换机之间通常需要直接互联。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "Spine之间一般不互联，Leaf全连接所有Spine。",
+  "tags": [
+   "数据中心Spine-Leaf架构"
+  ],
+  "credibility": "自编",
+  "kp": "dc-arch"
+ },
+ {
+  "id": "self-dc-arch-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "数据中心中服务器之间的流量称为？",
+  "options": [
+   {
+    "key": "A",
+    "text": "南北向流量"
+   },
+   {
+    "key": "B",
+    "text": "东西向流量"
+   },
+   {
+    "key": "C",
+    "text": "上行流量"
+   },
+   {
+    "key": "D",
+    "text": "管理流量"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "东西向=服务器之间。",
+  "tags": [
+   "数据中心Spine-Leaf架构"
+  ],
+  "credibility": "自编",
+  "kp": "dc-arch"
+ },
+ {
+  "id": "self-dc-arch-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "多选",
+  "stem": "Spine-Leaf架构的优点有？",
+  "options": [
+   {
+    "key": "A",
+    "text": "任意两台服务器跳数固定"
+   },
+   {
+    "key": "B",
+    "text": "可利用ECMP多路径"
+   },
+   {
+    "key": "C",
+    "text": "依赖STP阻塞冗余链路"
+   },
+   {
+    "key": "D",
+    "text": "便于横向扩展"
+   }
+  ],
+  "answer": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "Underlay为三层，不靠STP。",
+  "tags": [
+   "数据中心Spine-Leaf架构"
+  ],
+  "credibility": "自编",
+  "kp": "dc-arch"
+ },
+ {
+  "id": "self-dc-arch-7",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "数据中心中承载VXLAN等虚拟网络的逻辑网络称为？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Underlay"
+   },
+   {
+    "key": "B",
+    "text": "Overlay"
+   },
+   {
+    "key": "C",
+    "text": "管理网"
+   },
+   {
+    "key": "D",
+    "text": "存储网"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "Overlay建立在Underlay之上。",
   "tags": [
    "数据中心Spine-Leaf架构"
   ],
@@ -3430,6 +4849,142 @@
   "kp": "dc-vxlan"
  },
  {
+  "id": "self-dc-vxlan-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "VXLAN中VNI字段长度为？",
+  "options": [
+   {
+    "key": "A",
+    "text": "12位"
+   },
+   {
+    "key": "B",
+    "text": "16位"
+   },
+   {
+    "key": "C",
+    "text": "24位"
+   },
+   {
+    "key": "D",
+    "text": "32位"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "24位，约1600万。",
+  "tags": [
+   "VXLAN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-vxlan"
+ },
+ {
+  "id": "self-dc-vxlan-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "判断",
+  "stem": "VXLAN封装会增加约50字节开销，因此Underlay通常需要增大MTU。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "外层以太、IP、UDP、VXLAN头约50字节。",
+  "tags": [
+   "VXLAN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-vxlan"
+ },
+ {
+  "id": "self-dc-vxlan-7",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "VXLAN中负责报文封装与解封装的设备称为？",
+  "options": [
+   {
+    "key": "A",
+    "text": "VTEP"
+   },
+   {
+    "key": "B",
+    "text": "VNI"
+   },
+   {
+    "key": "C",
+    "text": "BD"
+   },
+   {
+    "key": "D",
+    "text": "RR"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "VTEP即隧道端点。",
+  "tags": [
+   "VXLAN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-vxlan"
+ },
+ {
+  "id": "self-dc-vxlan-8",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "VXLAN中与VNI一一映射的二层广播域是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "VLAN"
+   },
+   {
+    "key": "B",
+    "text": "BD"
+   },
+   {
+    "key": "C",
+    "text": "VRF"
+   },
+   {
+    "key": "D",
+    "text": "VPN实例"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "BD桥域。",
+  "tags": [
+   "VXLAN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-vxlan"
+ },
+ {
   "id": "self-dc-evpn-1",
   "source_url": "",
   "edition": "",
@@ -3523,6 +5078,134 @@
    "A"
   ],
   "explanation": "EVPN是VXLAN常用控制平面。",
+  "tags": [
+   "BGP EVPN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-evpn"
+ },
+ {
+  "id": "self-dc-evpn-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "BGP EVPN中用于自动建立VXLAN隧道、生成头端复制列表的是哪类路由？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Type 2"
+   },
+   {
+    "key": "B",
+    "text": "Type 3"
+   },
+   {
+    "key": "C",
+    "text": "Type 5"
+   },
+   {
+    "key": "D",
+    "text": "Type 4"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "Type 3 Inclusive Multicast路由。",
+  "tags": [
+   "BGP EVPN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-evpn"
+ },
+ {
+  "id": "self-dc-evpn-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "BGP EVPN中用于发布IP前缀路由的是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Type 1"
+   },
+   {
+    "key": "B",
+    "text": "Type 2"
+   },
+   {
+    "key": "C",
+    "text": "Type 3"
+   },
+   {
+    "key": "D",
+    "text": "Type 5"
+   }
+  ],
+  "answer": [
+   "D"
+  ],
+  "explanation": "Type 5 IP Prefix。",
+  "tags": [
+   "BGP EVPN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-evpn"
+ },
+ {
+  "id": "self-dc-evpn-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "判断",
+  "stem": "分布式网关中，各Leaf上同一子网的VBDIF接口通常配置相同的网关IP和MAC。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "这样虚拟机迁移后网关不变。",
+  "tags": [
+   "BGP EVPN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-evpn"
+ },
+ {
+  "id": "self-dc-evpn-7",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "判断",
+  "stem": "BGP EVPN可以通过Type 2路由携带ARP信息，减少网络中的ARP泛洪。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "即ARP广播抑制。",
   "tags": [
    "BGP EVPN"
   ],
@@ -3630,6 +5313,106 @@
   "kp": "dc-mlag"
  },
  {
+  "id": "self-dc-mlag-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "M-LAG中peer-link故障但心跳正常时，会发生什么？",
+  "options": [
+   {
+    "key": "A",
+    "text": "两台设备都继续转发"
+   },
+   {
+    "key": "B",
+    "text": "备设备将业务接口Error-Down"
+   },
+   {
+    "key": "C",
+    "text": "主设备重启"
+   },
+   {
+    "key": "D",
+    "text": "两台都Error-Down"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "避免双主，备设备除保留接口外的业务口Error-Down（华为文档）。",
+  "tags": [
+   "M-LAG跨设备链路聚合"
+  ],
+  "credibility": "自编",
+  "kp": "dc-mlag"
+ },
+ {
+  "id": "self-dc-mlag-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "判断",
+  "stem": "与堆叠相比，M-LAG两台设备的控制面相互独立，可以逐台升级。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "M-LAG优势之一。",
+  "tags": [
+   "M-LAG跨设备链路聚合"
+  ],
+  "credibility": "自编",
+  "kp": "dc-mlag"
+ },
+ {
+  "id": "self-dc-mlag-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "M-LAG中，DFS Group主备协商主要依据？",
+  "options": [
+   {
+    "key": "A",
+    "text": "DFS优先级"
+   },
+   {
+    "key": "B",
+    "text": "接口编号"
+   },
+   {
+    "key": "C",
+    "text": "VLAN ID"
+   },
+   {
+    "key": "D",
+    "text": "STP优先级"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "priority大者为主，相同比MAC。",
+  "tags": [
+   "M-LAG跨设备链路聚合"
+  ],
+  "credibility": "自编",
+  "kp": "dc-mlag"
+ },
+ {
   "id": "self-dc-stack-1",
   "source_url": "",
   "edition": "",
@@ -3723,6 +5506,106 @@
    "A"
   ],
   "explanation": "堆叠为单一控制平面，可跨设备聚合。",
+  "tags": [
+   "堆叠iStack与集群CSS"
+  ],
+  "credibility": "自编",
+  "kp": "dc-stack"
+ },
+ {
+  "id": "self-dc-stack-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "iStack成员同时启动时，选主首先比较？",
+  "options": [
+   {
+    "key": "A",
+    "text": "堆叠优先级"
+   },
+   {
+    "key": "B",
+    "text": "MAC地址"
+   },
+   {
+    "key": "C",
+    "text": "Master端数量"
+   },
+   {
+    "key": "D",
+    "text": "成员ID"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "顺序：启动时间→Master端数量→优先级→MAC（华为文档）。",
+  "tags": [
+   "堆叠iStack与集群CSS"
+  ],
+  "credibility": "自编",
+  "kp": "dc-stack"
+ },
+ {
+  "id": "self-dc-stack-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "判断",
+  "stem": "修改堆叠优先级后，优先级更高的成员会立即抢占成为Master。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "优先级修改不触发抢占，需重启后重新选举。",
+  "tags": [
+   "堆叠iStack与集群CSS"
+  ],
+  "credibility": "自编",
+  "kp": "dc-stack"
+ },
+ {
+  "id": "self-dc-stack-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "堆叠分裂后用于检测并处理\"双主\"的机制是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "BFD"
+   },
+   {
+    "key": "B",
+    "text": "MAD"
+   },
+   {
+    "key": "C",
+    "text": "LACP"
+   },
+   {
+    "key": "D",
+    "text": "VRRP"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "MAD（多主检测）。",
   "tags": [
    "堆叠iStack与集群CSS"
   ],
@@ -3830,6 +5713,116 @@
   "kp": "dc-ecmp"
  },
  {
+  "id": "self-dc-ecmp-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "ECMP的前提是多条路由？",
+  "options": [
+   {
+    "key": "A",
+    "text": "开销相同"
+   },
+   {
+    "key": "B",
+    "text": "掩码不同"
+   },
+   {
+    "key": "C",
+    "text": "优先级不同"
+   },
+   {
+    "key": "D",
+    "text": "下一跳相同"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "等价=同协议同开销。",
+  "tags": [
+   "ECMP等价多路径"
+  ],
+  "credibility": "自编",
+  "kp": "dc-ecmp"
+ },
+ {
+  "id": "self-dc-ecmp-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "逐包负载分担的主要缺点是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "不均衡"
+   },
+   {
+    "key": "B",
+    "text": "可能报文乱序"
+   },
+   {
+    "key": "C",
+    "text": "不能用于OSPF"
+   },
+   {
+    "key": "D",
+    "text": "需要STP"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "同一流走不同路径可能乱序。",
+  "tags": [
+   "ECMP等价多路径"
+  ],
+  "credibility": "自编",
+  "kp": "dc-ecmp"
+ },
+ {
+  "id": "self-dc-ecmp-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "多选",
+  "stem": "逐流哈希常用的字段有？",
+  "options": [
+   {
+    "key": "A",
+    "text": "源IP"
+   },
+   {
+    "key": "B",
+    "text": "目的IP"
+   },
+   {
+    "key": "C",
+    "text": "源/目的端口"
+   },
+   {
+    "key": "D",
+    "text": "TTL"
+   }
+  ],
+  "answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "explanation": "五元组，不用TTL。",
+  "tags": [
+   "ECMP等价多路径"
+  ],
+  "credibility": "自编",
+  "kp": "dc-ecmp"
+ },
+ {
   "id": "self-dc-lossless-1",
   "source_url": "",
   "edition": "",
@@ -3923,6 +5916,142 @@
    "B"
   ],
   "explanation": "RoCEv2为4791，VXLAN为4789。",
+  "tags": [
+   "无损网络：PFC与ECN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-lossless"
+ },
+ {
+  "id": "self-dc-lossless-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "RoCEv2主要依赖哪种机制在拥塞时暂停特定优先级流量以实现零丢包？",
+  "options": [
+   {
+    "key": "A",
+    "text": "PFC"
+   },
+   {
+    "key": "B",
+    "text": "STP"
+   },
+   {
+    "key": "C",
+    "text": "VRRP"
+   },
+   {
+    "key": "D",
+    "text": "LACP"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "PFC按优先级暂停。",
+  "tags": [
+   "无损网络：PFC与ECN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-lossless"
+ },
+ {
+  "id": "self-dc-lossless-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "判断",
+  "stem": "ECN通过在IP头打标记通知发送端降速，可以减少PFC触发。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "ECN是端到端拥塞通知，与PFC配合。",
+  "tags": [
+   "无损网络：PFC与ECN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-lossless"
+ },
+ {
+  "id": "self-dc-lossless-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "在CE交换机上配置DCB/PFC后需要执行什么命令使配置生效？",
+  "options": [
+   {
+    "key": "A",
+    "text": "save"
+   },
+   {
+    "key": "B",
+    "text": "commit"
+   },
+   {
+    "key": "C",
+    "text": "return"
+   },
+   {
+    "key": "D",
+    "text": "reset"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "CE系列采用两阶段生效，需commit。",
+  "tags": [
+   "无损网络：PFC与ECN"
+  ],
+  "credibility": "自编",
+  "kp": "dc-lossless"
+ },
+ {
+  "id": "self-dc-lossless-7",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "DCN",
+  "type": "单选",
+  "stem": "PFC暂停的粒度是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "整个端口"
+   },
+   {
+    "key": "B",
+    "text": "按802.1p优先级队列"
+   },
+   {
+    "key": "C",
+    "text": "按VLAN"
+   },
+   {
+    "key": "D",
+    "text": "按VNI"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "PFC对8个优先级分别暂停。",
   "tags": [
    "无损网络：PFC与ECN"
   ],
@@ -4030,6 +6159,106 @@
   "kp": "sec-zone"
  },
  {
+  "id": "self-sec-zone-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "华为防火墙untrust区域的缺省安全级别是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "5"
+   },
+   {
+    "key": "B",
+    "text": "50"
+   },
+   {
+    "key": "C",
+    "text": "85"
+   },
+   {
+    "key": "D",
+    "text": "100"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "Local100、Trust85、DMZ50、Untrust5。",
+  "tags": [
+   "防火墙安全区域"
+  ],
+  "credibility": "自编",
+  "kp": "sec-zone"
+ },
+ {
+  "id": "self-sec-zone-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "防火墙接口未加入任何安全区域时，也可以正常转发业务流量。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "接口需加入安全区域。",
+  "tags": [
+   "防火墙安全区域"
+  ],
+  "credibility": "自编",
+  "kp": "sec-zone"
+ },
+ {
+  "id": "self-sec-zone-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "管理员Ping防火墙接口地址，流量的目的区域是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "trust"
+   },
+   {
+    "key": "B",
+    "text": "untrust"
+   },
+   {
+    "key": "C",
+    "text": "local"
+   },
+   {
+    "key": "D",
+    "text": "dmz"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "访问防火墙自身属于Local区域。",
+  "tags": [
+   "防火墙安全区域"
+  ],
+  "credibility": "自编",
+  "kp": "sec-zone"
+ },
+ {
   "id": "self-sec-policy-1",
   "source_url": "",
   "edition": "",
@@ -4130,6 +6359,109 @@
   "kp": "sec-policy"
  },
  {
+  "id": "self-sec-policy-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "流量未匹配任何安全策略规则时，USG缺省动作是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "permit"
+   },
+   {
+    "key": "B",
+    "text": "deny"
+   },
+   {
+    "key": "C",
+    "text": "记录日志后放行"
+   },
+   {
+    "key": "D",
+    "text": "转发到CPU"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "缺省策略为deny。",
+  "tags": [
+   "安全策略与会话表"
+  ],
+  "credibility": "自编",
+  "kp": "sec-policy"
+ },
+ {
+  "id": "self-sec-policy-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "状态检测防火墙中，会话建立后，后续报文直接根据会话表转发，不再逐条匹配安全策略。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "这是状态检测的特点。",
+  "tags": [
+   "安全策略与会话表"
+  ],
+  "credibility": "自编",
+  "kp": "sec-policy"
+ },
+ {
+  "id": "self-sec-policy-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "多选",
+  "stem": "USG安全策略可以作为匹配条件的有？",
+  "options": [
+   {
+    "key": "A",
+    "text": "源/目的安全区域"
+   },
+   {
+    "key": "B",
+    "text": "源/目的地址"
+   },
+   {
+    "key": "C",
+    "text": "服务"
+   },
+   {
+    "key": "D",
+    "text": "应用"
+   }
+  ],
+  "answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "还包括用户、时间段等。",
+  "tags": [
+   "安全策略与会话表"
+  ],
+  "credibility": "自编",
+  "kp": "sec-policy"
+ },
+ {
   "id": "self-sec-nat-1",
   "source_url": "",
   "edition": "",
@@ -4223,6 +6555,106 @@
    "C"
   ],
   "explanation": "No-PAT一对一地址转换。",
+  "tags": [
+   "防火墙NAT"
+  ],
+  "credibility": "自编",
+  "kp": "sec-nat"
+ },
+ {
+  "id": "self-sec-nat-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "防火墙处理报文时，NAT Server（目的NAT）与安全策略的先后关系是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "先安全策略后NAT Server"
+   },
+   {
+    "key": "B",
+    "text": "先NAT Server后安全策略"
+   },
+   {
+    "key": "C",
+    "text": "同时"
+   },
+   {
+    "key": "D",
+    "text": "无关"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "目的地址转换在安全策略之前，策略里写私网目的地址（华为文档）。",
+  "tags": [
+   "防火墙NAT"
+  ],
+  "credibility": "自编",
+  "kp": "sec-nat"
+ },
+ {
+  "id": "self-sec-nat-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "为防止NAT地址池地址产生路由环路，通常配置？",
+  "options": [
+   {
+    "key": "A",
+    "text": "缺省路由"
+   },
+   {
+    "key": "B",
+    "text": "黑洞路由"
+   },
+   {
+    "key": "C",
+    "text": "直连路由"
+   },
+   {
+    "key": "D",
+    "text": "OSPF路由"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "指向NULL0的黑洞路由。",
+  "tags": [
+   "防火墙NAT"
+  ],
+  "credibility": "自编",
+  "kp": "sec-nat"
+ },
+ {
+  "id": "self-sec-nat-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "源NAT在安全策略匹配之后进行。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "因此安全策略的源地址写转换前的私网地址。",
   "tags": [
    "防火墙NAT"
   ],
@@ -4369,6 +6801,106 @@
   "kp": "sec-ipsec"
  },
  {
+  "id": "self-sec-ipsec-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "IKEv1阶段1主模式交换的报文数是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "3"
+   },
+   {
+    "key": "B",
+    "text": "4"
+   },
+   {
+    "key": "C",
+    "text": "6"
+   },
+   {
+    "key": "D",
+    "text": "9"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "主模式6个，野蛮模式3个；阶段2快速模式3个。",
+  "tags": [
+   "IPSec VPN"
+  ],
+  "credibility": "自编",
+  "kp": "sec-ipsec"
+ },
+ {
+  "id": "self-sec-ipsec-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "ESP和AH的IP协议号分别是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "50、51"
+   },
+   {
+    "key": "B",
+    "text": "51、50"
+   },
+   {
+    "key": "C",
+    "text": "6、17"
+   },
+   {
+    "key": "D",
+    "text": "47、50"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "ESP 50，AH 51。",
+  "tags": [
+   "IPSec VPN"
+  ],
+  "credibility": "自编",
+  "kp": "sec-ipsec"
+ },
+ {
+  "id": "self-sec-ipsec-7",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "一个IPSec SA是单向的，因此双向通信至少需要两个IPSec SA。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "IPSec SA单向，IKE SA双向。",
+  "tags": [
+   "IPSec VPN"
+  ],
+  "credibility": "自编",
+  "kp": "sec-ipsec"
+ },
+ {
   "id": "self-sec-ssl-1",
   "source_url": "",
   "edition": "",
@@ -4462,6 +6994,109 @@
    "A"
   ],
   "explanation": "基于HTTPS，默认443。",
+  "tags": [
+   "SSL VPN"
+  ],
+  "credibility": "自编",
+  "kp": "sec-ssl"
+ },
+ {
+  "id": "self-sec-ssl-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "SSL VPN虚拟网关缺省一般使用的端口是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "80"
+   },
+   {
+    "key": "B",
+    "text": "443"
+   },
+   {
+    "key": "C",
+    "text": "500"
+   },
+   {
+    "key": "D",
+    "text": "4500"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "基于HTTPS，443。",
+  "tags": [
+   "SSL VPN"
+  ],
+  "credibility": "自编",
+  "kp": "sec-ssl"
+ },
+ {
+  "id": "self-sec-ssl-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "多选",
+  "stem": "SSL VPN支持的业务有？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Web代理"
+   },
+   {
+    "key": "B",
+    "text": "文件共享"
+   },
+   {
+    "key": "C",
+    "text": "端口转发"
+   },
+   {
+    "key": "D",
+    "text": "网络扩展"
+   }
+  ],
+  "answer": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "四类业务。",
+  "tags": [
+   "SSL VPN"
+  ],
+  "credibility": "自编",
+  "kp": "sec-ssl"
+ },
+ {
+  "id": "self-sec-ssl-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "SSL VPN适合移动办公用户通过浏览器接入，IPSec VPN更常用于站点之间互联。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "典型场景区分。",
   "tags": [
    "SSL VPN"
   ],
@@ -4571,6 +7206,106 @@
   "kp": "sec-vsys"
  },
  {
+  "id": "self-sec-vsys-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "华为防火墙缺省存在、管理所有虚拟系统的是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "vsys1"
+   },
+   {
+    "key": "B",
+    "text": "根系统public"
+   },
+   {
+    "key": "C",
+    "text": "Local区域"
+   },
+   {
+    "key": "D",
+    "text": "VPN实例"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "根系统public。",
+  "tags": [
+   "虚拟系统vsys"
+  ],
+  "credibility": "自编",
+  "kp": "sec-vsys"
+ },
+ {
+  "id": "self-sec-vsys-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "每个虚拟系统拥有独立的路由表、安全策略和管理员。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "vsys实现逻辑隔离。",
+  "tags": [
+   "虚拟系统vsys"
+  ],
+  "credibility": "自编",
+  "kp": "sec-vsys"
+ },
+ {
+  "id": "self-sec-vsys-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "虚拟系统访问Internet，vsys内缺省路由的下一跳通常指向？",
+  "options": [
+   {
+    "key": "A",
+    "text": "NULL0"
+   },
+   {
+    "key": "B",
+    "text": "public"
+   },
+   {
+    "key": "C",
+    "text": "trust"
+   },
+   {
+    "key": "D",
+    "text": "loopback"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "ip route-static 0.0.0.0 0.0.0.0 public（华为案例）。",
+  "tags": [
+   "虚拟系统vsys"
+  ],
+  "credibility": "自编",
+  "kp": "sec-vsys"
+ },
+ {
   "id": "self-sec-urpf-1",
   "source_url": "",
   "edition": "",
@@ -4664,6 +7399,106 @@
    "A"
   ],
   "explanation": "通过源地址反查防欺骗。",
+  "tags": [
+   "URPF单播逆向路径转发"
+  ],
+  "credibility": "自编",
+  "kp": "sec-urpf"
+ },
+ {
+  "id": "self-sec-urpf-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "存在非对称路由的多出口网络，应选用URPF哪种模式？",
+  "options": [
+   {
+    "key": "A",
+    "text": "严格"
+   },
+   {
+    "key": "B",
+    "text": "松散"
+   },
+   {
+    "key": "C",
+    "text": "禁用路由"
+   },
+   {
+    "key": "D",
+    "text": "二层"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "松散只检查路由是否存在。",
+  "tags": [
+   "URPF单播逆向路径转发"
+  ],
+  "credibility": "自编",
+  "kp": "sec-urpf"
+ },
+ {
+  "id": "self-sec-urpf-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "URPF的主要作用是防范源地址欺骗攻击。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "反查源地址路由。",
+  "tags": [
+   "URPF单播逆向路径转发"
+  ],
+  "credibility": "自编",
+  "kp": "sec-urpf"
+ },
+ {
+  "id": "self-sec-urpf-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "URPF检查时使用报文的哪个字段查路由表？",
+  "options": [
+   {
+    "key": "A",
+    "text": "目的IP"
+   },
+   {
+    "key": "B",
+    "text": "源IP"
+   },
+   {
+    "key": "C",
+    "text": "源MAC"
+   },
+   {
+    "key": "D",
+    "text": "目的端口"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "用源IP反查。",
   "tags": [
    "URPF单播逆向路径转发"
   ],
@@ -4771,6 +7606,115 @@
   "kp": "sec-attack"
  },
  {
+  "id": "self-sec-attack-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "DHCP Snooping中，应将连接合法DHCP服务器的端口配置为？",
+  "options": [
+   {
+    "key": "A",
+    "text": "非信任"
+   },
+   {
+    "key": "B",
+    "text": "信任"
+   },
+   {
+    "key": "C",
+    "text": "边缘端口"
+   },
+   {
+    "key": "D",
+    "text": "Access"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "信任端口才允许DHCP Offer/ACK通过。",
+  "tags": [
+   "常见攻击与防范"
+  ],
+  "credibility": "自编",
+  "kp": "sec-attack"
+ },
+ {
+  "id": "self-sec-attack-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "利用大量半连接耗尽服务器资源的攻击是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Land"
+   },
+   {
+    "key": "B",
+    "text": "SYN Flood"
+   },
+   {
+    "key": "C",
+    "text": "Smurf"
+   },
+   {
+    "key": "D",
+    "text": "Teardrop"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "SYN Flood。",
+  "tags": [
+   "常见攻击与防范"
+  ],
+  "credibility": "自编",
+  "kp": "sec-attack"
+ },
+ {
+  "id": "self-sec-attack-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "多选",
+  "stem": "依赖DHCP Snooping绑定表工作的安全特性有？",
+  "options": [
+   {
+    "key": "A",
+    "text": "DAI"
+   },
+   {
+    "key": "B",
+    "text": "IPSG"
+   },
+   {
+    "key": "C",
+    "text": "VRRP"
+   },
+   {
+    "key": "D",
+    "text": "STP"
+   }
+  ],
+  "answer": [
+   "A",
+   "B"
+  ],
+  "explanation": "DAI检查ARP，IPSG检查源IP。",
+  "tags": [
+   "常见攻击与防范"
+  ],
+  "credibility": "自编",
+  "kp": "sec-attack"
+ },
+ {
   "id": "self-sec-cloud-1",
   "source_url": "",
   "edition": "",
@@ -4864,6 +7808,106 @@
    "A"
   ],
   "explanation": "与原生基础防护仅保护华为云内公网IP不同（据技术栈真题解析）。",
+  "tags": [
+   "华为云网络安全产品"
+  ],
+  "credibility": "自编",
+  "kp": "sec-cloud"
+ },
+ {
+  "id": "self-sec-cloud-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "判断",
+  "stem": "华为云安全组是有状态的，出方向允许的流量其回程流量自动放行。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "安全组有状态。",
+  "tags": [
+   "华为云网络安全产品"
+  ],
+  "credibility": "自编",
+  "kp": "sec-cloud"
+ },
+ {
+  "id": "self-sec-cloud-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "华为云安全组规则优先级取值越小表示？",
+  "options": [
+   {
+    "key": "A",
+    "text": "优先级越高"
+   },
+   {
+    "key": "B",
+    "text": "优先级越低"
+   },
+   {
+    "key": "C",
+    "text": "无意义"
+   },
+   {
+    "key": "D",
+    "text": "只能为1"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "1–100，数字小优先（华为云文档）。",
+  "tags": [
+   "华为云网络安全产品"
+  ],
+  "credibility": "自编",
+  "kp": "sec-cloud"
+ },
+ {
+  "id": "self-sec-cloud-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "安全",
+  "type": "单选",
+  "stem": "作用于子网、无状态的华为云访问控制是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "安全组"
+   },
+   {
+    "key": "B",
+    "text": "网络ACL"
+   },
+   {
+    "key": "C",
+    "text": "WAF"
+   },
+   {
+    "key": "D",
+    "text": "DDoS高防"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "网络ACL。",
   "tags": [
    "华为云网络安全产品"
   ],
@@ -5007,6 +8051,42 @@
   "kp": "wl-basic"
  },
  {
+  "id": "self-wl-basic-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "2.4GHz频段常用的三个非重叠信道是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "1、5、9"
+   },
+   {
+    "key": "B",
+    "text": "1、6、11"
+   },
+   {
+    "key": "C",
+    "text": "2、7、12"
+   },
+   {
+    "key": "D",
+    "text": "1、7、13"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "20MHz带宽下1、6、11。",
+  "tags": [
+   "WLAN基础：802.11标准与频段"
+  ],
+  "credibility": "自编",
+  "kp": "wl-basic"
+ },
+ {
   "id": "self-wl-capwap-1",
   "source_url": "",
   "edition": "",
@@ -5100,6 +8180,106 @@
    "A"
   ],
   "explanation": "数据通道5247。",
+  "tags": [
+   "CAPWAP协议"
+  ],
+  "credibility": "自编",
+  "kp": "wl-capwap"
+ },
+ {
+  "id": "self-wl-capwap-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "CAPWAP数据隧道使用的UDP端口是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "5246"
+   },
+   {
+    "key": "B",
+    "text": "5247"
+   },
+   {
+    "key": "C",
+    "text": "4789"
+   },
+   {
+    "key": "D",
+    "text": "1812"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "控制5246，数据5247。",
+  "tags": [
+   "CAPWAP协议"
+  ],
+  "credibility": "自编",
+  "kp": "wl-capwap"
+ },
+ {
+  "id": "self-wl-capwap-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "三层组网中，AP通过DHCP获取AC地址常用的选项是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "Option 3"
+   },
+   {
+    "key": "B",
+    "text": "Option 43"
+   },
+   {
+    "key": "C",
+    "text": "Option 82"
+   },
+   {
+    "key": "D",
+    "text": "Option 6"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "Option 43携带AC IP。",
+  "tags": [
+   "CAPWAP协议"
+  ],
+  "credibility": "自编",
+  "kp": "wl-capwap"
+ },
+ {
+  "id": "self-wl-capwap-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "判断",
+  "stem": "FIT AP需要逐台登录配置SSID和安全参数。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "FIT AP配置由AC集中下发。",
   "tags": [
    "CAPWAP协议"
   ],
@@ -5209,6 +8389,108 @@
   "kp": "wl-net"
  },
  {
+  "id": "self-wl-net-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "隧道转发方式下，业务数据如何传输？",
+  "options": [
+   {
+    "key": "A",
+    "text": "AP直接转发到交换机"
+   },
+   {
+    "key": "B",
+    "text": "封装在CAPWAP中先到AC"
+   },
+   {
+    "key": "C",
+    "text": "通过VXLAN到网关"
+   },
+   {
+    "key": "D",
+    "text": "不传输"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "隧道转发经AC集中转发。",
+  "tags": [
+   "AC+AP组网与转发方式"
+  ],
+  "credibility": "自编",
+  "kp": "wl-net"
+ },
+ {
+  "id": "self-wl-net-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "判断",
+  "stem": "旁挂式组网中，AC不在业务数据的必经路径上（直接转发时）。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "旁挂+直接转发时业务不经AC。",
+  "tags": [
+   "AC+AP组网与转发方式"
+  ],
+  "credibility": "自编",
+  "kp": "wl-net"
+ },
+ {
+  "id": "self-wl-net-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "多选",
+  "stem": "关于WLAN组网，正确的是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "二层组网可通过广播发现AC"
+   },
+   {
+    "key": "B",
+    "text": "三层组网可用DHCP Option 43发现AC"
+   },
+   {
+    "key": "C",
+    "text": "直连式组网中AC通常兼作汇聚"
+   },
+   {
+    "key": "D",
+    "text": "隧道转发会降低AC负担"
+   }
+  ],
+  "answer": [
+   "A",
+   "B",
+   "C"
+  ],
+  "explanation": "隧道转发增加AC负担。",
+  "tags": [
+   "AC+AP组网与转发方式"
+  ],
+  "credibility": "自编",
+  "kp": "wl-net"
+ },
+ {
   "id": "self-wl-profile-1",
   "source_url": "",
   "edition": "",
@@ -5309,6 +8591,106 @@
   "kp": "wl-profile"
  },
  {
+  "id": "self-wl-profile-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "配置国家码的模板是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "ssid-profile"
+   },
+   {
+    "key": "B",
+    "text": "regulatory-domain-profile"
+   },
+   {
+    "key": "C",
+    "text": "security-profile"
+   },
+   {
+    "key": "D",
+    "text": "vap-profile"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "域管理模板。",
+  "tags": [
+   "华为WLAN配置模板"
+  ],
+  "credibility": "自编",
+  "kp": "wl-profile"
+ },
+ {
+  "id": "self-wl-profile-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "将VAP模板下发到AP的方式是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "在AP组中引用VAP模板"
+   },
+   {
+    "key": "B",
+    "text": "在接口下引用"
+   },
+   {
+    "key": "C",
+    "text": "在DHCP池中引用"
+   },
+   {
+    "key": "D",
+    "text": "在RADIUS模板中引用"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "ap-group下 vap-profile xxx wlan 1 radio all。",
+  "tags": [
+   "华为WLAN配置模板"
+  ],
+  "credibility": "自编",
+  "kp": "wl-profile"
+ },
+ {
+  "id": "self-wl-profile-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "判断",
+  "stem": "业务VLAN在VAP模板中配置。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "service-vlan vlan-id。",
+  "tags": [
+   "华为WLAN配置模板"
+  ],
+  "credibility": "自编",
+  "kp": "wl-profile"
+ },
+ {
   "id": "self-wl-backup-1",
   "source_url": "",
   "edition": "",
@@ -5402,6 +8784,106 @@
    "B"
   ],
   "explanation": "它是直接转发场景下保障业务的机制，不属于AC备份方式（技术栈真题解析）。",
+  "tags": [
+   "AC可靠性：双链路冷/热备、N+1、VRRP"
+  ],
+  "credibility": "自编",
+  "kp": "wl-backup"
+ },
+ {
+  "id": "self-wl-backup-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "切换速度最慢但成本最低的AC备份方式是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "VRRP热备"
+   },
+   {
+    "key": "B",
+    "text": "双链路热备"
+   },
+   {
+    "key": "C",
+    "text": "N+1备份"
+   },
+   {
+    "key": "D",
+    "text": "堆叠"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "N+1中AP需重新上线到备AC。",
+  "tags": [
+   "AC可靠性：双链路冷/热备、N+1、VRRP"
+  ],
+  "credibility": "自编",
+  "kp": "wl-backup"
+ },
+ {
+  "id": "self-wl-backup-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "判断",
+  "stem": "双链路热备中AP同时与主AC和备AC建立CAPWAP链路。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "主备链路同时存在，切换快。",
+  "tags": [
+   "AC可靠性：双链路冷/热备、N+1、VRRP"
+  ],
+  "credibility": "自编",
+  "kp": "wl-backup"
+ },
+ {
+  "id": "self-wl-backup-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "AC之间同步用户、业务信息常使用的机制是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "HSB"
+   },
+   {
+    "key": "B",
+    "text": "LACP"
+   },
+   {
+    "key": "C",
+    "text": "MSTP"
+   },
+   {
+    "key": "D",
+    "text": "BFD"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "HSB热备份。",
   "tags": [
    "AC可靠性：双链路冷/热备、N+1、VRRP"
   ],
@@ -5545,6 +9027,42 @@
   "kp": "wl-auth"
  },
  {
+  "id": "self-wl-auth-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "RADIUS认证和计费的缺省端口分别是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "1812、1813"
+   },
+   {
+    "key": "B",
+    "text": "1645、1646"
+   },
+   {
+    "key": "C",
+    "text": "49、50"
+   },
+   {
+    "key": "D",
+    "text": "5246、5247"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "标准端口1812/1813。",
+  "tags": [
+   "WLAN认证：PSK、802.1X、Portal、MAC"
+  ],
+  "credibility": "自编",
+  "kp": "wl-auth"
+ },
+ {
   "id": "self-wl-roam-1",
   "source_url": "",
   "edition": "",
@@ -5638,6 +9156,106 @@
    "C"
   ],
   "explanation": "802.11r快速BSS转换。",
+  "tags": [
+   "WLAN漫游"
+  ],
+  "credibility": "自编",
+  "kp": "wl-roam"
+ },
+ {
+  "id": "self-wl-roam-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "漫游前后终端位于同一VLAN的漫游称为？",
+  "options": [
+   {
+    "key": "A",
+    "text": "二层漫游"
+   },
+   {
+    "key": "B",
+    "text": "三层漫游"
+   },
+   {
+    "key": "C",
+    "text": "AC间漫游"
+   },
+   {
+    "key": "D",
+    "text": "快速漫游"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "同子网=二层漫游。",
+  "tags": [
+   "WLAN漫游"
+  ],
+  "credibility": "自编",
+  "kp": "wl-roam"
+ },
+ {
+  "id": "self-wl-roam-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "用于减少漫游时认证时间的协议是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "802.11k"
+   },
+   {
+    "key": "B",
+    "text": "802.11v"
+   },
+   {
+    "key": "C",
+    "text": "802.11r"
+   },
+   {
+    "key": "D",
+    "text": "802.11e"
+   }
+  ],
+  "answer": [
+   "C"
+  ],
+  "explanation": "802.11r快速BSS切换；k为邻居报告，v为BSS迁移管理。",
+  "tags": [
+   "WLAN漫游"
+  ],
+  "credibility": "自编",
+  "kp": "wl-roam"
+ },
+ {
+  "id": "self-wl-roam-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "判断",
+  "stem": "漫游过程中终端的IP地址应保持不变。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "漫游目标是业务不中断、IP不变。",
   "tags": [
    "WLAN漫游"
   ],
@@ -5781,6 +9399,42 @@
   "kp": "wl-wifi6"
  },
  {
+  "id": "self-wl-wifi6-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "Wi-Fi 6支持的最高调制方式是？",
+  "options": [
+   {
+    "key": "A",
+    "text": "256-QAM"
+   },
+   {
+    "key": "B",
+    "text": "1024-QAM"
+   },
+   {
+    "key": "C",
+    "text": "4096-QAM"
+   },
+   {
+    "key": "D",
+    "text": "64-QAM"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "Wi-Fi 7为4096-QAM。",
+  "tags": [
+   "Wi-Fi 6（802.11ax）关键技术"
+  ],
+  "credibility": "自编",
+  "kp": "wl-wifi6"
+ },
+ {
   "id": "self-wl-rf-1",
   "source_url": "",
   "edition": "",
@@ -5874,6 +9528,106 @@
    "D"
   ],
   "explanation": "越接近0越强。",
+  "tags": [
+   "射频规划与覆盖优化"
+  ],
+  "credibility": "自编",
+  "kp": "wl-rf"
+ },
+ {
+  "id": "self-wl-rf-4",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "华为WLAN建议重点办公区域边缘场强范围为？",
+  "options": [
+   {
+    "key": "A",
+    "text": "-65～-40dBm"
+   },
+   {
+    "key": "B",
+    "text": "-90～-80dBm"
+   },
+   {
+    "key": "C",
+    "text": "-30～0dBm"
+   },
+   {
+    "key": "D",
+    "text": "越低越好"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "华为WLAN规划指南。",
+  "tags": [
+   "射频规划与覆盖优化"
+  ],
+  "credibility": "自编",
+  "kp": "wl-rf"
+ },
+ {
+  "id": "self-wl-rf-5",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "单选",
+  "stem": "射频调优通常建议安排在什么时候自动执行？",
+  "options": [
+   {
+    "key": "A",
+    "text": "业务高峰"
+   },
+   {
+    "key": "B",
+    "text": "业务低峰如凌晨"
+   },
+   {
+    "key": "C",
+    "text": "每分钟"
+   },
+   {
+    "key": "D",
+    "text": "从不"
+   }
+  ],
+  "answer": [
+   "B"
+  ],
+  "explanation": "调优可能影响业务，选低峰。",
+  "tags": [
+   "射频规划与覆盖优化"
+  ],
+  "credibility": "自编",
+  "kp": "wl-rf"
+ },
+ {
+  "id": "self-wl-rf-6",
+  "source_url": "",
+  "edition": "",
+  "stage": "自编练习",
+  "domain": "WLAN",
+  "type": "判断",
+  "stem": "相邻AP使用同一信道会产生同频干扰。",
+  "options": [
+   {
+    "key": "A",
+    "text": "正确"
+   },
+   {
+    "key": "B",
+    "text": "错误"
+   }
+  ],
+  "answer": [
+   "A"
+  ],
+  "explanation": "应错开信道。",
   "tags": [
    "射频规划与覆盖优化"
   ],

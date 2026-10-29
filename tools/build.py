@@ -2,6 +2,12 @@ import json,sys
 sys.path.insert(0,'.')
 from h import KPS
 import kp_dt, kp_other
+import patches, more_q
+from deep_other import DEEP,FIG
+for k in KPS:
+    dp=DEEP.get(k['id'])
+    if dp:
+        dp=dict(dp); dp['svg']=''.join(FIG[f]() for f in dp.pop('figs')); k['deep']=dp
 from real import R
 qs=[];kps=[]
 for k in KPS:

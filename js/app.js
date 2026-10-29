@@ -31,7 +31,7 @@ function todayIdx(){var t=new Date();t.setHours(0,0,0,0);var i=Math.round((t-STA
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x}return a}
 function sameAns(a,b){return a.slice().sort().join('')===b.slice().sort().join('')}
 function record(q,ok){var st=S.get('stat',{});var s=st[q.id]||{n:0,ok:0};s.n++;if(ok)s.ok++;st[q.id]=s;S.set('stat',st);
- var w=S.get('wrong',{});if(!ok)w[q.id]=(w[q.id]||0)+1;S.set('wrong',w);checkin()}
+ var w=S.get('wrong',{}),ws=S.get('wstreak',{});if(!ok){w[q.id]=(w[q.id]||0)+1;ws[q.id]=0}else if(w[q.id]){ws[q.id]=(ws[q.id]||0)+1;if(ws[q.id]>=2){delete w[q.id];delete ws[q.id]}}S.set('wrong',w);S.set('wstreak',ws);checkin()}
 function checkin(){var c=S.get('checkin',{});c[ymd(new Date())]=true;S.set('checkin',c)}
 function toggleFav(id){var f=S.get('fav',{});if(f[id])delete f[id];else f[id]=1;S.set('fav',f);return !!f[id]}
 var app=document.getElementById('app');
@@ -53,6 +53,7 @@ function bindQ(root,onAnswer){root.querySelectorAll('.q').forEach(function(el){v
  var rm=el.querySelector('.rm');if(rm)rm.onclick=function(){var w=S.get('wrong',{});delete w[q.id];S.set('wrong',w);el.remove()}})}
 // pages
 var P={};
+P.cards=function(){app.innerHTML=window.CARDS_HTML||'速记卡加载失败'};
 P.home=function(){var now=new Date(),ms=EXAM-now,d=Math.max(0,Math.ceil(ms/864e5));var ti=todayIdx(),done=S.get('days',{}),nd=Object.keys(done).length;
  var lk=S.get('learned',{}),nl=Object.keys(lk).length,ci=S.get('checkin',{});
  var h='<div class="grid"><div class="card"><div class="mut">距 11月14日 省资格赛理论</div><div class="big">'+(ms>0?d+' 天':'已开考')+'</div><div class="mut" id="cd"></div></div>';
@@ -73,11 +74,20 @@ function cnt(arr,f){var c={};arr.forEach(function(x){c[x[f]]=(c[x[f]]||0)+1});re
 P.plan=function(){var done=S.get('days',{}),ti=todayIdx(),h='<div class="card"><h2>17天计划（10/29–11/14）</h2><p class="mut">每天2–4小时：约60%看讲义、40%刷题。勾选保存在本浏览器。</p><table><tr><th>天</th><th>日期</th><th>内容</th><th>完成</th></tr>';
  PLAN.forEach(function(p,i){h+='<tr class="'+(i===ti?'today':'')+(done[i]?' done':'')+'"><td>'+(i+1)+'</td><td>'+p[0]+'</td><td>'+esc(p[1])+'<br>'+p[2].map(function(id){return '<a href="#kp/'+id+'">'+esc(kpById(id).title)+'</a>'}).join(' · ')+'<div class="mut">'+esc(p[3])+'</div></td><td><input type="checkbox" data-i="'+i+'" '+(done[i]?'checked':'')+'></td></tr>'});
  app.innerHTML=h+'</table></div>';app.querySelectorAll('input[data-i]').forEach(function(c){c.onchange=function(){var d=S.get('days',{});if(c.checked)d[c.dataset.i]=1;else delete d[c.dataset.i];S.set('days',d);route()}})};
-P.learn=function(){var lk=S.get('learned',{}),h='';var pct={'数通':'40%','DCN':'20%','安全':'20%','WLAN':'20%'};
+P.learn=function(){var lk=S.get('learned',{}),h='<div class="card"><input id="ks" class="search" placeholder="🔍 搜索知识点（如 OSPF、VRRP、5246、Option 43、安全组）"><div id="kr"></div></div>';var pct={'数通':'40%','DCN':'20%','安全':'20%','WLAN':'20%'};
  DOMAINS.forEach(function(d){var ks=KPS.filter(function(k){return k.domain===d});h+='<div class="card"><h2>'+d+' <span class="mut">（占比约'+pct[d]+'，'+ks.length+'个知识点）</span></h2>';
-  ks.forEach(function(k){h+='<div><a href="#kp/'+k.id+'">'+(lk[k.id]?'✔ ':'○ ')+esc(k.title)+'</a> <span class="mut">第'+k.day+'天 · '+esc(k.summary)+'</span></div>'});h+='</div>'});app.innerHTML=h};
+  ks.forEach(function(k){h+='<div><a href="#kp/'+k.id+'">'+(lk[k.id]?'✔ ':'○ ')+esc(k.title)+'</a> <span class="mut">第'+k.day+'天 · '+esc(k.summary)+'</span></div>'});h+='</div>'});app.innerHTML=h;var ks=document.getElementById('ks'),kr=document.getElementById('kr');ks.oninput=function(){var v=ks.value.trim().toLowerCase();if(!v){kr.innerHTML='';return}
+ var r=KPS.map(function(k){var d=k.deep||{},t=[k.title,k.summary,k.points.join(' '),k.pitfalls.join(' '),k.commands.join(' '),d.intro||'',(d.steps||[]).join(' '),d.example||'',d.table?JSON.stringify(d.table):''].join(' ').toLowerCase();var sc=(k.title.toLowerCase().indexOf(v)>=0?10:0)+t.split(v).length-1;return [k,sc]}).filter(function(x){return x[1]>0}).sort(function(a,b){return b[1]-a[1]});
+ kr.innerHTML=r.length?r.map(function(x){return '<div><a href="#kp/'+x[0].id+'">'+esc(x[0].title)+'</a> <span class="tag">'+x[0].domain+'</span> <span class="mut">命中'+x[1]+'处</span></div>'}).join(''):'<p class="mut">没有找到，换个关键词试试</p>'}};
 P.kp=function(id){var k=kpById(id);if(!k){app.innerHTML='未找到';return}var lk=S.get('learned',{});
  var h='<div class="card"><a href="#learn">← 讲义目录</a><h2>'+esc(k.title)+' <span class="tag">'+k.domain+'</span></h2><p class="exp"><b>一句话：</b>'+esc(k.summary)+'</p><h3>要点</h3><ul>'+k.points.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>';
+ var D=k.deep;if(D){var dh='<h3>📖 通俗理解（零基础先读）</h3><p class="intro">'+esc(D.intro)+'</p>';
+  if(D.svg)dh+='<h3>🖼 图解</h3>'+D.svg;
+  if(D.steps.length)dh+='<h3>🔁 原理 / 工作流程</h3><ol class="steps">'+D.steps.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol>';
+  if(D.table)dh+='<h3>📊 对比 / 速查表</h3><div class="tw"><table><tr>'+D.table.head.map(function(x){return '<th>'+esc(x)+'</th>'}).join('')+'</tr>'+D.table.rows.map(function(r){return '<tr>'+r.map(function(x){return '<td>'+esc(x)+'</td>'}).join('')+'</tr>'}).join('')+'</table></div>';
+  if(D.example)dh+='<h3>🛠 典型配置示例（华为，# 后为注释）</h3><pre>'+esc(D.example)+'</pre>';
+  if(D.exam.length)dh+='<h3>🎯 常见考法</h3><ul>'+D.exam.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>';
+  h=h.replace('<h3>要点</h3>',dh+'<h3>📌 要点归纳</h3>')}
  if(k.pitfalls.length)h+='<h3>⚠ 易错点 / 考点提示</h3><ul>'+k.pitfalls.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>';
  if(k.commands.length)h+='<h3>常用命令（华为VRP）</h3><pre>'+esc(k.commands.join('\n'))+'</pre>';
  if(k.todo.length)h+='<p class="todo">待核实：'+k.todo.map(esc).join('；')+'</p>';
@@ -92,7 +102,9 @@ P.practice=function(arg){var dom=S.get('pd','全部'),kp='',typ='全部',cred='�
   if(fr.checked)l=shuffle(l);var ql=document.getElementById('ql');ql.innerHTML='<p class="mut">共 '+l.length+' 题</p>'+l.map(function(q,i){return renderQ(q,i)}).join('');bindQ(ql)}
  var fd=document.getElementById('fd'),fk=document.getElementById('fk'),ft=document.getElementById('ft'),fc=document.getElementById('fc'),fr=document.getElementById('fr');document.getElementById('go').onclick=go;go()};
 function listPage(title,ids,removable,empty){var l=ids.map(qById).filter(Boolean);app.innerHTML='<div class="card"><h2>'+title+'</h2><p class="mut">'+(l.length?'共 '+l.length+' 题':empty)+'</p></div><div id="ql">'+l.map(function(q,i){return renderQ(q,i,{removable:removable})}).join('')+'</div>';bindQ(document.getElementById('ql'))}
-P.wrong=function(){var w=S.get('wrong',{});var ids=Object.keys(w).sort(function(a,b){return w[b]-w[a]});listPage('错题本（按错误次数排序）',ids,true,'还没有错题。做错的题会自动收录到这里。复盘方法见“备考指南”。')};
+P.wrong=function(){var w=S.get('wrong',{});var ids=Object.keys(w).sort(function(a,b){return w[b]-w[a]});listPage('错题本（按错误次数排序）'+(ids.length?' <a class="btn" href="#redo">🔁 错题重做</a>':''),ids,true,'还没有错题。做错的题会自动收录到这里。复盘方法见“备考指南”。')};
+P.redo=function(){var w=S.get('wrong',{}),ids=shuffle(Object.keys(w)).slice(0,20);if(!ids.length){app.innerHTML='<div class="card"><h2>错题重做</h2><p>错题本是空的。</p><a class="btn" href="#practice">去刷题</a></div>';return}
+ var l=ids.map(qById).filter(Boolean);app.innerHTML='<div class="card"><h2>🔁 错题重做</h2><p class="mut">从错题本随机抽 '+l.length+' 题（最多20题）。同一题<b>连续答对2次</b>自动移出错题本；答错会重新计数。</p><a class="btn o" href="#redo">换一批</a><a class="btn o" href="#wrong">返回错题本</a></div><div id="ql">'+l.map(function(q,i){return renderQ(q,i)}).join('')+'</div>';bindQ(document.getElementById('ql'))};
 P.fav=function(){listPage('收藏',Object.keys(S.get('fav',{})),false,'还没有收藏。')};
 // mock exam
 var EX=null;
@@ -118,7 +130,7 @@ function finishExam(){clearInterval(window._et);EX.done=true;var ok=0,byKp={},by
  var n=EX.ids.length,score=Math.round(ok/n*1000),min=Math.round((Date.now()-EX.start)/6e4);var hist=S.get('exams',[]);var d=new Date();hist.push({t:(d.getMonth()+1)+'/'+d.getDate()+' '+d.getHours()+':'+('0'+d.getMinutes()).slice(-2),score:score,ok:ok,n:n,min:min,byD:byD});S.set('exams',hist);
  var weak=Object.keys(byKp).map(function(k){return [k,byKp[k]]}).filter(function(x){return x[1].ok<x[1].n}).sort(function(a,b){return a[1].ok/a[1].n-b[1].ok/b[1].n});
  var h='<div class="card"><h2>成绩：'+score+' / 1000</h2><p>答对 '+ok+'/'+n+'，用时 '+min+' 分钟。<span class="mut">（按题数折算，真实分值规则待核实）</span></p><table><tr><th>领域</th><th>正确率</th></tr>'+DOMAINS.map(function(d){var o=byD[d]||{n:0,ok:0};return '<tr><td>'+d+'</td><td>'+o.ok+'/'+o.n+'</td></tr>'}).join('')+'</table>';
- h+='<h3>需要回炉的知识点</h3>'+(weak.length?weak.slice(0,10).map(function(x){var k=kpById(x[0]);return '<a class="btn o" href="#kp/'+x[0]+'">'+esc(k?k.title:x[0])+' '+x[1].ok+'/'+x[1].n+'</a>'}).join(''):'全对，太棒了！')+'<br><a class="btn" href="#wrong">去错题本复盘</a><a class="btn o" href="#mock">返回</a></div><h3>答卷解析</h3><div id="ql"></div>';
+ h+='<h3>📋 按知识点复习建议</h3>'+(weak.length?'<div class="tw"><table><tr><th>知识点</th><th>本次</th><th>建议</th><th></th></tr>'+weak.slice(0,15).map(function(x){var k=kpById(x[0]),r=x[1].ok/x[1].n,adv=r===0?'优先：先读讲义“通俗理解+图解+流程”，再做该知识点全部练习':(r<0.5?'重读“原理/流程”和“易错点”，再刷本知识点题':'看错题解析，用速记卡巩固数值');return '<tr><td>'+esc(k?k.title:x[0])+'</td><td>'+x[1].ok+'/'+x[1].n+'</td><td>'+adv+'</td><td><a href="#kp/'+x[0]+'">讲义</a> · <a href="#practice/kp-'+x[0]+'">练习</a></td></tr>'}).join('')+'</table></div>':'全对，太棒了！')+(function(){var wd=DOMAINS.filter(function(d){var o=byD[d];return o&&o.ok/o.n<0.6});return wd.length?'<p class="todo">正确率低于60%的领域：'+wd.join('、')+'。接下来1–2天优先安排这些领域的讲义复习。</p>':''})()+'<a class="btn" href="#redo">🔁 错题重做</a><a class="btn o" href="#cards">速记卡</a>'+'<br><a class="btn" href="#wrong">去错题本复盘</a><a class="btn o" href="#mock">返回</a></div><h3>答卷解析</h3><div id="ql"></div>';
  app.innerHTML=h;var ql=document.getElementById('ql');ql.innerHTML=EX.ids.map(function(id,i){var q=qById(id),a=EX.ans[id]||[];var r=a.length&&sameAns(a,q.answer);
   return '<div class="card"><div class="mut">第'+(i+1)+'题 <span class="tag">'+q.domain+'</span><span class="tag">'+q.type+'</span><span class="tag c-'+q.credibility+'">'+q.credibility+'</span></div><p><b>'+esc(q.stem)+'</b></p>'+q.options.map(function(o){var c=q.answer.indexOf(o.key)>=0?'right':(a.indexOf(o.key)>=0?'wrong':'');return '<div class="opt '+c+'">'+o.key+'. '+esc(o.text)+'</div>'}).join('')+'<div class="exp"><b style="color:var('+(r?'--ok':'--bad')+')">'+(r?'✔':'✘')+'</b> 你的答案：'+(a.join('')||'未作答')+'　正确答案：'+q.answer.join('')+'<br>'+esc(q.explanation)+'</div></div>'}).join('');EX=null}
 P.stats=function(){var st=S.get('stat',{}),agg={},dom={};Object.keys(st).forEach(function(id){var q=qById(id);if(!q)return;[[agg,q.kp],[dom,q.domain]].forEach(function(p){var o=p[0][p[1]]=p[0][p[1]]||{n:0,ok:0};o.n+=st[id].n;o.ok+=st[id].ok})});
